@@ -2,4 +2,5 @@
 
 public interface IDataSource {
     List<Item> LoadItems();
+    List<string> LoadEquipped();
 }
