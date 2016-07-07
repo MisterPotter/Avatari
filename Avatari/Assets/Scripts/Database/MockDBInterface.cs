@@ -29,7 +29,7 @@ public class MockDBInterface : MonoBehaviour {
             new Item("Hands", "iron_gloves", "", 4, Item.ItemType.Hands, Item.ItemRarity.Common),
             new Item("Wings", "wings", "", 5, Item.ItemType.Wings, Item.ItemRarity.Common)
         );
-        player.sprite = "DonkeyKong";
+        player.sprite = "Vivi";
         cache.player = player;
     }
 

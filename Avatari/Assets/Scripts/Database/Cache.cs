@@ -14,6 +14,11 @@ public class Cache : MonoBehaviour, IDataSource {
     private List<Item> inventoryItems;
 
     /**
+     *  All inventory icons.
+     */
+    private Sprite[] inventorySprites;
+
+    /**
      *  All information to do with the player.
      */
     public Player player { get; set; }
@@ -28,6 +33,10 @@ public class Cache : MonoBehaviour, IDataSource {
 
     public string LoadCharacterSprite() {
         return cache.player.sprite;
+    }
+
+    public Sprite LoadInventorySprite(string spriteName) {
+        return Utility.GetSprite(spriteName, this.inventorySprites);
     }
 
     /**
@@ -49,5 +58,16 @@ public class Cache : MonoBehaviour, IDataSource {
         DontDestroyOnLoad(gameObject);
         cache = this;
         cache.inventoryItems = new List<Item>();
+        cache.player = new Player();
+        cache.inventorySprites = LoadSprites();
+    }
+
+    private Sprite[] LoadSprites() {
+        Sprite[] inventorySprites = Resources.LoadAll<Sprite>("Inventory/inventory_icons");
+        if (inventorySprites.Length == 0) {
+            throw new Exception("Inventory sprites could not be loaded.");
+        }
+
+        return inventorySprites;
     }
 }

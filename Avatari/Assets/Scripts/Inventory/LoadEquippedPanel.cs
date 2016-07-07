@@ -15,23 +15,14 @@ public class LoadEquippedPanel : MonoBehaviour {
     private Image feetImage;
     private Image handsImage;
     private Image wingsImage;
-    private Sprite[] inventorySprites;
 
     private Cache cache;
 
     private void OnGUI() {
-        LoadSprites();
         FindCache();
         FindSlots();
         PopulateCharacterSlot();
         PopulateEquippedSlots();
-    }
-
-    private void LoadSprites() {
-        inventorySprites = Resources.LoadAll<Sprite>("Inventory/inventory_icons");
-        if(inventorySprites.Length == 0) {
-            throw new Exception("Inventory sprites could not be loaded.");
-        }
     }
 
     /*
@@ -63,7 +54,7 @@ public class LoadEquippedPanel : MonoBehaviour {
             throw new Exception("Character sprite: " + spriteName +
                 " could not be found.");
         }
-        this.characterImage.sprite = GetSprite("idle", spriteSheet);
+        this.characterImage.sprite = Utility.GetSprite("idle", spriteSheet);
     }
 
     /*
@@ -125,20 +116,10 @@ public class LoadEquippedPanel : MonoBehaviour {
 
         // Enforce the item type to be the type we are expecting and load it
         if (item.itemType == itemType) {
-            slot.sprite = GetSprite(item.resourceName, this.inventorySprites);
+            slot.sprite = this.cache.LoadInventorySprite(item.resourceName);
         } else {
             throw new Exception("Expected player gear of type: " + itemType
                 + " but got gear of type: " + item.itemType);
         }
-    }
-
-    private Sprite GetSprite(string spriteName, Sprite[] sprites) {
-        foreach(Sprite sprite in sprites) {
-            if (sprite.name == spriteName) {
-                return sprite;
-            }
-        }
-
-        throw new Exception("Sprite with name: " + spriteName + " not found.");
     }
 }
