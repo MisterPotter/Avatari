@@ -17,25 +17,20 @@ class AccountController extends Controller
      */
     public function indexAction(Request $request)
     {
-      $account_id = $this->getUser()->getId();
-      $account = $this->getDoctrine()->getRepository('AppBundle:Account')->findById($account_id);
-
       $response = new JsonResponse();
 
-      if (!$account_id) {
+      if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
         $response->setData(array(
           'status' => 503,
           'data' => 'not logged in'
         ));
-      } elseif(!$account) {
-        $response->setData(array(
-          'status' => 404,
-          'data' => 'account does not exist'
-        ));
       } else {
+        $account_id = $this->getUser()->getId();
+        $account = $this->getDoctrine()->getRepository('AppBundle:Account')->findById($account_id);
+
         $response->setData(array(
-          'status' => 200,
-          'data' => $account
+            'status' => 200,
+            'data' => $account
         ));
       }
 
@@ -47,28 +42,24 @@ class AccountController extends Controller
      */
     public function createAction(Request $request)
     {
-      $session = new Session();
+      $userManager = $this->get('fos_user.user_manager');
+      $user = $userManager->createUser();
 
-      $account = new Account();
-
-      $account = $this->getDoctrine()->getRepository('AppBundle:Account')->findById($account_id);
-
+      $errors = [];
       $response = new JsonResponse();
 
-      if (!$account_id) {
+      if (!$request->get('email', false)){
+        $errors[] = 'Email field must be set';
+      }
+
+      if (!$request->get('password', false)){
+        $errors[] = 'Password field must be set';
+      }
+
+      if (count($errors) != 0) {
         $response->setData(array(
           'status' => 503,
-          'data' => 'not logged in'
-        ));
-      } elseif(!$account) {
-        $response->setData(array(
-          'status' => 404,
-          'data' => 'account does not exist'
-        ));
-      } else {
-        $response->setData(array(
-          'status' => 200,
-          'data' => $account
+          'data' => $errors
         ));
       }
 
