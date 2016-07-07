@@ -6,71 +6,70 @@ public class Item {
     /**
      *  The name of the item as the user sees it.
      */
-    private string _itemName;
-    public string itemName {
-        get { return _itemName; }
-        private set { _itemName = value; }
-    }
+    public string itemName { get; private set; }
 
     /**
      *  The name of the resource in the resources assets folder.
      */
-    private string _resourceName;
-    public string resourceName {
-        get { return _resourceName; }
-        private set { _resourceName = value; }
-    }
+    public string resourceName { get; private set; }
 
     /**
      *  The description of the resource as the user sees it.
      */
-    private string _itemDescription;
-    public string itemDescription {
-        get { return _itemDescription; }
-        private set { _itemDescription = value; }
-    }
+    public string itemDescription { get; private set; }
 
     /**
      *  A unique ID for the item.
      */
-    private int _itemID;
-    public int itemID {
-        get { return _itemID; }
-        set { _itemID = value; }
-    }
+    public int itemID { get; set; }
 
     /**
      *  The type of the item, which represents how a character interacts with
      *  it.
      */
-    private ItemType _itemType;
-    public ItemType itemType {
-        get { return _itemType; }
-        set { _itemType = value; }
-    }
+    public ItemType itemType { get; set; }
+
+    /**
+     *  How rare the item is. This becomes more important when considering the
+     *  affects an item has on a player and factoring in random drops.
+     */
+    public ItemRarity itemRarity { get; set; }
 
     public enum ItemType {
         Head,
+        Neck,
         Body,
         Feet,
         Hands,
+        Ring,
         Wings,
-        Consumable
+        Consumable,
+        Other
     }
 
-    public Item(string name, string resourceName, string description, int id, ItemType type) {
+    public enum ItemRarity {
+        Rare,
+        Uncommon,
+        Common
+    }
+
+    public Item(
+            string name, string resourceName, string description,
+            int id, ItemType type, ItemRarity rarity) {
         this.itemName = name;
         this.resourceName = resourceName;
         this.itemDescription = description;
         this.itemID = id;
         this.itemType = type;
+        this.itemRarity = rarity;
     }
 
     /**
      *  @summary: Determines if an item can be equipped.
      *  @return: True if a characters can equipt the item, False otherwise.
      */
-    public bool IsEquiptable() {
-        return this.itemType != ItemType.Consumable;
+    public bool IsEquippable() {
+        return this.itemType != ItemType.Consumable &&
+               this.itemType != ItemType.Other;
     }
 }

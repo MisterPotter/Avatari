@@ -7,8 +7,9 @@ using System;
  *
  *  This class loads the equipped player gears into the UI slots on the screen.
  */
-public class LoadEquipped : MonoBehaviour {
+public class LoadEquippedPanel : MonoBehaviour {
 
+    private Image characterImage;
     private Image headImage;
     private Image chestImage;
     private Image feetImage;
@@ -18,15 +19,16 @@ public class LoadEquipped : MonoBehaviour {
 
     private Cache cache;
 
-    private void Awake() {
+    private void OnGUI() {
         LoadSprites();
         FindCache();
         FindSlots();
+        PopulateCharacterSlot();
         PopulateEquippedSlots();
     }
 
     private void LoadSprites() {
-        inventorySprites = Resources.LoadAll<Sprite>("inventory_icons");
+        inventorySprites = Resources.LoadAll<Sprite>("Inventory/inventory_icons");
         if(inventorySprites.Length == 0) {
             throw new Exception("Inventory sprites could not be loaded.");
         }
@@ -43,11 +45,25 @@ public class LoadEquipped : MonoBehaviour {
      *  Load the UI Slots.
      */
     private void FindSlots() {
+        this.characterImage = Utility.LoadObject<Image>("CharacterSlot");
         this.headImage = Utility.LoadObject<Image>("HeadSlot");
         this.chestImage = Utility.LoadObject<Image>("ChestSlot");
         this.feetImage = Utility.LoadObject<Image>("FeetSlot");
         this.handsImage = Utility.LoadObject<Image>("HandsSlot");
         this.wingsImage = Utility.LoadObject<Image>("WingsSlot");
+    }
+
+    /**
+     *  Populate the character sprite.
+     */
+    private void PopulateCharacterSlot() {
+        string spriteName = this.cache.LoadCharacterSprite();
+        Sprite[] spriteSheet = Resources.LoadAll<Sprite>("Characters/" + spriteName);
+        if(spriteSheet.Length == 0) {
+            throw new Exception("Character sprite: " + spriteName +
+                " could not be found.");
+        }
+        this.characterImage.sprite = GetSprite("idle", spriteSheet);
     }
 
     /*
@@ -103,21 +119,21 @@ public class LoadEquipped : MonoBehaviour {
 
         // If nothing is equipt, use the default resource
         if (item == null) {
-            slot.sprite = Resources.Load<Sprite>(defaultResource);
+            slot.sprite = Resources.Load<Sprite>("Inventory/" + defaultResource);
             return;
         }
 
         // Enforce the item type to be the type we are expecting and load it
         if (item.itemType == itemType) {
-            slot.sprite = getSprite(item.resourceName);
+            slot.sprite = GetSprite(item.resourceName, this.inventorySprites);
         } else {
             throw new Exception("Expected player gear of type: " + itemType
                 + " but got gear of type: " + item.itemType);
         }
     }
 
-    private Sprite getSprite(string spriteName) {
-        foreach(Sprite sprite in inventorySprites) {
+    private Sprite GetSprite(string spriteName, Sprite[] sprites) {
+        foreach(Sprite sprite in sprites) {
             if (sprite.name == spriteName) {
                 return sprite;
             }

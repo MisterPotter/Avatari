@@ -68,7 +68,7 @@
     <Compile Include="Assets\Scripts\Database\IDataSource.cs" />
     <Compile Include="Assets\Scripts\Database\MockDBInterface.cs" />
     <Compile Include="Assets\Scripts\Inventory\Item.cs" />
-    <Compile Include="Assets\Scripts\Inventory\LoadEquipped.cs" />
+    <Compile Include="Assets\Scripts\Inventory\LoadEquippedPanel.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\UI\MenuHandler.cs" />
     <Compile Include="Assets\Scripts\Utility.cs" />

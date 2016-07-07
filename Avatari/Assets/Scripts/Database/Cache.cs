@@ -16,18 +16,18 @@ public class Cache : MonoBehaviour, IDataSource {
     /**
      *  All information to do with the player.
      */
-    private Player _player;
-    public Player player {
-        get { return _player; }
-        set { _player = value; }
-    }
+    public Player player { get; set; }
 
     public List<Item> LoadItems() {
-        return inventoryItems;
+        return cache.inventoryItems;
     }
 
     public Player.EquippedGear LoadEquippedItems() {
-        return player.gear;
+        return cache.player.gear;
+    }
+
+    public string LoadCharacterSprite() {
+        return cache.player.sprite;
     }
 
     /**
