@@ -22,8 +22,8 @@ class Goal
      */
     private $name;
 
-    /*
-     * @ManyToOne(targetEntity="Avatar", inversedBy="goals")
+    /**
+     * @ORM\ManyToOne(targetEntity="Avatar", inversedBy="goals")
      */
      private $avatar;
 
@@ -59,5 +59,29 @@ class Goal
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Set avatar
+     *
+     * @param \AppBundle\Entity\Avatar $avatar
+     *
+     * @return Goal
+     */
+    public function setAvatar(\AppBundle\Entity\Avatar $avatar = null)
+    {
+        $this->avatar = $avatar;
+
+        return $this;
+    }
+
+    /**
+     * Get avatar
+     *
+     * @return \AppBundle\Entity\Avatar
+     */
+    public function getAvatar()
+    {
+        return $this->avatar;
     }
 }

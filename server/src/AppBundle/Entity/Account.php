@@ -19,17 +19,12 @@ class Account extends BaseUser
     protected $id;
 
     /**
-     * @ORM\Column(type="string", length=100)
-     */
-    private $name;
-
-    /*
-     * @OneToOne(targetEntity="Avatar", mappedBy="account")
+     * @ORM\OneToOne(targetEntity="Avatar", mappedBy="account")
      */
      private $avatar;
 
-     /*
-      * @OneToOne(targetEntity="Fitbit", mappedBy="account")
+     /**
+      * @ORM\OneToOne(targetEntity="Fitbit", mappedBy="account")
       */
       private $fitbit;
 
@@ -65,5 +60,53 @@ class Account extends BaseUser
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Set avatar
+     *
+     * @param \AppBundle\Entity\Avatar $avatar
+     *
+     * @return Account
+     */
+    public function setAvatar(\AppBundle\Entity\Avatar $avatar = null)
+    {
+        $this->avatar = $avatar;
+
+        return $this;
+    }
+
+    /**
+     * Get avatar
+     *
+     * @return \AppBundle\Entity\Avatar
+     */
+    public function getAvatar()
+    {
+        return $this->avatar;
+    }
+
+    /**
+     * Set fitbit
+     *
+     * @param \AppBundle\Entity\Fitbit $fitbit
+     *
+     * @return Account
+     */
+    public function setFitbit(\AppBundle\Entity\Fitbit $fitbit = null)
+    {
+        $this->fitbit = $fitbit;
+
+        return $this;
+    }
+
+    /**
+     * Get fitbit
+     *
+     * @return \AppBundle\Entity\Fitbit
+     */
+    public function getFitbit()
+    {
+        return $this->fitbit;
     }
 }

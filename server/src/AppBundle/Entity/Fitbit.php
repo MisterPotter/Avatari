@@ -22,8 +22,8 @@ class Fitbit
      */
     private $token;
 
-    /*
-     * @OneToOne(targetEntity="Account", mappedBy="fitbit")
+    /**
+     * @ORM\OneToOne(targetEntity="Account", inversedBy="fitbit")
      */
      private $account;
 
@@ -59,5 +59,29 @@ class Fitbit
     public function getToken()
     {
         return $this->token;
+    }
+
+    /**
+     * Set account
+     *
+     * @param \AppBundle\Entity\Account $account
+     *
+     * @return Fitbit
+     */
+    public function setAccount(\AppBundle\Entity\Account $account = null)
+    {
+        $this->account = $account;
+
+        return $this;
+    }
+
+    /**
+     * Get account
+     *
+     * @return \AppBundle\Entity\Account
+     */
+    public function getAccount()
+    {
+        return $this->account;
     }
 }
