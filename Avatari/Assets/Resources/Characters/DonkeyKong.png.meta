@@ -1,0 +1,396 @@
+fileFormatVersion: 2
+guid: 38b972d10d9118643b1db95088fa9d2b
+timeCreated: 1467857507
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: idle
+    21300002: DonkeyKong_1
+    21300004: DonkeyKong_2
+    21300006: DonkeyKong_3
+    21300008: DonkeyKong_4
+    21300010: DonkeyKong_5
+    21300012: DonkeyKong_6
+    21300014: DonkeyKong_7
+    21300016: DonkeyKong_8
+    21300018: DonkeyKong_9
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -3
+  maxTextureSize: 4096
+  textureSettings:
+    filterMode: -1
+    aniso: -1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: idle
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 205
+        width: 204.8
+        height: 205
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -100.5, y: 84.5}
+        - {x: -100.5, y: -48.5}
+        - {x: -60.5, y: -100.5}
+        - {x: -20.5, y: -100.5}
+        - {x: -11.5, y: -91.5}
+        - {x: -11.5, y: -84.5}
+        - {x: -12.5, y: -80.5}
+        - {x: -12.5, y: -74.5}
+        - {x: -13.5, y: -71.5}
+        - {x: -11.5, y: -72.5}
+        - {x: -12.5, y: -75.5}
+        - {x: -12.5, y: -79.5}
+        - {x: -8.5, y: -93.5}
+        - {x: 1.5, y: -100.5}
+        - {x: 100.5, y: -100.5}
+        - {x: 100.5, y: 68.5}
+        - {x: 97.5, y: 84.5}
+    - name: DonkeyKong_1
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 205
+        width: 204.8
+        height: 205
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -56.5, y: 84.5}
+        - {x: -99.5, y: 63.5}
+        - {x: -99.5, y: -26.5}
+        - {x: -81.5, y: -97.5}
+        - {x: -70.5, y: -100.5}
+        - {x: -20.5, y: -100.5}
+        - {x: -10.5, y: -92.5}
+        - {x: -10.5, y: -85.5}
+        - {x: -12.5, y: -82.5}
+        - {x: -11.5, y: -79.5}
+        - {x: -11.5, y: -75.5}
+        - {x: -12.5, y: -71.5}
+        - {x: -11.5, y: -74.5}
+        - {x: -11.5, y: -80.5}
+        - {x: -10.5, y: -84.5}
+        - {x: -7.5, y: -93.5}
+        - {x: 7.5, y: -99.5}
+        - {x: 30.5, y: -93.5}
+        - {x: 48.5, y: -100.5}
+        - {x: 99.5, y: -100.5}
+        - {x: 100.5, y: -97.5}
+        - {x: 100.5, y: 34.5}
+        - {x: 9.5, y: 84.5}
+    - name: DonkeyKong_2
+      rect:
+        serializedVersion: 2
+        x: 408
+        y: 205
+        width: 204.8
+        height: 205
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -8.5, y: 84.5}
+        - {x: -71.5, y: 84.5}
+        - {x: -98.5, y: 61.5}
+        - {x: -98.5, y: -25.5}
+        - {x: -65.5, y: -100.5}
+        - {x: -34.5, y: -100.5}
+        - {x: -28.5, y: -99.5}
+        - {x: -17.5, y: -95.5}
+        - {x: -9.5, y: -89.5}
+        - {x: -11.5, y: -72.5}
+        - {x: -9.5, y: -70.5}
+        - {x: -6.5, y: -69.5}
+        - {x: -9.5, y: -71.5}
+        - {x: -11.5, y: -74.5}
+        - {x: -10.5, y: -85.5}
+        - {x: -8.5, y: -89.5}
+        - {x: -9.5, y: -100.5}
+        - {x: 101.5, y: -100.5}
+        - {x: 101.5, y: 7.5}
+        - {x: 73.5, y: 60.5}
+    - name: DonkeyKong_3
+      rect:
+        serializedVersion: 2
+        x: 612
+        y: 205
+        width: 204.8
+        height: 205
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -10.5, y: 84.5}
+        - {x: -33.5, y: 84.5}
+        - {x: -98.5, y: 68.5}
+        - {x: -98.5, y: -5.5}
+        - {x: -61.5, y: -100.5}
+        - {x: -12.5, y: -100.5}
+        - {x: -8.5, y: -89.5}
+        - {x: -9.5, y: -83.5}
+        - {x: -10.5, y: -82.5}
+        - {x: -10.5, y: -73.5}
+        - {x: -7.5, y: -69.5}
+        - {x: -5.5, y: -69.5}
+        - {x: -4.5, y: -68.5}
+        - {x: 1.5, y: -67.5}
+        - {x: -3.5, y: -68.5}
+        - {x: -6.5, y: -69.5}
+        - {x: -9.5, y: -73.5}
+        - {x: -10.5, y: -79.5}
+        - {x: -9.5, y: -82.5}
+        - {x: -7.5, y: -100.5}
+        - {x: 99.5, y: -100.5}
+        - {x: 102.5, y: -75.5}
+        - {x: 102.5, y: 11.5}
+        - {x: 66.5, y: 60.5}
+    - name: DonkeyKong_4
+      rect:
+        serializedVersion: 2
+        x: 816
+        y: 205
+        width: 204.8
+        height: 205
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -97.5, y: 84.5}
+        - {x: -97.5, y: 19.5}
+        - {x: -87.5, y: -10.5}
+        - {x: -71.5, y: -14.5}
+        - {x: -73.5, y: -50.5}
+        - {x: -60.5, y: -100.5}
+        - {x: -28.5, y: -100.5}
+        - {x: -12.5, y: -99.5}
+        - {x: -7.5, y: -89.5}
+        - {x: -8.5, y: -83.5}
+        - {x: -9.5, y: -82.5}
+        - {x: -9.5, y: -73.5}
+        - {x: -6.5, y: -69.5}
+        - {x: -4.5, y: -69.5}
+        - {x: -3.5, y: -68.5}
+        - {x: 2.5, y: -67.5}
+        - {x: -2.5, y: -68.5}
+        - {x: -5.5, y: -69.5}
+        - {x: -8.5, y: -73.5}
+        - {x: -9.5, y: -79.5}
+        - {x: -7.5, y: -85.5}
+        - {x: -8.5, y: -100.5}
+        - {x: 102.5, y: -100.5}
+        - {x: 102.5, y: 55.5}
+        - {x: 97.5, y: 84.5}
+    - name: DonkeyKong_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 204.8
+        height: 205
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -40.5, y: 98.5}
+        - {x: -100.5, y: 71.5}
+        - {x: -100.5, y: -17.5}
+        - {x: -67.5, y: -90.5}
+        - {x: -47.5, y: -100.5}
+        - {x: -27.5, y: -100.5}
+        - {x: -11.5, y: -91.5}
+        - {x: -11.5, y: -84.5}
+        - {x: -12.5, y: -80.5}
+        - {x: -12.5, y: -74.5}
+        - {x: -12.5, y: -79.5}
+        - {x: -11.5, y: -83.5}
+        - {x: -10.5, y: -94.5}
+        - {x: -7.5, y: -100.5}
+        - {x: 100.5, y: -100.5}
+        - {x: 100.5, y: 25.5}
+        - {x: 27.5, y: 98.5}
+    - name: DonkeyKong_6
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 0
+        width: 204.8
+        height: 205
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -64.5, y: 98.5}
+        - {x: -99.5, y: 76.5}
+        - {x: -99.5, y: -40.5}
+        - {x: -87.5, y: -100.5}
+        - {x: -26.5, y: -100.5}
+        - {x: -15.5, y: -96.5}
+        - {x: -11.5, y: -88.5}
+        - {x: -11.5, y: -75.5}
+        - {x: -12.5, y: -71.5}
+        - {x: -10.5, y: -70.5}
+        - {x: -7.5, y: -69.5}
+        - {x: -10.5, y: -71.5}
+        - {x: -11.5, y: -74.5}
+        - {x: -11.5, y: -90.5}
+        - {x: 1.5, y: -100.5}
+        - {x: 98.5, y: -100.5}
+        - {x: 100.5, y: -96.5}
+        - {x: 100.5, y: 35.5}
+        - {x: 45.5, y: 98.5}
+    - name: DonkeyKong_7
+      rect:
+        serializedVersion: 2
+        x: 408
+        y: 0
+        width: 204.8
+        height: 205
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 19.5, y: 98.5}
+        - {x: -30.5, y: 98.5}
+        - {x: -98.5, y: 68.5}
+        - {x: -98.5, y: 26.5}
+        - {x: -66.5, y: -89.5}
+        - {x: -47.5, y: -100.5}
+        - {x: -24.5, y: -100.5}
+        - {x: -15.5, y: -97.5}
+        - {x: -9.5, y: -89.5}
+        - {x: -11.5, y: -72.5}
+        - {x: -9.5, y: -70.5}
+        - {x: -6.5, y: -69.5}
+        - {x: -9.5, y: -71.5}
+        - {x: -11.5, y: -74.5}
+        - {x: -8.5, y: -100.5}
+        - {x: 98.5, y: -100.5}
+        - {x: 101.5, y: -57.5}
+        - {x: 101.5, y: 12.5}
+        - {x: 69.5, y: 54.5}
+    - name: DonkeyKong_8
+      rect:
+        serializedVersion: 2
+        x: 612
+        y: 0
+        width: 204.8
+        height: 205
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -40.5, y: 98.5}
+        - {x: -98.5, y: 71.5}
+        - {x: -98.5, y: 25.5}
+        - {x: -86.5, y: -18.5}
+        - {x: -62.5, y: -100.5}
+        - {x: -11.5, y: -100.5}
+        - {x: -8.5, y: -89.5}
+        - {x: -9.5, y: -83.5}
+        - {x: -10.5, y: -82.5}
+        - {x: -10.5, y: -73.5}
+        - {x: -7.5, y: -69.5}
+        - {x: -5.5, y: -69.5}
+        - {x: -4.5, y: -68.5}
+        - {x: 1.5, y: -67.5}
+        - {x: -3.5, y: -68.5}
+        - {x: -6.5, y: -69.5}
+        - {x: -9.5, y: -72.5}
+        - {x: -10.5, y: -75.5}
+        - {x: -10.5, y: -79.5}
+        - {x: -9.5, y: -80.5}
+        - {x: -9.5, y: -83.5}
+        - {x: -6.5, y: -94.5}
+        - {x: 1.5, y: -100.5}
+        - {x: 102.5, y: -100.5}
+        - {x: 102.5, y: 22.5}
+        - {x: 32.5, y: 98.5}
+    - name: DonkeyKong_9
+      rect:
+        serializedVersion: 2
+        x: 816
+        y: 0
+        width: 204.8
+        height: 205
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 8.5, y: 98.5}
+        - {x: -21.5, y: 98.5}
+        - {x: -48.5, y: 95.5}
+        - {x: -97.5, y: 60.5}
+        - {x: -97.5, y: 28.5}
+        - {x: -87.5, y: -10.5}
+        - {x: -71.5, y: -14.5}
+        - {x: -71.5, y: -85.5}
+        - {x: -48.5, y: -100.5}
+        - {x: -25.5, y: -100.5}
+        - {x: -15.5, y: -95.5}
+        - {x: -7.5, y: -89.5}
+        - {x: -8.5, y: -83.5}
+        - {x: -9.5, y: -82.5}
+        - {x: -9.5, y: -72.5}
+        - {x: -6.5, y: -69.5}
+        - {x: -4.5, y: -69.5}
+        - {x: -3.5, y: -68.5}
+        - {x: 2.5, y: -67.5}
+        - {x: -2.5, y: -68.5}
+        - {x: -5.5, y: -69.5}
+        - {x: -8.5, y: -73.5}
+        - {x: -9.5, y: -78.5}
+        - {x: -7.5, y: -85.5}
+        - {x: -3.5, y: -100.5}
+        - {x: 95.5, y: -100.5}
+        - {x: 102.5, y: -94.5}
+        - {x: 102.5, y: 28.5}
+        - {x: 96.5, y: 63.5}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -24,4 +24,14 @@ public class Utility {
 
         return desiredObject;
     }
+
+    public static Sprite GetSprite(string spriteName, Sprite[] sprites) {
+        foreach (Sprite sprite in sprites) {
+            if (sprite.name == spriteName) {
+                return sprite;
+            }
+        }
+
+        throw new Exception("Sprite with name: " + spriteName + " not found.");
+    }
 }

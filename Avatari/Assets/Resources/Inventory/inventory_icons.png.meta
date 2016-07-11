@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 117271ac40a9c564d875940af1fd6e40
-timeCreated: 1467745584
+timeCreated: 1467828649
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -230,7 +230,7 @@ TextureImporter:
     21300446: 34x34icons180709 (1)_223
     21300448: 34x34icons180709 (1)_224
     21300450: 34x34icons180709 (1)_225
-    21300452: 34x34icons180709 (1)_226
+    21300452: feather
     21300454: 34x34icons180709 (1)_227
     21300456: 34x34icons180709 (1)_228
     21300458: 34x34icons180709 (1)_229
@@ -275,8 +275,8 @@ TextureImporter:
     21300536: 34x34icons180709 (1)_268
     21300538: 34x34icons180709 (1)_269
     21300540: 34x34icons180709 (1)_270
-    21300542: 34x34icons180709 (1)_271
-    21300544: 34x34icons180709 (1)_272
+    21300542: iron_ring
+    21300544: ruby_amulet
     21300546: 34x34icons180709 (1)_273
     21300548: 34x34icons180709 (1)_274
     21300550: 34x34icons180709 (1)_275
@@ -4729,7 +4729,7 @@ TextureImporter:
         - {x: 1, y: -17}
         - {x: 17, y: -4}
         - {x: 17, y: 17}
-    - name: 34x34icons180709 (1)_226
+    - name: feather
       rect:
         serializedVersion: 2
         x: 68
@@ -5595,7 +5595,7 @@ TextureImporter:
         - {x: 4, y: -14}
         - {x: 14, y: -6}
         - {x: 14, y: 10}
-    - name: 34x34icons180709 (1)_271
+    - name: iron_ring
       rect:
         serializedVersion: 2
         x: 170
@@ -5615,7 +5615,7 @@ TextureImporter:
         - {x: 11, y: -5}
         - {x: 13, y: 1}
         - {x: 13, y: 12}
-    - name: 34x34icons180709 (1)_272
+    - name: ruby_amulet
       rect:
         serializedVersion: 2
         x: 204

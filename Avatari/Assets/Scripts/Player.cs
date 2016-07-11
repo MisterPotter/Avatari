@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-/**
+﻿/**
  *  @author Tyler
  */
 public class Player {
@@ -21,13 +19,18 @@ public class Player {
         }
     }
 
-    private EquippedGear _gear;
-    public EquippedGear gear {
-        get { return this._gear; }
-        set { this._gear = value; }
-    }
+    /**
+     *  The gear that the player current has equipped.
+     */
+    public EquippedGear gear { get; set; }
+
+    /**
+     *  The name of the sprite to be loaded for the player.
+     */
+    public string sprite { get; set; }
 
     public Player() {
         this.gear = null;
+        this.sprite = null;
     }
 }
