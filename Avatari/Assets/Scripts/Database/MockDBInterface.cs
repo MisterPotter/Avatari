@@ -34,7 +34,14 @@ public class MockDBInterface : MonoBehaviour {
     }
 
     private void PopulateBosses() {
-
+        Cache cache = Utility.LoadObject<Cache>("Cache");
+        cache.AddBossToList(new Boss("Vicky", "", 2, 1));
+        cache.AddBossToList(new Boss("Rombo", "", 3, 2));
+        cache.AddBossToList(new Boss("Patsy", "", 5, 3));
+        cache.AddBossToList(new Boss("Squidward", "", 8, 4));
+        cache.AddBossToList(new Boss("Bloop", "", 10, 5));
+        cache.AddBossToList(new Boss("Ali", "", 12, 6));
+        cache.AddBossToList(new Boss("Moeby", "", 15, 7));
     }
 
 }

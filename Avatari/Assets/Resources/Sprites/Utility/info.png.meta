@@ -1,13 +1,13 @@
 fileFormatVersion: 2
-guid: 87dfe697e342e584a88b3ed786a348d4
-timeCreated: 1467203352
+guid: edd3e4885c53fd24ba48c6b56e71c894
+timeCreated: 1467205215
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName: {}
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 0
+    enableMipMap: 1
     linearTexture: 0
     correctGamma: 0
     fadeOut: 0
@@ -30,7 +30,7 @@ TextureImporter:
   maxTextureSize: 4096
   textureSettings:
     filterMode: -1
-    aniso: -1
+    aniso: 16
     mipBias: -1
     wrapMode: 1
   nPOTScale: 0
@@ -53,5 +53,5 @@ TextureImporter:
     outline: []
   spritePackingTag: 
   userData: 
-  assetBundleName: prototype bosses
+  assetBundleName: 
   assetBundleVariant: 
