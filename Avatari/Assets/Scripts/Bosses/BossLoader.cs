@@ -27,8 +27,8 @@ public class BossLoader : MonoBehaviour {
         int i = 0;
         foreach (var boss in bosses) {
             GameObject clone = (GameObject)Instantiate(panelPrefab, 
-                panelSpawner.position+(offset*i++), Quaternion.identity);
-            clone.transform.SetParent(panelSpawner);
+                (offset*i++), Quaternion.identity);
+            clone.transform.SetParent(panelSpawner, false);
 
             Text bossTitle = clone.transform.GetChild(0).GetComponent<Text>();
             bossTitle.text = boss.getName();

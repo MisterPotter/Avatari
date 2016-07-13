@@ -48,9 +48,9 @@ public class LoadInventoryScrollView : MonoBehaviour {
     private void InstatiateRow(int row, IEnumerable<Item> items) {
         Vector3 offset = Vector3.down * rowVertOffset * row;
         GameObject clone = (GameObject)Instantiate(
-            rowPrefab, rowSpawner.position+offset, Quaternion.identity
+            rowPrefab, offset, Quaternion.identity
         );
-        clone.transform.SetParent(rowSpawner);
+        clone.transform.SetParent(rowSpawner, false);
 
         int i = 0;
         foreach (Item item in items) {
