@@ -54,39 +54,13 @@ class FitbitController extends Controller
                   'code' => $_GET['code']
               ]);
 
-              // We have an access token, which we may use in authenticated
-              // requests against the service provider's API.
-              echo $accessToken->getToken() . "\n";
-              echo $accessToken->getRefreshToken() . "\n";
-              echo $accessToken->getExpires() . "\n";
-              echo ($accessToken->hasExpired() ? 'expired' : 'not expired') . "\n";
-
-              // Using the access token, we may look up details about the
-              // resource owner.
-              $resourceOwner = $provider->getResourceOwner($accessToken);
-
-              var_export($resourceOwner->toArray());
-
-              // The provider provides a way to get an authenticated API request for
-              // the service, using the access token; it returns an object conforming
-              // to Psr\Http\Message\RequestInterface.
-              $request = $provider->getAuthenticatedRequest(
-                  'GET',
-                  Fitbit::BASE_FITBIT_API_URL . '/1/user/-/profile.json',
-                  $accessToken,
-                  ['headers' => ['Accept-Language' => 'en_US'], ['Accept-Locale' => 'en_US']]
-                  // Fitbit uses the Accept-Language for setting the unit system used
-                  // and setting Accept-Locale will return a translated response if available.
-                  // https://dev.fitbit.com/docs/basics/#localization
-              );
-              // Make the authenticated API request and get the response.
-              $data = $provider->getResponse($request);
               $response = new JsonResponse();
               $response->setData(array(
                 'status' => 200,
-                'data' => $data
+                'data' => $accessToken
               ));
               return $response;
+
           } catch (\League\OAuth2\Client\Provider\Exception\IdentityProviderException $e) {
 
               // Failed to get the access token or user details.
@@ -112,5 +86,28 @@ class FitbitController extends Controller
 
           // Purge old access token and store new access token to your data store.
       }
+    }
+
+    public function apiCall(){
+      // Using the access token, we may look up details about the
+      // resource owner.
+      $resourceOwner = $provider->getResourceOwner($accessToken);
+
+      var_export($resourceOwner->toArray());
+
+      // The provider provides a way to get an authenticated API request for
+      // the service, using the access token; it returns an object conforming
+      // to Psr\Http\Message\RequestInterface.
+      $request = $provider->getAuthenticatedRequest(
+          'GET',
+          Fitbit::BASE_FITBIT_API_URL . '/1/user/-/profile.json',
+          $accessToken,
+          ['headers' => ['Accept-Language' => 'en_US'], ['Accept-Locale' => 'en_US']]
+          // Fitbit uses the Accept-Language for setting the unit system used
+          // and setting Accept-Locale will return a translated response if available.
+          // https://dev.fitbit.com/docs/basics/#localization
+      );
+      // Make the authenticated API request and get the response.
+      $data = $provider->getResponse($request);
     }
 }

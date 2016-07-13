@@ -18,7 +18,7 @@ class Fitbit
     private $id;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=True)
      */
     private $token;
 

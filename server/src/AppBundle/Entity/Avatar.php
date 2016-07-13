@@ -119,6 +119,14 @@ class Avatar
     {
         $this->goals = new \Doctrine\Common\Collections\ArrayCollection();
         $this->items = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->level = 1;
+        $this->exp_max = 100;
+        $this->exp_current = 0;
+        $this->health_max = 100;
+        $this->health_current = 100;
+        $this->agility_base = 5;
+        $this->defence_base = 5;
+        $this->strength_base = 5;
     }
 
     /**
@@ -404,4 +412,5 @@ class Avatar
     {
         return $this->strength_base;
     }
+
 }
