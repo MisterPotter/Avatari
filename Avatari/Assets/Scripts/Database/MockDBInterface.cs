@@ -23,6 +23,11 @@ public class MockDBInterface : MonoBehaviour {
         cache.AddCharacterToInventory("Vivi");
         cache.AddCharacterToInventory("DonkeyKong");
         cache.AddCharacterToInventory("MegaDude");
+
+        // Add areas
+        cache.AddAreaToInventory("Lava");
+        cache.AddAreaToInventory("Forest");
+        cache.AddAreaToInventory("Final");
     }
 
     private void PopulatePlayerInfo() {
