@@ -8,14 +8,14 @@ using System;
 public class InventoryScrollViewHandler : MonoBehaviour {
 
     private GameObject areaScrollView;
-    private GameObject bossScrollView;
+    private GameObject characterScrollView;
     private GameObject itemScrollView;
 
     private State state;
 
     private enum State {
         AreaActive,
-        BossActive,
+        CharacterActive,
         ItemActive
     }
 
@@ -29,8 +29,8 @@ public class InventoryScrollViewHandler : MonoBehaviour {
     private void Initialize() {
         this.areaScrollView = GameObject.FindGameObjectWithTag("AreaScrollView");
         this.areaScrollView.SetActive(false);
-        this.bossScrollView = GameObject.FindGameObjectWithTag("BossScrollView");
-        this.bossScrollView.SetActive(false);
+        this.characterScrollView = GameObject.FindGameObjectWithTag("CharacterScrollView");
+        this.characterScrollView.SetActive(false);
         this.itemScrollView = GameObject.FindGameObjectWithTag("ItemScrollView");
 
         this.state = State.ItemActive;
@@ -43,15 +43,15 @@ public class InventoryScrollViewHandler : MonoBehaviour {
         switch(this.state) {
             case State.AreaActive:
                 return;
-            case State.BossActive:
+            case State.CharacterActive:
                 this.areaScrollView.SetActive(true);
-                this.bossScrollView.SetActive(false);
+                this.characterScrollView.SetActive(false);
                 this.state = State.AreaActive;
                 return;
             case State.ItemActive:
-                this.bossScrollView.SetActive(true);
+                this.characterScrollView.SetActive(true);
                 this.itemScrollView.SetActive(false);
-                this.state = State.BossActive;
+                this.state = State.CharacterActive;
                 return;
             default:
                 throw new Exception("Invalid inventory ScrollView state: " + this.state);
@@ -65,11 +65,11 @@ public class InventoryScrollViewHandler : MonoBehaviour {
         switch(this.state) {
             case State.AreaActive:
                 this.areaScrollView.SetActive(false);
-                this.bossScrollView.SetActive(true);
-                this.state = State.BossActive;
+                this.characterScrollView.SetActive(true);
+                this.state = State.CharacterActive;
                 return;
-            case State.BossActive:
-                this.bossScrollView.SetActive(false);
+            case State.CharacterActive:
+                this.characterScrollView.SetActive(false);
                 this.itemScrollView.SetActive(true);
                 this.state = State.ItemActive;
                 return;

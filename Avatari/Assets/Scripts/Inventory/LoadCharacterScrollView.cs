@@ -7,9 +7,9 @@ using System.Linq;
  *  @author: Tyler
  *  A class to load the inventory panel.
  */
-public class LoadBossScrollView : MonoBehaviour {
+public class LoadCharacterScrollView : MonoBehaviour {
 
-    private Cache cache;
+    private IDataSource cache;
     private GameObject rowPrefab;
     private Transform rowSpawner;
     private const int itemsPerRow = 3;
@@ -21,7 +21,7 @@ public class LoadBossScrollView : MonoBehaviour {
     }
 
     private void Initialize() {
-        cache = Utility.LoadObject<Cache>("Cache");
+        cache = Utility.LoadObject<IDataSource>("Cache");
         rowPrefab= Resources.Load<GameObject>(
             "Prefabs/UI/Inventory/CharacterRow"
         );
@@ -29,14 +29,14 @@ public class LoadBossScrollView : MonoBehaviour {
     }
 
     private void LoadCharacters() {
-        List<Item> inventoryItems = this.cache.LoadItems();
-        int rows = (inventoryItems.Count / itemsPerRow) + 1;
+        List<Sprite> inventoryCharacters = this.cache.LoadCharacters();
+        int rows = (inventoryCharacters.Count / itemsPerRow) + 1;
         for(int i=0; i<rows; ++i) {
             int itemsPassed = i * itemsPerRow;
-            int numItemsLeft = Mathf.Min(inventoryItems.Count-itemsPassed,
+            int numItemsLeft = Mathf.Min(inventoryCharacters.Count-itemsPassed,
                 itemsPerRow
             );
-            IEnumerable<Item> itemsLeft = inventoryItems
+            IEnumerable<Sprite> itemsLeft = inventoryCharacters
                 .Skip(itemsPassed)
                 .Take(numItemsLeft);
 
@@ -44,7 +44,7 @@ public class LoadBossScrollView : MonoBehaviour {
         }
     }
 
-    private void InstatiateRow(int row, IEnumerable<Item> items) {
+    private void InstatiateRow(int row, IEnumerable<Sprite> sprites) {
         Vector3 offset = Vector3.down * rowVertOffset * row;
         GameObject clone = (GameObject)Instantiate(
             rowPrefab, offset, Quaternion.identity
@@ -52,10 +52,10 @@ public class LoadBossScrollView : MonoBehaviour {
         clone.transform.SetParent(rowSpawner, false);
 
         int i = 0;
-        foreach (Item item in items) {
+        foreach(Sprite sprite in sprites) {
             Image slot = clone.transform.GetChild(i++).GetChild(0)
                 .GetComponent<Image>();
-            slot.sprite = this.cache.LoadInventorySprite(item.resourceName);
+            slot.sprite = sprite;
         }
     }
 

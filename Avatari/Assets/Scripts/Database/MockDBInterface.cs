@@ -13,10 +13,16 @@ public class MockDBInterface : MonoBehaviour {
     }
 
     private void PopulateInventory() {
+        // Add inventory objects
         Cache cache = Utility.LoadObject<Cache>("Cache");
         cache.AddItemToInventory(new Item("Ruby Amulet", "ruby_amulet", "", 6, Item.ItemType.Neck, Item.ItemRarity.Uncommon));
         cache.AddItemToInventory(new Item("Iron Ring", "iron_ring", "", 7, Item.ItemType.Neck, Item.ItemRarity.Common));
         cache.AddItemToInventory(new Item("Feather", "feather", "A common feather.", 8, Item.ItemType.Neck, Item.ItemRarity.Common));
+
+        // Add character objects
+        cache.AddCharacterToInventory("Vivi");
+        cache.AddCharacterToInventory("DonkeyKong");
+        cache.AddCharacterToInventory("MegaDude");
     }
 
     private void PopulatePlayerInfo() {

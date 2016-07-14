@@ -70,7 +70,7 @@
     <Compile Include="Assets\Scripts\Database\MockDBInterface.cs" />
     <Compile Include="Assets\Scripts\Inventory\InventoryScrollViewHandler.cs" />
     <Compile Include="Assets\Scripts\Inventory\Item.cs" />
-    <Compile Include="Assets\Scripts\Inventory\LoadBossScrollView.cs" />
+    <Compile Include="Assets\Scripts\Inventory\LoadCharacterScrollView.cs" />
     <Compile Include="Assets\Scripts\Inventory\LoadEquippedPanel.cs" />
     <Compile Include="Assets\Scripts\Inventory\LoadInventoryScrollView.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
