@@ -66,6 +66,10 @@ public class Cache : MonoBehaviour, IDataSource {
         return Utility.GetSprite(spriteName, this.utilitySprites);
     }
 
+    public int LoadPlayerLevel() {
+        return cache.player.stats.level.CurrentValue;
+    }
+
     /**
      *  Used to add items to the inventory list.
      */

@@ -22,6 +22,15 @@ public class PlayerStatistic {
         defense = new Defense();
     }
 
+    public PlayerStatistic(int level, int experience, int health, int strength, int agility, int defense) {
+        this.level = new Level(level);
+        this.experience = new Experience(experience);
+        this.health = new Health(health);
+        this.strength = new Strength(strength);
+        this.agility = new Agility(agility);
+        this.defense = new Defense(defense);
+    }
+
     public void updatePlayerStatistics() {
         updateExperience();
         updateHealth();

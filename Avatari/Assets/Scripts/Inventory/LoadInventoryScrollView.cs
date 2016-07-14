@@ -41,11 +41,11 @@ public class LoadInventoryScrollView : MonoBehaviour {
                 .Skip(itemsPassed)
                 .Take(numItemsLeft);
 
-            InstatiateRow(i, itemsLeft);
+            InstantiateRow(i, itemsLeft);
         }
     }
 
-    private void InstatiateRow(int row, IEnumerable<Item> items) {
+    private void InstantiateRow(int row, IEnumerable<Item> items) {
         Vector3 offset = Vector3.down * rowVertOffset * row;
         GameObject clone = (GameObject)Instantiate(
             rowPrefab, rowSpawner.position+offset, Quaternion.identity

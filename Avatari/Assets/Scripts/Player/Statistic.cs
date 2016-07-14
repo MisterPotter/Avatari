@@ -23,9 +23,17 @@ public abstract class Statistic {
     }
 
     public Statistic(int minValue, int maxValue, string description) {
+        this.maxValue = maxValue;
         this.minValue = minValue;
         this.description = description;
         this.currentValue = minValue;
+    }
+
+    public Statistic(int minValue, int maxValue, string description, int initValue) {
+        this.maxValue = maxValue;
+        this.minValue = minValue;
+        this.description = description;
+        this.currentValue = initValue;
     }
 
     /**
@@ -55,6 +63,11 @@ public class Level : Statistic {
     public Level() : base(Constants.MinLevel,
                           Constants.MaxLevel,
                           Constants.LevelDescription) {}
+
+    public Level(int level) : base(Constants.MinLevel,
+                                   Constants.MaxLevel,
+                                   Constants.LevelDescription,
+                                   level) {}
 }
 
 // TODO: probably don't want experience to ever decrease, should override change, add methods to ensure this.
@@ -63,30 +76,51 @@ public class Experience : Statistic {
     public Experience() : base(Constants.MinExperience,
                                Constants.MaxExperience,
                                Constants.ExperienceDescription) {}
+
+    public Experience(int experience) : base(Constants.MinExperience,
+                                             Constants.MaxExperience,
+                                             Constants.ExperienceDescription,
+                                             experience) {}
 }
 
 public class Health : Statistic {
     public Health() : base(Constants.MinStat,
                            Constants.MaxStat,
                            Constants.HealthDescription) {}
+    public Health(int health) : base(Constants.MinStat,
+                                     Constants.MaxStat,
+                                     Constants.HealthDescription,
+                                     health) {}
 }
 
 public class Agility : Statistic {
     public Agility() : base(Constants.MinStat,
                             Constants.MaxStat,
                             Constants.AgilityDescription) {}
+    public Agility(int agility) : base(Constants.MinStat,
+                                       Constants.MaxStat,
+                                       Constants.AgilityDescription,
+                                       agility) { }
 }
 
 public class Strength : Statistic {
     public Strength() : base(Constants.MinStat,
                              Constants.MaxStat,
                              Constants.StrengthDescription) {}
+    public Strength(int strength) : base(Constants.MinStat,
+                                         Constants.MaxStat,
+                                         Constants.StrengthDescription,
+                                         strength) { }
 }
 
 public class Defense : Statistic {
     public Defense() : base(Constants.MinStat,
                             Constants.MaxStat,
                             Constants.DefenseDescription) { }
+    public Defense(int defense) : base(Constants.MinStat,
+                                       Constants.MaxStat,
+                                       Constants.DefenseDescription,
+                                       defense) { }
 }
 
 /**

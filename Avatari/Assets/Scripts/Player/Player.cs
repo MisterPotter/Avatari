@@ -37,6 +37,6 @@ public class Player {
     public Player() {
         this.gear = null;
         this.sprite = null;
-        this.stats = new PlayerStatistic();
+        this.stats = null;
     }
 }
