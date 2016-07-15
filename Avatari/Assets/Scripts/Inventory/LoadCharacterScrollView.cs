@@ -10,10 +10,12 @@ using System.Linq;
 public class LoadCharacterScrollView : MonoBehaviour {
 
     private IDataSource cache;
+    private RectTransform content;
     private GameObject rowPrefab;
     private Transform rowSpawner;
     private const int itemsPerRow = 3;
     private const float rowVertOffset = 100.0f;
+    private const float bottomPadding = 10.0f;
 
     private void Awake() {
         Initialize();
@@ -22,6 +24,7 @@ public class LoadCharacterScrollView : MonoBehaviour {
 
     private void Initialize() {
         cache = Utility.LoadObject<IDataSource>("Cache");
+        content = Utility.LoadObject<RectTransform>("CharacterContent");
         rowPrefab= Resources.Load<GameObject>(
             "Prefabs/UI/Inventory/CharacterRow"
         );
@@ -31,6 +34,7 @@ public class LoadCharacterScrollView : MonoBehaviour {
     private void LoadCharacters() {
         List<Sprite> inventoryCharacters = this.cache.LoadCharacters();
         int rows = (inventoryCharacters.Count / itemsPerRow) + 1;
+        content.sizeDelta = new Vector2(0.0f, rows*rowVertOffset+bottomPadding);
         for(int i=0; i<rows; ++i) {
             int itemsPassed = i * itemsPerRow;
             int numItemsLeft = Mathf.Min(inventoryCharacters.Count-itemsPassed,

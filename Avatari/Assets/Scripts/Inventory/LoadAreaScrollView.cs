@@ -11,8 +11,10 @@ public class LoadAreaScrollView : MonoBehaviour {
 
     private IDataSource cache;
     private GameObject rowPrefab;
+    private RectTransform content;
     private Transform rowSpawner;
     private const float rowVertOffset = 220.0f;
+    private const float bottomPadding = 20.0f;
 
     private void Awake() {
         Initialize();
@@ -24,12 +26,17 @@ public class LoadAreaScrollView : MonoBehaviour {
         rowPrefab = Resources.Load<GameObject>(
             "Prefabs/UI/Inventory/AreaRow"
         );
+        content = Utility.LoadObject<RectTransform>("AreaContent");
         rowSpawner = Utility.LoadObject<Transform>("AreaRowSpawner");
     }
 
     private void LoadAreas() {
         List<Sprite> inventoryAreas = this.cache.LoadAreas();
         int rows = inventoryAreas.Count;
+
+        // Set the size of the content to hold the content
+        content.sizeDelta = new Vector2(0.0f, rowVertOffset*rows+bottomPadding);
+
         for (int i = 0; i < rows; ++i) {
             int itemsPassed = i;
             IEnumerable<Sprite> areasLeft = inventoryAreas
