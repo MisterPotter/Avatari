@@ -6,6 +6,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Session\Session;
+
 
 
 class DefaultController extends Controller
@@ -73,17 +75,12 @@ class DefaultController extends Controller
      */
     public function avatarAction(Request $request)
     {
+      $session = new Session();
+
       $response = new JsonResponse();
-      /*
-      if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
-        $response->setData(array(
-          'status' => 503,
-          'data' => 'not logged in'
-        ));
-      } else {
-      */
       if(true){
-        $account_id = 1;
+        $account_id = $session->get('user_id');
+
         $account = $this->getDoctrine()->getRepository('AppBundle:Account')->findOneById($account_id);
         $avatar = $account->getAvatar();
 
@@ -121,7 +118,7 @@ class DefaultController extends Controller
           'stats' => [
                         'strength' => $avatar->getStrengthBase(),
                         'agility' => $avatar->getAgilityBase(),
-                        'defence' => $avatar->getDefenceBase(),
+                        'defence' => $avatar->getdefenceBase(),
                       ],
           'items' => $itemsData,
           'goals' => $goalsData

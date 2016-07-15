@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use djchen\OAuth2\Client\Provider\Fitbit;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class FitbitController extends Controller
 {
@@ -15,14 +16,16 @@ class FitbitController extends Controller
      */
     public function indexAction(Request $request)
     {
-      return self::authCode();
-    }
+      $em = $this->getDoctrine()->getManager();
+      $session = new Session();
+      $account_id = $session->get('user_id');
 
-    public function authCode(){
+      $account = $em->getRepository('AppBundle:Account')->findOneById($account_id);
+      $fitbit = $account->getFitbit();
       $provider = new Fitbit([
           'clientId'          => '227T6K',
           'clientSecret'      => '538c707fa361dbfcb1b63c7ea24b27ee',
-          'redirectUri'       => 'http://localhost/app_dev.php/oauth'
+          'redirectUri'       => 'http://ec2-54-200-193-115.us-west-2.compute.amazonaws.com/app_dev.php/oauth'
       ]);
 
       // If we don't have an authorization code then get one
@@ -44,70 +47,67 @@ class FitbitController extends Controller
       } elseif (empty($_GET['state']) || ($_GET['state'] !== $_SESSION['oauth2state'])) {
           unset($_SESSION['oauth2state']);
           exit('Invalid state');
-
       } else {
-
           try {
-
-              // Try to get an access token using the authorization code grant.
               $accessToken = $provider->getAccessToken('authorization_code', [
                   'code' => $_GET['code']
               ]);
-
+              $request = $provider->getAuthenticatedRequest(
+                  'GET',
+                  Fitbit::BASE_FITBIT_API_URL . '/1/user/-/activities/steps/date/today/1m.json',
+                  $accessToken,
+                  ['headers' => ['Accept-Language' => 'en_US'], ['Accept-Locale' => 'en_US']]
+              );
+              $data = $provider->getResponse($request);
+              $fitbit->setToken($accessToken->getToken());
+              $em->persist($fitbit);
+              $em->flush();
               $response = new JsonResponse();
               $response->setData(array(
                 'status' => 200,
-                'data' => $accessToken
+                'data' => $data
               ));
               return $response;
 
           } catch (\League\OAuth2\Client\Provider\Exception\IdentityProviderException $e) {
-
               // Failed to get the access token or user details.
               exit($e->getMessage());
           }
-
       }
     }
 
-    public function refresh(){
-      $provider = new djchen\OAuth2\Client\Provider\Fitbit([
+    /**
+     * @Route("/api", name="api")
+     */
+    public function apiAction(Request $request){
+      $em = $this->getDoctrine()->getManager();
+      $session = new Session();
+      $account_id = $session->get('user_id');
+
+      $account = $em->getRepository('AppBundle:Account')->findOneById($account_id);
+      $fitbit = $account->getFitbit();
+      $provider = new Fitbit([
           'clientId'          => '227T6K',
           'clientSecret'      => '538c707fa361dbfcb1b63c7ea24b27ee',
-          'redirectUri'       => 'http://localhost/app_dev.php/oauth'
+          'redirectUri'       => 'http://ec2-54-200-193-115.us-west-2.compute.amazonaws.com/app_dev.php/oauth'
       ]);
 
-      $existingAccessToken = getAccessTokenFromYourDataStore();
+      $accessToken = $fitbit->getToken();
 
-      if ($existingAccessToken->hasExpired()) {
-          $newAccessToken = $provider->getAccessToken('refresh_token', [
-              'refresh_token' => $existingAccessToken->getRefreshToken()
-          ]);
-
-          // Purge old access token and store new access token to your data store.
-      }
-    }
-
-    public function apiCall(){
-      // Using the access token, we may look up details about the
-      // resource owner.
-      $resourceOwner = $provider->getResourceOwner($accessToken);
-
-      var_export($resourceOwner->toArray());
-
-      // The provider provides a way to get an authenticated API request for
-      // the service, using the access token; it returns an object conforming
-      // to Psr\Http\Message\RequestInterface.
       $request = $provider->getAuthenticatedRequest(
           'GET',
           Fitbit::BASE_FITBIT_API_URL . '/1/user/-/profile.json',
           $accessToken,
           ['headers' => ['Accept-Language' => 'en_US'], ['Accept-Locale' => 'en_US']]
-          // Fitbit uses the Accept-Language for setting the unit system used
-          // and setting Accept-Locale will return a translated response if available.
-          // https://dev.fitbit.com/docs/basics/#localization
       );
-      // Make the authenticated API request and get the response.
       $data = $provider->getResponse($request);
+        $response = new JsonResponse();
+        $response->setData(array(
+          'status' => 200,
+          'data' => $data
+        ));
+        return $response;
+
     }
+
 }
