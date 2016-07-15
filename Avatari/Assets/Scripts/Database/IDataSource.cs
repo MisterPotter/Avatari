@@ -3,7 +3,13 @@ using System.Collections.Generic;
 
 public interface IDataSource {
 
-    /*
+    /**
+     *  @summary: Loads inventory character sprites from cache.
+     *  @return: A list of inventory character sprites from cache.
+     */
+    List<Sprite> LoadCharacters();
+
+    /**
      *  @summary: Loads inventory items from cache.
      *  @return: A list of inventory items that the player owns.
      */

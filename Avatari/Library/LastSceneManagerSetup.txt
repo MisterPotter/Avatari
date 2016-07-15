@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/_Scenes/bosses.unity
+- path: Assets/_Scenes/inventory.unity
   isLoaded: 1
   isActive: 1

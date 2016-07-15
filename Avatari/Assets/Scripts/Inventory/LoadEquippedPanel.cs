@@ -18,7 +18,7 @@ public class LoadEquippedPanel : MonoBehaviour {
 
     private Cache cache;
 
-    private void OnGUI() {
+    private void Awake() {
         FindCache();
         FindSlots();
         PopulateCharacterSlot();
