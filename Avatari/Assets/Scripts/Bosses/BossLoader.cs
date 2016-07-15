@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class BossLoader : MonoBehaviour {
 
     private Cache cache;
+    private RectTransform content;
     private GameObject panelPrefab;
     private Transform panelSpawner;
     private const float rowVertOffset = 60.0f;
@@ -16,12 +17,14 @@ public class BossLoader : MonoBehaviour {
 
     private void Initialize() {
         cache = Utility.LoadObject<Cache>("Cache");
+        content = Utility.LoadObject<RectTransform>("BossContent");
         panelPrefab = Resources.Load<GameObject>("Prefabs/UI/Bosses/BossPanel");
         panelSpawner = Utility.LoadObject<Transform>("BossPanelSpawner");
     }
 
     private void LoadBosses() {
         List<Boss> bosses = this.cache.LoadBosses();
+        content.sizeDelta = new Vector2(0.0f, bosses.Count*rowVertOffset);
         Vector3 offset = Vector3.down * rowVertOffset;
 
         int i = 0;
