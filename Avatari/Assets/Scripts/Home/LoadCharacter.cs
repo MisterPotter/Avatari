@@ -13,26 +13,25 @@ public class LoadCharacter : MonoBehaviour {
     private Image characterImage;
 
     private Cache cache;
-	
-	void Update () {
+
+    void Awake() {
         FindCache();
-        FindCharacter();
+        FindCharacterSlots();
         UpdateCharacterImage();
         UpdateCharacterText();
-	}
+    }
 
     private void FindCache() {
         cache = Utility.LoadObject<Cache>("Cache");
     }
 
-    private void FindCharacter() {
+    private void FindCharacterSlots() {
         characterName = Utility.LoadObject<Text>("CharacterText");
         characterImage = Utility.LoadObject<Image>("CharacterSlot");
     }
 
     private void UpdateCharacterImage() {
         string spriteName = this.cache.LoadCharacterSprite();
-        Debug.Log(spriteName);
         Sprite[] spriteSheet = Resources.LoadAll<Sprite>("Characters/" + spriteName);
         if (spriteSheet.Length == 0) {
             throw new Exception("Character sprite: " + spriteName +

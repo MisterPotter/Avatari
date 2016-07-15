@@ -1,16 +1,47 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 
-public class ProgressBar : MonoBehaviour {
+public abstract class ProgressBar : MonoBehaviour {
 
-	// Use this for initialization
+    protected int maxValue;
+    protected int minValue;
+
+    protected int currValue;
+
+    protected Slider slider;
+    protected Cache cache;
+
 	void Start () {
-	
+        FindCache();
+        GetMinAndMaxValue();
+        GetCurrentValue();
+        FindSlider();
+        UpdateSlider();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
+    void Update() {
+        UpdateSlider();
+    }
+
+    private void FindCache() {
+        cache = Utility.LoadObject<Cache>("Cache");
+    }
+
+    // Get the minimum and maximum values for this progress bar
+    protected abstract void GetMinAndMaxValue();
+
+    // Get the current value of the statistic in the progress bar
+    protected abstract void GetCurrentValue();
+
+    // Find the desired slider game object
+    protected abstract void FindSlider();
+
+    // Change the slider value to reflect the current value
+    protected void UpdateSlider() {
+        slider.maxValue = this.maxValue;
+        slider.minValue = this.minValue;
+        slider.value = this.currValue;
+    }
 }

@@ -41,7 +41,7 @@ public class MockDBInterface : MonoBehaviour {
             new Item("Wings", "wings", "", 5, Item.ItemType.Wings, Item.ItemRarity.Common)
         );
         player.sprite = "Vivi";
-        player.stats = new PlayerStatistic(4, 4500, 2, 3, 4, 5);
+        player.stats = new PlayerStatistic(4, 4100, 2, 3, 4, 5);
         cache.player = player;
     }
 
