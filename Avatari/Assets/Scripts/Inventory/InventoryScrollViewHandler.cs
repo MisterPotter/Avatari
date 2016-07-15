@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System;
 
 /**
@@ -7,10 +8,28 @@ using System;
  */
 public class InventoryScrollViewHandler : MonoBehaviour {
 
+    /*
+     *  Our different scroll views.
+     */
     private GameObject areaScrollView;
     private GameObject characterScrollView;
     private GameObject itemScrollView;
 
+    /*
+     *  Components for the scroll view switcher.
+     */
+    private Text transitionText;
+
+    /*
+     *  Text for the scroll view switcher.
+     */
+    private const string ItemText = "Items";
+    private const string CharacterText = "Characters";
+    private const string AreaText = "Areas";
+
+    /*
+     *  Our current state.
+     */
     private State state;
 
     private enum State {
@@ -33,6 +52,9 @@ public class InventoryScrollViewHandler : MonoBehaviour {
         this.characterScrollView.SetActive(false);
         this.itemScrollView = GameObject.FindGameObjectWithTag("ItemScrollView");
 
+        this.transitionText = Utility.LoadObject<Text>("InventoryScrollViewText");
+        this.transitionText.text = ItemText;
+
         this.state = State.ItemActive;
     }
 
@@ -46,11 +68,13 @@ public class InventoryScrollViewHandler : MonoBehaviour {
             case State.CharacterActive:
                 this.areaScrollView.SetActive(true);
                 this.characterScrollView.SetActive(false);
+                this.transitionText.text = AreaText;
                 this.state = State.AreaActive;
                 return;
             case State.ItemActive:
                 this.characterScrollView.SetActive(true);
                 this.itemScrollView.SetActive(false);
+                this.transitionText.text = CharacterText;
                 this.state = State.CharacterActive;
                 return;
             default:
@@ -66,11 +90,13 @@ public class InventoryScrollViewHandler : MonoBehaviour {
             case State.AreaActive:
                 this.areaScrollView.SetActive(false);
                 this.characterScrollView.SetActive(true);
+                this.transitionText.text = CharacterText;
                 this.state = State.CharacterActive;
                 return;
             case State.CharacterActive:
                 this.characterScrollView.SetActive(false);
                 this.itemScrollView.SetActive(true);
+                this.transitionText.text = ItemText;
                 this.state = State.ItemActive;
                 return;
             case State.ItemActive:

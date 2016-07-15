@@ -12,7 +12,6 @@ public class LoadAreaScrollView : MonoBehaviour {
     private IDataSource cache;
     private GameObject rowPrefab;
     private Transform rowSpawner;
-    private const int itemsPerRow = 1;
     private const float rowVertOffset = 220.0f;
 
     private void Awake() {
@@ -30,15 +29,12 @@ public class LoadAreaScrollView : MonoBehaviour {
 
     private void LoadAreas() {
         List<Sprite> inventoryAreas = this.cache.LoadAreas();
-        int rows = (inventoryAreas.Count / itemsPerRow) + 1;
+        int rows = inventoryAreas.Count;
         for (int i = 0; i < rows; ++i) {
-            int itemsPassed = i * itemsPerRow;
-            int numItemsLeft = Mathf.Min(inventoryAreas.Count - itemsPassed,
-                itemsPerRow
-            );
+            int itemsPassed = i;
             IEnumerable<Sprite> areasLeft = inventoryAreas
                 .Skip(itemsPassed)
-                .Take(numItemsLeft);
+                .Take(1);
 
             InstatiateRow(i, areasLeft);
         }
