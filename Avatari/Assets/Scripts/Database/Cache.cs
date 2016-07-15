@@ -9,14 +9,19 @@ public class Cache : MonoBehaviour, IDataSource {
     public static Cache cache;
 
     /**
-     *  The list of inventory items that the player owns.
+     *  The list of inventory areas that the player owns.
      */
-    private List<Item> inventoryItems;
+    private List<Sprite> inventoryAreas;
 
     /**
      *  The list of inventory characters that the player owns.
      */
     private List<Sprite> inventoryCharacters;
+
+    /**
+     *  The list of inventory items that the player owns.
+     */
+    private List<Item> inventoryItems;
 
     /**
      *  The list of bosses that will populate boss panels on 'Bosses' scene.
@@ -42,6 +47,10 @@ public class Cache : MonoBehaviour, IDataSource {
      *  All information to do with the player.
      */
     public Player player { get; set; }
+
+    public List<Sprite> LoadAreas() {
+        return cache.inventoryAreas;
+    }
 
     public List<Boss> LoadBosses() {
         return cache.bosses;
@@ -92,6 +101,13 @@ public class Cache : MonoBehaviour, IDataSource {
             "idle", characterSpriteSheet));
     }
 
+    public void AddAreaToInventory(string name) {
+        Sprite area = Resources.Load<Sprite>("Sprites/Areas/" + name);
+        if(area != null) {
+            cache.inventoryAreas.Add(area);
+        }
+    }
+
     /**
     *  Used to add bosses to the list.
     */
@@ -112,6 +128,7 @@ public class Cache : MonoBehaviour, IDataSource {
         cache = this;
         cache.inventoryItems = new List<Item>();
         cache.inventoryCharacters = new List<Sprite>();
+        cache.inventoryAreas = new List<Sprite>();
         cache.player = new Player();
         cache.bosses = new List<Boss>();
         LoadSprites();
