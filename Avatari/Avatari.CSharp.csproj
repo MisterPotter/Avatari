@@ -72,6 +72,7 @@
     <Compile Include="Assets\Scripts\Inventory\EquippedPanel\InventoryScrollViewHandler.cs" />
     <Compile Include="Assets\Scripts\Inventory\EquippedPanel\LoadEquippedPanel.cs" />
     <Compile Include="Assets\Scripts\Inventory\Item.cs" />
+    <Compile Include="Assets\Scripts\Inventory\ScrollViews\InventorySlot.cs" />
     <Compile Include="Assets\Scripts\Inventory\ScrollViews\LoadAreaScrollView.cs" />
     <Compile Include="Assets\Scripts\Inventory\ScrollViews\LoadCharacterScrollView.cs" />
     <Compile Include="Assets\Scripts\Inventory\ScrollViews\LoadInventoryScrollView.cs" />

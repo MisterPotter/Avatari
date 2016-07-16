@@ -111,8 +111,9 @@ public class LoadEquippedPanel : MonoBehaviour {
                 defaultResource = "wings";
                 break;
             default:
-                throw new Exception("Invalid equipped item type for player: "
+                Debug.LogError("Invalid equipped item type for player: "
                     + itemType);
+                return;
         }
 
         // If nothing is equipt, use the default resource

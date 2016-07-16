@@ -68,4 +68,37 @@ public class Player {
                     + item.itemType);
         }
     }
+
+    public void EquipItem(Item item) {
+        switch (item.itemType) {
+            case Item.ItemType.Head:
+                if (item.itemID == this.gear.headGear.itemID) {
+                    this.gear.headGear = item;
+                }
+                break;
+            case Item.ItemType.Body:
+                if (item.itemID == gear.chestGear.itemID) {
+                    this.gear.chestGear = item;
+                }
+                break;
+            case Item.ItemType.Hands:
+                if (item.itemID == gear.handGear.itemID) {
+                    this.gear.handGear = item;
+                }
+                break;
+            case Item.ItemType.Feet:
+                if (item.itemID == gear.footGear.itemID) {
+                    this.gear.footGear = item;
+                }
+                break;
+            case Item.ItemType.Wings:
+                if (item.itemID == gear.wingGear.itemID) {
+                    this.gear.wingGear = item;
+                }
+                break;
+            default:
+                throw new Exception("Invalid item type while eqipping: "
+                    + item.itemType);
+        }
+    }
 }

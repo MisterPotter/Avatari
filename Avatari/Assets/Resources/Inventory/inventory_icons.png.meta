@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 117271ac40a9c564d875940af1fd6e40
-timeCreated: 1467828649
+timeCreated: 1468654155
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -102,7 +102,7 @@ TextureImporter:
     21300190: 34x34icons180709 (1)_95
     21300192: 34x34icons180709 (1)_96
     21300194: 34x34icons180709 (1)_97
-    21300196: 34x34icons180709 (1)_98
+    21300196: ceastus
     21300198: 34x34icons180709 (1)_99
     21300200: 34x34icons180709 (1)_100
     21300202: 34x34icons180709 (1)_101
@@ -111,7 +111,7 @@ TextureImporter:
     21300208: 34x34icons180709 (1)_104
     21300210: 34x34icons180709 (1)_105
     21300212: 34x34icons180709 (1)_106
-    21300214: 34x34icons180709 (1)_107
+    21300214: axe
     21300216: 34x34icons180709 (1)_108
     21300218: 34x34icons180709 (1)_109
     21300220: 34x34icons180709 (1)_110
@@ -120,7 +120,7 @@ TextureImporter:
     21300226: 34x34icons180709 (1)_113
     21300228: 34x34icons180709 (1)_114
     21300230: 34x34icons180709 (1)_115
-    21300232: 34x34icons180709 (1)_116
+    21300232: spear
     21300234: 34x34icons180709 (1)_117
     21300236: 34x34icons180709 (1)_118
     21300238: 34x34icons180709 (1)_119
@@ -164,7 +164,7 @@ TextureImporter:
     21300314: 34x34icons180709 (1)_157
     21300316: 34x34icons180709 (1)_158
     21300318: 34x34icons180709 (1)_159
-    21300320: 34x34icons180709 (1)_160
+    21300320: crystal_bow
     21300322: 34x34icons180709 (1)_161
     21300324: 34x34icons180709 (1)_162
     21300326: 34x34icons180709 (1)_163
@@ -195,7 +195,7 @@ TextureImporter:
     21300376: 34x34icons180709 (1)_188
     21300378: 34x34icons180709 (1)_189
     21300380: 34x34icons180709 (1)_190
-    21300382: 34x34icons180709 (1)_191
+    21300382: wizard_hat
     21300384: 34x34icons180709 (1)_192
     21300386: 34x34icons180709 (1)_193
     21300388: iron_helm
@@ -272,7 +272,7 @@ TextureImporter:
     21300530: 34x34icons180709 (1)_265
     21300532: 34x34icons180709 (1)_266
     21300534: 34x34icons180709 (1)_267
-    21300536: 34x34icons180709 (1)_268
+    21300536: gold_ring
     21300538: 34x34icons180709 (1)_269
     21300540: 34x34icons180709 (1)_270
     21300542: iron_ring
@@ -402,7 +402,7 @@ TextureImporter:
     21300790: 34x34icons180709 (1)_395
     21300792: 34x34icons180709 (1)_396
     21300794: 34x34icons180709 (1)_397
-    21300796: 34x34icons180709 (1)_398
+    21300796: storm_sword
     21300798: 34x34icons180709 (1)_399
     21300800: 34x34icons180709 (1)_400
     21300802: 34x34icons180709 (1)_401
@@ -2299,7 +2299,7 @@ TextureImporter:
         - {x: 16, y: -7}
         - {x: 17, y: -5}
         - {x: 17, y: 0}
-    - name: 34x34icons180709 (1)_98
+    - name: ceastus
       rect:
         serializedVersion: 2
         x: 0
@@ -2476,7 +2476,7 @@ TextureImporter:
         - {x: 17, y: 3}
         - {x: 17, y: 16}
         - {x: 15, y: 17}
-    - name: 34x34icons180709 (1)_107
+    - name: axe
       rect:
         serializedVersion: 2
         x: 306
@@ -2644,7 +2644,7 @@ TextureImporter:
         - {x: 17, y: -15}
         - {x: 17, y: -10}
         - {x: -11, y: 17}
-    - name: 34x34icons180709 (1)_116
+    - name: spear
       rect:
         serializedVersion: 2
         x: 136
@@ -3449,7 +3449,7 @@ TextureImporter:
     - name: 34x34icons180709 (1)_158
       rect:
         serializedVersion: 2
-        x: 136
+        x: 137
         y: 612
         width: 34
         height: 34
@@ -3457,15 +3457,14 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -9, y: 17}
+      - - {x: -11, y: 17}
         - {x: -17, y: 17}
-        - {x: -17, y: -1}
-        - {x: -15, y: -7}
-        - {x: -9, y: -14}
+        - {x: -17, y: -7}
+        - {x: -9, y: -13}
         - {x: 3, y: -17}
-        - {x: 17, y: -17}
-        - {x: 17, y: -11}
-        - {x: 15, y: -6}
+        - {x: 16, y: -17}
+        - {x: 16, y: -11}
+        - {x: 14, y: -6}
     - name: 34x34icons180709 (1)_159
       rect:
         serializedVersion: 2
@@ -3486,7 +3485,7 @@ TextureImporter:
         - {x: 6, y: -15}
         - {x: 17, y: 4}
         - {x: 17, y: 17}
-    - name: 34x34icons180709 (1)_160
+    - name: crystal_bow
       rect:
         serializedVersion: 2
         x: 204
@@ -4071,7 +4070,7 @@ TextureImporter:
         - {x: 17, y: -17}
         - {x: 17, y: 9}
         - {x: 16, y: 13}
-    - name: 34x34icons180709 (1)_191
+    - name: wizard_hat
       rect:
         serializedVersion: 2
         x: 306
@@ -5538,10 +5537,10 @@ TextureImporter:
         - {x: 17, y: -11}
         - {x: 17, y: 6}
         - {x: 5, y: 15}
-    - name: 34x34icons180709 (1)_268
+    - name: gold_ring
       rect:
         serializedVersion: 2
-        x: 68
+        x: 69
         y: 340
         width: 34
         height: 34
@@ -5549,12 +5548,13 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -11, y: 16}
-        - {x: -15, y: 5}
-        - {x: -15, y: -15}
+      - - {x: -7, y: 16}
+        - {x: -16, y: 8}
+        - {x: -16, y: -10}
+        - {x: -14, y: -15}
         - {x: 4, y: -15}
-        - {x: 15, y: -4}
-        - {x: 15, y: 10}
+        - {x: 14, y: -6}
+        - {x: 14, y: 12}
         - {x: 12, y: 16}
     - name: 34x34icons180709 (1)_269
       rect:
@@ -7926,7 +7926,7 @@ TextureImporter:
         - {x: 17, y: -17}
         - {x: 17, y: 5}
         - {x: -6, y: 17}
-    - name: 34x34icons180709 (1)_398
+    - name: storm_sword
       rect:
         serializedVersion: 2
         x: 204

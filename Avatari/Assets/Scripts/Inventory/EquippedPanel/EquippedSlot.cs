@@ -27,15 +27,21 @@ public class EquippedSlot : MonoBehaviour, IPointerDownHandler {
      *  On tap down, create a dialog to remove items.
      */
     public void OnPointerDown(PointerEventData eventData) {
-        if(item == null) return;
+        if(empty) return;
 
         GameObject dialogPrefab = Resources.Load<GameObject>(
             "Prefabs/UI/Inventory/Dialogs/UnequipDialog");
         if (dialogPrefab == null) {
             throw new Exception("Unequip dialog prefab was not found.");
         }
-
+        CleanUpExistingDialogs();
         CreateDialog(dialogPrefab);
+    }
+
+    private void CleanUpExistingDialogs() {
+        foreach(Transform dialog in this.dialogSpawner) {
+            Destroy(dialog.gameObject);
+        }
     }
 
     /**
