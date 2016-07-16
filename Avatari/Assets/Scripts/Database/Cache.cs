@@ -16,7 +16,7 @@ public class Cache : MonoBehaviour, IDataSource {
     /**
      *  The list of inventory characters that the player owns.
      */
-    private List<Sprite> inventoryCharacters;
+    private List<Tari> inventoryCharacters;
 
     /**
      *  The list of inventory items that the player owns.
@@ -56,7 +56,7 @@ public class Cache : MonoBehaviour, IDataSource {
         return cache.bosses;
     }
 
-    public List<Sprite> LoadCharacters() {
+    public List<Tari> LoadCharacters() {
         return cache.inventoryCharacters;
     }
 
@@ -98,11 +98,8 @@ public class Cache : MonoBehaviour, IDataSource {
     /**
      *  Used to add characters to the characters list.
      */
-    public void AddCharacterToInventory(string name) {
-        Sprite[] characterSpriteSheet = Resources.LoadAll<Sprite>(
-            "Characters/" + name);
-        cache.inventoryCharacters.Add(Utility.GetSprite(
-            "idle", characterSpriteSheet));
+    public void AddCharacterToInventory(Tari tari) {
+        cache.inventoryCharacters.Add(tari);
     }
 
     public void AddAreaToInventory(string name) {
@@ -131,7 +128,7 @@ public class Cache : MonoBehaviour, IDataSource {
         DontDestroyOnLoad(gameObject);
         cache = this;
         cache.inventoryItems = new List<Item>();
-        cache.inventoryCharacters = new List<Sprite>();
+        cache.inventoryCharacters = new List<Tari>();
         cache.inventoryAreas = new List<Sprite>();
         cache.player = new Player();
         cache.bosses = new List<Boss>();

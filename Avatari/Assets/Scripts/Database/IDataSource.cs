@@ -13,7 +13,7 @@ public interface IDataSource {
      *  @summary: Loads inventory character sprites from cache.
      *  @return: A list of inventory character sprites from cache.
      */
-    List<Sprite> LoadCharacters();
+    List<Tari> LoadCharacters();
 
     /**
      *  @summary: Loads inventory items from cache.

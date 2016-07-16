@@ -22,9 +22,9 @@ public class MockDBInterface : MonoBehaviour {
         cache.AddItemToInventory(new Item("Crystal Bow", "crystal_bow", "A bow that uses MP for ammunition. Retrieved from gnome village", 10, Item.ItemType.Hands, Item.ItemRarity.Rare));
 
         // Add character objects
-        cache.AddCharacterToInventory("Vivi");
-        cache.AddCharacterToInventory("DonkeyKong");
-        cache.AddCharacterToInventory("MegaDude");
+        cache.AddCharacterToInventory(new Tari(0, "Vivi", "Vivi", "A mystical creature."));
+        cache.AddCharacterToInventory(new Tari(1, "Donkey Kong", "DonkeyKong", "Load up those barrels."));
+        cache.AddCharacterToInventory(new Tari(2, "Mega Dude", "MegaDude", "Not quite net worthy."));
 
         // Add areas
         cache.AddAreaToInventory("Lava");
