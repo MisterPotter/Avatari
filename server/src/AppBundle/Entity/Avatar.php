@@ -224,11 +224,11 @@ class Avatar
     /**
      * Set level
      *
-     * @param \int $level
+     * @param integer $level
      *
      * @return Avatar
      */
-    public function setLevel(\int $level)
+    public function setLevel($level)
     {
         $this->level = $level;
 
@@ -248,11 +248,11 @@ class Avatar
     /**
      * Set expMax
      *
-     * @param \int $expMax
+     * @param integer $expMax
      *
      * @return Avatar
      */
-    public function setExpMax(\int $expMax)
+    public function setExpMax($expMax)
     {
         $this->exp_max = $expMax;
 
@@ -272,11 +272,11 @@ class Avatar
     /**
      * Set expCurrent
      *
-     * @param \int $expCurrent
+     * @param integer $expCurrent
      *
      * @return Avatar
      */
-    public function setExpCurrent(\int $expCurrent)
+    public function setExpCurrent($expCurrent)
     {
         $this->exp_current = $expCurrent;
 
@@ -296,11 +296,11 @@ class Avatar
     /**
      * Set healthMax
      *
-     * @param \int $healthMax
+     * @param integer $healthMax
      *
      * @return Avatar
      */
-    public function setHealthMax(\int $healthMax)
+    public function setHealthMax($healthMax)
     {
         $this->health_max = $healthMax;
 
@@ -320,11 +320,11 @@ class Avatar
     /**
      * Set healthCurrent
      *
-     * @param \int $healthCurrent
+     * @param integer $healthCurrent
      *
      * @return Avatar
      */
-    public function setHealthCurrent(\int $healthCurrent)
+    public function setHealthCurrent($healthCurrent)
     {
         $this->health_current = $healthCurrent;
 

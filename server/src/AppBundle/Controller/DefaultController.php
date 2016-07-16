@@ -131,4 +131,58 @@ class DefaultController extends Controller
       }
       return $response;
     }
+
+    /**
+     * @Route("/avatar/set", name="avatar_set")
+     */
+    public function avatarSetAction(Request $request)
+    {
+      $session = new Session();
+      $response = new JsonResponse();
+      $em = $this->getDoctrine()->getManager();
+      $account_id = $session->get('user_id');
+
+      $account = $em->getRepository('AppBundle:Account')->findOneById($account_id);
+      if(!$account){
+        $response->setData(array(
+            'status' => 503,
+            'data' => 'Not Logged In'
+        ));
+        return $response;
+      }
+      $set = [];
+      $avatar = $account->getAvatar();
+      if($level = $request->get('level', false)){
+        $avatar->setLevel((int)$level);
+        $set[] = 'level';
+      }
+      if($exp = $request->get('experience', false)){
+        $avatar->setExpCurrent((int)$exp);
+        $set[] = 'experience';
+      }
+      if($health = $request->get('health', false)){
+        $avatar->setHealthCurrent((int)$health);
+        $set[] = 'health';
+      }
+      if($strength = $request->get('strength', false)){
+        $avatar->setStrengthBase((int)$strength);
+        $set[] = 'strength';
+      }
+      if($agility = $request->get('agility', false)){
+        $avatar->setAgilityBase((int)$agility);
+        $set[] = 'agility';
+      }
+      if($defense = $request->get('defense', false)){
+        $avatar->setDefenceBasehBase((int)$defense);
+        $set[] = 'defense';
+      }
+      $response->setData(array(
+          'status' => 200,
+          'data' => $set
+      ));
+      $em->persist($avatar);
+      $em->flush();
+
+      return $response;
+    }
 }

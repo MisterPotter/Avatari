@@ -8,19 +8,32 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use djchen\OAuth2\Client\Provider\Fitbit;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Response;
+
 
 class FitbitController extends Controller
 {
     /**
      * @Route("/oauth", name="oauth")
      */
-    public function indexAction(Request $request)
+    public function oauthAction(Request $request)
     {
       $em = $this->getDoctrine()->getManager();
       $session = new Session();
-      $account_id = $session->get('user_id');
+      if(!$session->get('token')){
+        $session->set('token', $request->get('token'));
+      }
 
-      $account = $em->getRepository('AppBundle:Account')->findOneById($account_id);
+      $account = $em->getRepository('AppBundle:Account')->findOneByToken($session->get('token'));
+      if(!$account){
+        $response = new JsonResponse();
+        $response->setData(array(
+          'status' => 503,
+          'data' => 'Token does not match'
+        ));
+        return $response;
+      }
+
       $fitbit = $account->getFitbit();
       $provider = new Fitbit([
           'clientId'          => '227T6K',
@@ -52,21 +65,28 @@ class FitbitController extends Controller
               $accessToken = $provider->getAccessToken('authorization_code', [
                   'code' => $_GET['code']
               ]);
-              $request = $provider->getAuthenticatedRequest(
-                  'GET',
-                  Fitbit::BASE_FITBIT_API_URL . '/1/user/-/activities/steps/date/today/1m.json',
-                  $accessToken,
-                  ['headers' => ['Accept-Language' => 'en_US'], ['Accept-Locale' => 'en_US']]
-              );
-              $data = $provider->getResponse($request);
+
               $fitbit->setToken($accessToken->getToken());
+              $fitbit->setRefreshToken($accessToken->getRefreshToken());
+              $fitbit->setExpires($accessToken->getExpires());
+              $fitbit->setHasExpired($accessToken->hasExpired());
+              // Using the access token, we may look up details about the
+              // resource owner.
+              $resourceOwner = $provider->getResourceOwner($accessToken);
+              $resourceOwner = $resourceOwner->toArray();
+              $fitbit->setFitbitId($resourceOwner['encodedId']);
+
               $em->persist($fitbit);
               $em->flush();
-              $response = new JsonResponse();
-              $response->setData(array(
-                'status' => 200,
-                'data' => $data
-              ));
+
+              $response = new Response();
+              $response->setContent('<html><body><h1>Authentication Successful</h1><h2>Please Return to Avatari</h2></body></html>');
+              $response->setStatusCode(Response::HTTP_OK);
+
+              // set a HTTP response header
+              $response->headers->set('Content-Type', 'text/html');
+
+              // print the HTTP headers followed by the content
               return $response;
 
           } catch (\League\OAuth2\Client\Provider\Exception\IdentityProviderException $e) {
@@ -85,6 +105,15 @@ class FitbitController extends Controller
       $account_id = $session->get('user_id');
 
       $account = $em->getRepository('AppBundle:Account')->findOneById($account_id);
+      if(!$account){
+        $response = new JsonResponse();
+        $response->setData(array(
+          'status' => 503,
+          'data' => 'Not Logged In'
+        ));
+        return $response;
+      }
+
       $fitbit = $account->getFitbit();
       $provider = new Fitbit([
           'clientId'          => '227T6K',
@@ -92,22 +121,87 @@ class FitbitController extends Controller
           'redirectUri'       => 'http://ec2-54-200-193-115.us-west-2.compute.amazonaws.com/app_dev.php/oauth'
       ]);
 
-      $accessToken = $fitbit->getToken();
+      try {
 
-      $request = $provider->getAuthenticatedRequest(
-          'GET',
-          Fitbit::BASE_FITBIT_API_URL . '/1/user/-/profile.json',
-          $accessToken,
-          ['headers' => ['Accept-Language' => 'en_US'], ['Accept-Locale' => 'en_US']]
-      );
-      $data = $provider->getResponse($request);
-        $response = new JsonResponse();
-        $response->setData(array(
-          'status' => 200,
-          'data' => $data
-        ));
-        return $response;
+          $resources = ['calories','steps','distance','minutesSedentary','minutesLightlyActive','minutesFairlyActive','minutesVeryActive','activityCalories'];
 
+          foreach($resources as $resource){
+            $request = $provider->getAuthenticatedRequest(
+                'GET',
+                Fitbit::BASE_FITBIT_API_URL . '/1/user/'.$fitbit->getFitbitId().'/activities/'.$resource.'/date/today/1w.json',
+                $fitbit->getToken(),
+                ['headers' => ['Accept-Language' => 'en_CA'], ['Accept-Locale' => 'en_CA']]
+            );
+            $data[$resource] = $provider->getResponse($request);
+          }
+
+          $request = $provider->getAuthenticatedRequest(
+              'GET',
+              Fitbit::BASE_FITBIT_API_URL . '/1/user/'.$fitbit->getFitbitId().'/activities.json',
+              $fitbit->getToken(),
+              ['headers' => ['Accept-Language' => 'en_CA'], ['Accept-Locale' => 'en_CA']]
+          );
+          $data["lifetime"] = $provider->getResponse($request);
+
+          $request = $provider->getAuthenticatedRequest(
+              'GET',
+              Fitbit::BASE_FITBIT_API_URL . '/1/user/'.$fitbit->getFitbitId().'/activities/list.json?offset=0&limit=20&sort=desc&beforeDate='.date("Y-m-d"),
+              $fitbit->getToken(),
+              ['headers' => ['Accept-Language' => 'en_CA'], ['Accept-Locale' => 'en_CA']]
+          );
+          $data["recent"] = $provider->getResponse($request);
+
+          $em->persist($fitbit);
+          $em->flush();
+          $response = new JsonResponse();
+          $response->setData(array(
+            'status' => 200,
+            'data' => $data
+          ));
+          return $response;
+
+      } catch (\League\OAuth2\Client\Provider\Exception\IdentityProviderException $e) {
+          // Failed to get the access token or user details.
+          exit($e->getMessage());
+      }
     }
 
+    /**
+     * @Route("/refresh", name="refresh")
+     */
+    public function refreshAction(Request $request){
+      $em = $this->getDoctrine()->getManager();
+      $session = new Session();
+      $account_id = $session->get('user_id');
+
+      $account = $em->getRepository('AppBundle:Account')->findOneById($account_id);
+      if(!$account){
+        $response = new JsonResponse();
+        $response->setData(array(
+          'status' => 503,
+          'data' => 'Not Logged In'
+        ));
+        return $response;
+      }
+
+      $fitbit = $account->getFitbit();
+      $provider = new Fitbit([
+          'clientId'          => '{fitbit-oauth2-client-id}',
+          'clientSecret'      => '{fitbit-client-secret}',
+          'redirectUri'       => 'https://example.com/callback-url'
+      ]);
+      $response = new JsonResponse();
+      if ($fitbit->hasExpired()) {
+          $fitbit->setRefreshToken($provider->getAccessToken('refresh_token', [
+              'refresh_token' => $fitbit->getRefreshToken()
+          ]));
+          $em->persist($fitbit);
+          $em->flush();
+      }
+      $response->setData(array(
+        'status' => 200,
+        'data' => 'Access token refreshed'
+      ));
+      return $response;
+    }
 }
