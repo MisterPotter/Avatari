@@ -1,19 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
 
 public class PlayerGoals {
-    public DailyStats dailyStats;
-    public LifetimeStats lifetimeStats;
+    public List<DailyGoal> dailyGoals;
+    public List<LifetimeGoal> lifetimeGoals;
 
     public PlayerGoals() {
-        dailyStats = new DailyStats();
-        lifetimeStats = new LifetimeStats();
+        dailyGoals = new List<DailyGoal>();
+        lifetimeGoals = new List<LifetimeGoal>();
     }
 
-    public PlayerGoals(int dailySteps, int dailyCalories, int dailyDistance, int dailyActiveMinutes, int dailyStepsGoal, int dailyCaloriesGoal, int dailyDistanceGoal, int dailyActiveMinutesGoal) {
-        dailyStats = new DailyStats(dailySteps, dailyCalories, dailyDistance, dailyActiveMinutes, dailyStepsGoal, dailyCaloriesGoal, dailyDistanceGoal, dailyActiveMinutesGoal);
-    }
-
-    public PlayerGoals(long lifetimeSteps, long lifetimeCalories, long lifetimeDistance, long lifetimeFloors, long lifetimeStepsGoal, long lifetimeCaloriesGoal, long lifetimeDistanceGoal, long lifetimeFloorsGoal) {
-        lifetimeStats = new LifetimeStats(lifetimeSteps, lifetimeCalories, lifetimeDistance, lifetimeFloors, lifetimeStepsGoal, lifetimeCaloriesGoal, lifetimeDistanceGoal, lifetimeFloorsGoal);
+    public PlayerGoals(List<DailyGoal> dailyGoals, List<LifetimeGoal> lifetimeGoals) {
+        this.dailyGoals = dailyGoals;
+        this.lifetimeGoals = lifetimeGoals;
     }
 }
