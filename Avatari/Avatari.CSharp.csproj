@@ -68,6 +68,11 @@
     <Compile Include="Assets\Scripts\Database\Cache.cs" />
     <Compile Include="Assets\Scripts\Database\IDataSource.cs" />
     <Compile Include="Assets\Scripts\Database\MockDBInterface.cs" />
+    <Compile Include="Assets\Scripts\Home\AgilityProgressBar.cs" />
+    <Compile Include="Assets\Scripts\Home\DefenseProgressBar.cs" />
+    <Compile Include="Assets\Scripts\Home\HealthProgressBar.cs" />
+    <Compile Include="Assets\Scripts\Home\LoadCharacter.cs" />
+    <Compile Include="Assets\Scripts\Home\StrengthProgressBar.cs" />
     <Compile Include="Assets\Scripts\Inventory\EquippedPanel\EquippedSlot.cs" />
     <Compile Include="Assets\Scripts\Inventory\EquippedPanel\InventoryScrollViewHandler.cs" />
     <Compile Include="Assets\Scripts\Inventory\EquippedPanel\LoadEquippedPanel.cs" />
@@ -76,8 +81,13 @@
     <Compile Include="Assets\Scripts\Inventory\ScrollViews\LoadAreaScrollView.cs" />
     <Compile Include="Assets\Scripts\Inventory\ScrollViews\LoadCharacterScrollView.cs" />
     <Compile Include="Assets\Scripts\Inventory\ScrollViews\LoadInventoryScrollView.cs" />
-    <Compile Include="Assets\Scripts\Player.cs" />
+    <Compile Include="Assets\Scripts\Player\Player.cs" />
+    <Compile Include="Assets\Scripts\Player\PlayerStatistic.cs" />
+    <Compile Include="Assets\Scripts\Player\Statistic.cs" />
     <Compile Include="Assets\Scripts\UI\MenuHandler.cs" />
+    <Compile Include="Assets\Scripts\UI\ProgressBar\ExperienceProgressBar.cs" />
+    <Compile Include="Assets\Scripts\UI\ProgressBar\LevelText.cs" />
+    <Compile Include="Assets\Scripts\UI\ProgressBar\ProgressBar.cs" />
     <Compile Include="Assets\Scripts\Utility.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
