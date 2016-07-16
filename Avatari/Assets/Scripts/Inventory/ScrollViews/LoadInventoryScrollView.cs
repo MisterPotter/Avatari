@@ -58,9 +58,13 @@ public class LoadInventoryScrollView : MonoBehaviour {
 
         int i = 0;
         foreach (Item item in items) {
-            Image slot = clone.transform.GetChild(i++).GetChild(0)
-                .GetComponent<Image>();
-            slot.sprite = this.cache.LoadInventorySprite(item.resourceName);
+            Transform slot = clone.transform.GetChild(i++).GetChild(0);
+            Image slotImage = slot.GetComponent<Image>();
+            InventorySlot slotScript = slot.GetComponent<InventorySlot>();
+
+            slotImage.sprite = this.cache.LoadInventorySprite(item.resourceName);
+            slotScript.item = item;
+            slotScript.slot = slotImage;
         }
     }
 
