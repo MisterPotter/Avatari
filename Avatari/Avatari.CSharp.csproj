@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Bosses\Boss.cs" />
     <Compile Include="Assets\Scripts\Bosses\BossLoader.cs" />
+    <Compile Include="Assets\Scripts\Config.cs" />
     <Compile Include="Assets\Scripts\Database\Cache.cs" />
     <Compile Include="Assets\Scripts\Database\IDataSource.cs" />
     <Compile Include="Assets\Scripts\Database\MockDBInterface.cs" />
@@ -81,6 +82,7 @@
     <Compile Include="Assets\Scripts\Inventory\ScrollViews\LoadAreaScrollView.cs" />
     <Compile Include="Assets\Scripts\Inventory\ScrollViews\LoadCharacterScrollView.cs" />
     <Compile Include="Assets\Scripts\Inventory\ScrollViews\LoadInventoryScrollView.cs" />
+    <Compile Include="Assets\Scripts\Login\LoginUIHandler.cs" />
     <Compile Include="Assets\Scripts\Player\Player.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerStatistic.cs" />
     <Compile Include="Assets\Scripts\Player\Statistic.cs" />
