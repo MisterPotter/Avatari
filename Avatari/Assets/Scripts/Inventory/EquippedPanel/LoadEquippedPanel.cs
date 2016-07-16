@@ -90,13 +90,13 @@ public class LoadEquippedPanel : MonoBehaviour {
                 slot = this.chestSlot.GetComponent<Image>();
                 slotScript = this.chestSlot.GetComponent<EquippedSlot>();
                 item = equippedGear.chestGear;
-                defaultResource = "chest";
+                defaultResource = "body";
                 break;
             case Item.ItemType.Feet:
                 slot = this.feetSlot.GetComponent<Image>();
                 slotScript = this.feetSlot.GetComponent<EquippedSlot>();
                 item = equippedGear.footGear;
-                defaultResource = "feet";
+                defaultResource = "shoes";
                 break;
             case Item.ItemType.Hands:
                 slot = this.handsSlot.GetComponent<Image>();
@@ -124,6 +124,8 @@ public class LoadEquippedPanel : MonoBehaviour {
         // Enforce the item type to be the type we are expecting and load it
         if (item.itemType == itemType) {
             slot.sprite = this.cache.LoadInventorySprite(item.resourceName);
+            slotScript.slot = slot;
+            slotScript.slotDefault = Resources.Load<Sprite>("Inventory/" + defaultResource);
             slotScript.item = item;
         } else {
             throw new Exception("Expected player gear of type: " + itemType
