@@ -31,9 +31,15 @@ public class Player {
      */
     public string sprite { get; set; }
 
+    /**
+     * The statistics of the player 
+     */
+    public PlayerStatistic stats;
+
     public Player() {
         this.gear = null;
         this.sprite = null;
+        this.stats = null;
     }
 
     public void UnequipItem(Item item) {

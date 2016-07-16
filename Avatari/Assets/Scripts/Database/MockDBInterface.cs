@@ -43,6 +43,7 @@ public class MockDBInterface : MonoBehaviour {
             new Item("Mystic Wings", "wings", "I wonder how these work?", 5, Item.ItemType.Wings, Item.ItemRarity.Common)
         );
         player.sprite = "Vivi";
+        player.stats = new PlayerStatistic(4, 4100, 2, 3, 4, 5);
         cache.player = player;
     }
 
