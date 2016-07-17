@@ -21,10 +21,6 @@ public abstract class ProgressBar : MonoBehaviour {
         UpdateSlider();
 	}
 
-    void Update() {
-        UpdateSlider();
-    }
-
     private void FindCache() {
         cache = Utility.LoadObject<Cache>("Cache");
     }

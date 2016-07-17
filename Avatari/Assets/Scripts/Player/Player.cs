@@ -43,68 +43,88 @@ public class Player {
     }
 
     public void UnequipItem(Item item) {
+        bool itemUnequipped = false;
         switch(item.itemType) {
             case Item.ItemType.Head:
                 if(item.itemID == this.gear.headGear.itemID) {
                     this.gear.headGear = null;
+                    itemUnequipped = true;
                 }
                 break;
             case Item.ItemType.Body:
                 if (item.itemID == gear.chestGear.itemID) {
                     this.gear.chestGear = null;
+                    itemUnequipped = true;
                 }
                 break;
             case Item.ItemType.Hands:
                 if (item.itemID == gear.handGear.itemID) {
                     this.gear.handGear = null;
+                    itemUnequipped = true;
                 }
                 break;
             case Item.ItemType.Feet:
                 if (item.itemID == gear.footGear.itemID) {
                     this.gear.footGear = null;
+                    itemUnequipped = true;
                 }
                 break;
             case Item.ItemType.Wings:
                 if (item.itemID == gear.wingGear.itemID) {
                     this.gear.wingGear = null;
+                    itemUnequipped = true;
                 }
                 break;
             default:
                 throw new Exception("Invalid item type while uneqipping: "
                     + item.itemType);
         }
+        if (itemUnequipped) {
+            this.stats.UpdateStatOnItemChange(item, false);
+        }
     }
 
     public void EquipItem(Item item) {
+        bool itemEquipped = false;
+
         switch (item.itemType) {
             case Item.ItemType.Head:
                 if (item.itemID == this.gear.headGear.itemID) {
                     this.gear.headGear = item;
+                    itemEquipped = true;
                 }
                 break;
             case Item.ItemType.Body:
                 if (item.itemID == gear.chestGear.itemID) {
                     this.gear.chestGear = item;
+                    itemEquipped = true;
                 }
                 break;
             case Item.ItemType.Hands:
                 if (item.itemID == gear.handGear.itemID) {
                     this.gear.handGear = item;
+                    itemEquipped = true;
                 }
                 break;
             case Item.ItemType.Feet:
                 if (item.itemID == gear.footGear.itemID) {
                     this.gear.footGear = item;
+                    itemEquipped = true;
                 }
                 break;
             case Item.ItemType.Wings:
                 if (item.itemID == gear.wingGear.itemID) {
                     this.gear.wingGear = item;
+                    itemEquipped = true;
                 }
                 break;
             default:
                 throw new Exception("Invalid item type while eqipping: "
                     + item.itemType);
+        }
+
+        if (itemEquipped) {
+            this.stats.UpdateStatOnItemChange(item, true);
         }
     }
 }
