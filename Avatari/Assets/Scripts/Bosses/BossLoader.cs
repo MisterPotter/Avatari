@@ -14,8 +14,13 @@ public class BossLoader : MonoBehaviour {
     private Transform panelSpawner;
     private const float rowVertOffset = 60.0f;
 
+    private int playerLevel;
+
+    private const string levelInsufficient = "Your character's level isn't high enough to fight this boss.";
+
     private void Awake () {
         Initialize();
+        GetPlayerLevel();
         LoadBosses();
     }
 
@@ -37,18 +42,32 @@ public class BossLoader : MonoBehaviour {
                 (offset*i++), Quaternion.identity);
             clone.transform.SetParent(panelSpawner, false);
 
-            Text bossTitle = clone.transform.GetChild(0).GetComponent<Text>();
-            bossTitle.text = boss.getName();
+            // boss is challengeable if the player has that level or greater
+            bool canChallenge = playerLevel >= boss.getLevel();
 
+            Text bossTitle = clone.transform.GetChild(0).GetComponent<Text>();
+            if (canChallenge) {
+                bossTitle.text = boss.getName();
+            } else {
+                bossTitle.text = "???";
+            }
             Text bossRequirement = clone.transform.GetChild(1).GetComponent<Text>();
             bossRequirement.text = boss.getRequirement();
 
             Image bossIcon = clone.transform.GetChild(2).GetComponent<Image>();
-            bossIcon.sprite = cache.LoadBossSprite(boss.getSpriteName());
+            if (canChallenge) {
+                bossIcon.sprite = cache.LoadBossSprite(boss.getSpriteName());
+            } else {
+                bossIcon.sprite = cache.LoadBossSprite("mystery");
+            }
 
             Image bossInfo = clone.transform.GetChild(3).GetComponent<Image>();
             bossInfo.sprite = cache.LoadUtilitySprite("info");
         }
         
+    }
+
+    private void GetPlayerLevel() {
+        playerLevel = this.cache.LoadPlayerLevel();
     }
 }
