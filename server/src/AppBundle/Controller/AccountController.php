@@ -23,13 +23,13 @@ class AccountController extends Controller
       $session = new Session();
       $response = new JsonResponse();
 
-      if (!$session->get('user_id')) {
+      if (!$request->get('avatari_user_id')) {
         $response->setData(array(
           'status' => 503,
           'data' => 'not logged in'
         ));
       } else {
-        $account_id = $session->get('user_id');
+        $account_id = $request->get('avatari_user_id');
         $account = $this->getDoctrine()->getRepository('AppBundle:Account')->findById($account_id);
 
         $response->setData(array(
@@ -113,7 +113,7 @@ class AccountController extends Controller
       $errors = [];
       $response = new JsonResponse();
 
-      if ($session->get('user_id')){
+      if ($request->get('avatari_user_id')){
         $errors[] = 'You are already logged in';
       }
 
@@ -133,10 +133,10 @@ class AccountController extends Controller
           'data' => $errors
         ));
       } else {
-        $session->set('user_id', $account->getId());
+        $session->set('avatari_user_id', $account->getId());
         $response->setData(array(
           'status' => 200,
-          'data' => 'Logged in as '.$account->getId()
+          'data' => $account->getId()
         ));
       }
 

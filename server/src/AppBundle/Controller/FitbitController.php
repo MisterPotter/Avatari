@@ -50,15 +50,15 @@ class FitbitController extends Controller
           $authorizationUrl = $provider->getAuthorizationUrl();
 
           // Get the state generated for you and store it to the session.
-          $_SESSION['oauth2state'] = $provider->getState();
+          $session->set('oauth2state', $provider->getState());
 
           // Redirect the user to the authorization URL.
           header('Location: ' . $authorizationUrl);
           exit;
 
       // Check given state against previously stored one to mitigate CSRF attack
-      } elseif (empty($_GET['state']) || ($_GET['state'] !== $_SESSION['oauth2state'])) {
-          unset($_SESSION['oauth2state']);
+    } elseif (empty($_GET['state']) || ($_GET['state'] !== $session->get('oauth2state'))) {
+          $session->set('oauth2state', NULL);
           exit('Invalid state');
       } else {
           try {
@@ -102,7 +102,7 @@ class FitbitController extends Controller
     public function apiAction(Request $request){
       $em = $this->getDoctrine()->getManager();
       $session = new Session();
-      $account_id = $session->get('user_id');
+      $account_id = $request->get('avatari_user_id');
 
       $account = $em->getRepository('AppBundle:Account')->findOneById($account_id);
       if(!$account){
@@ -172,7 +172,7 @@ class FitbitController extends Controller
     public function refreshAction(Request $request){
       $em = $this->getDoctrine()->getManager();
       $session = new Session();
-      $account_id = $session->get('user_id');
+      $account_id = $request->get('avatari_user_id');
 
       $account = $em->getRepository('AppBundle:Account')->findOneById($account_id);
       if(!$account){
@@ -202,6 +202,40 @@ class FitbitController extends Controller
         'status' => 200,
         'data' => 'Access token refreshed'
       ));
+      return $response;
+    }
+
+    /**
+     * @Route("/isOauth", name="isOauth")
+     */
+    public function isOauthAction(Request $request){
+      $em = $this->getDoctrine()->getManager();
+      $session = new Session();
+      $response = new JsonResponse();
+
+      $account_id = $request->get('avatari_user_id');
+      $account = $em->getRepository('AppBundle:Account')->findOneById($account_id);
+
+      if(!$account){
+        $response->setData(array(
+          'status' => 503,
+          'data' => 'Not Logged In'
+        ));
+        return $response;
+      }
+
+      $fitbit = $account->getFitbit();
+      if($fitbit->getToken() == Null){
+        $response->setData(array(
+          'status' => 503,
+          'data' => 'User does not have oauth'
+        ));
+      } else {
+        $response->setData(array(
+          'status' => 200,
+          'data' => 'User has oauth'
+        ));
+      }
       return $response;
     }
 }

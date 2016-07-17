@@ -79,7 +79,7 @@ class DefaultController extends Controller
 
       $response = new JsonResponse();
       if(true){
-        $account_id = $session->get('user_id');
+        $account_id = $request->get('avatari_user_id');
 
         $account = $this->getDoctrine()->getRepository('AppBundle:Account')->findOneById($account_id);
         $avatar = $account->getAvatar();
@@ -146,7 +146,7 @@ class DefaultController extends Controller
       $session = new Session();
       $response = new JsonResponse();
       $em = $this->getDoctrine()->getManager();
-      $account_id = $session->get('user_id');
+      $account_id = $request->get('avatari_user_id');
 
       $account = $em->getRepository('AppBundle:Account')->findOneById($account_id);
       if(!$account){
@@ -201,7 +201,7 @@ class DefaultController extends Controller
       $session = new Session();
       $response = new JsonResponse();
       $em = $this->getDoctrine()->getManager();
-      $account_id = $session->get('user_id');
+      $account_id = $request->get('avatari_user_id');
 
       $account = $em->getRepository('AppBundle:Account')->findOneById($account_id);
       if(!$account){
@@ -250,7 +250,7 @@ class DefaultController extends Controller
       $session = new Session();
       $response = new JsonResponse();
       $em = $this->getDoctrine()->getManager();
-      $account_id = $session->get('user_id');
+      $account_id = $request->get('avatari_user_id');
 
       $account = $em->getRepository('AppBundle:Account')->findOneById($account_id);
       if(!$account){
