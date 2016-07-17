@@ -15,19 +15,11 @@ public class MockDBInterface : MonoBehaviour {
     private void PopulateInventory() {
         // Add inventory objects
         Cache cache = Utility.LoadObject<Cache>("Cache");
-<<<<<<< HEAD
         /*cache.AddItemToInventory(new Item("Ruby Amulet", "ruby_amulet", "A gem commonly found in, Burma. Now made into a necklase.", 6, Item.ItemType.Neck, Item.ItemRarity.Uncommon));
         cache.AddItemToInventory(new Item("Iron Ring", "iron_ring", "Looks like graduation is here.", 7, Item.ItemType.Ring, Item.ItemRarity.Uncommon));
         cache.AddItemToInventory(new Item("Feather", "feather", "A common feather.", 8, Item.ItemType.Other, Item.ItemRarity.Common));
         cache.AddItemToInventory(new Item("Spear", "spear", "A spear used for fighting.", 9, Item.ItemType.Hands, Item.ItemRarity.Common));
         cache.AddItemToInventory(new Item("Crystal Bow", "crystal_bow", "A bow that uses MP for ammunition. Retrieved from gnome village", 10, Item.ItemType.Hands, Item.ItemRarity.Rare));*/
-=======
-        cache.AddItemToInventory(new Item("Ruby Amulet", "ruby_amulet", "A gem commonly found in, Burma. Now made into a necklase.", 6, Item.ItemType.Neck, Item.ItemRarity.Uncommon, Statistic.Type.Defense, 1));
-        cache.AddItemToInventory(new Item("Iron Ring", "iron_ring", "Looks like graduation is here.", 7, Item.ItemType.Neck, Item.ItemRarity.Uncommon, Statistic.Type.Defense, 2));
-        cache.AddItemToInventory(new Item("Feather", "feather", "A common feather.", 8, Item.ItemType.Other, Item.ItemRarity.Common, Statistic.Type.Strength, 3));
-        cache.AddItemToInventory(new Item("Spear", "spear", "A spear used for fighting.", 9, Item.ItemType.Hands, Item.ItemRarity.Common, Statistic.Type.Defense, 1));
-        cache.AddItemToInventory(new Item("Crystal Bow", "crystal_bow", "A bow that uses MP for ammunition. Retrieved from gnome village", 10, Item.ItemType.Hands, Item.ItemRarity.Rare, Statistic.Type.Strength, 2));
->>>>>>> origin/master
 
         // Add character objects
         cache.AddCharacterToInventory(new Tari(0, "Vivi", "Vivi", "A mystical creature."));

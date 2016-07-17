@@ -83,11 +83,11 @@
     <Compile Include="Assets\Scripts\Database\Fitbit\LifetimeStats.cs" />
     <Compile Include="Assets\Scripts\Database\IDataSource.cs" />
     <Compile Include="Assets\Scripts\Database\MockDBInterface.cs" />
-    <Compile Include="Assets\Scripts\Home\AgilityProgressBar.cs" />
-    <Compile Include="Assets\Scripts\Home\DefenseProgressBar.cs" />
-    <Compile Include="Assets\Scripts\Home\HealthProgressBar.cs" />
     <Compile Include="Assets\Scripts\Home\LoadCharacter.cs" />
-    <Compile Include="Assets\Scripts\Home\StrengthProgressBar.cs" />
+    <Compile Include="Assets\Scripts\Home\ProgressBar\AgilityProgressBar.cs" />
+    <Compile Include="Assets\Scripts\Home\ProgressBar\DefenseProgressBar.cs" />
+    <Compile Include="Assets\Scripts\Home\ProgressBar\HealthProgressBar.cs" />
+    <Compile Include="Assets\Scripts\Home\ProgressBar\StrengthProgressBar.cs" />
     <Compile Include="Assets\Scripts\Inventory\EquippedPanel\EquippedSlot.cs" />
     <Compile Include="Assets\Scripts\Inventory\EquippedPanel\InventoryScrollViewHandler.cs" />
     <Compile Include="Assets\Scripts\Inventory\EquippedPanel\LoadEquippedPanel.cs" />
