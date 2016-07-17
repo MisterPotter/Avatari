@@ -38,6 +38,41 @@ class Avatar
        private $items;
 
        /**
+       * @ORM\ManyToOne(targetEntity="Item")
+       */
+       private $head;
+
+       /**
+       * @ORM\ManyToOne(targetEntity="Item")
+       */
+       private $body;
+
+       /**
+       * @ORM\ManyToOne(targetEntity="Item")
+       */
+       private $feet;
+
+       /**
+       * @ORM\ManyToOne(targetEntity="Item")
+       */
+       private $hands;
+
+       /**
+       * @ORM\ManyToOne(targetEntity="Item")
+       */
+       private $wings;
+
+       /**
+       * @ORM\ManyToOne(targetEntity="Item")
+       */
+       private $neck;
+
+       /**
+       * @ORM\ManyToOne(targetEntity="Item")
+       */
+       private $ring;
+
+       /**
         * @ORM\Column(type="integer", length=100)
         */
        private $level;
@@ -119,6 +154,14 @@ class Avatar
     {
         $this->goals = new \Doctrine\Common\Collections\ArrayCollection();
         $this->items = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->level = 1;
+        $this->exp_max = 100;
+        $this->exp_current = 0;
+        $this->health_max = 100;
+        $this->health_current = 100;
+        $this->agility_base = 5;
+        $this->defence_base = 5;
+        $this->strength_base = 5;
     }
 
     /**
@@ -216,11 +259,11 @@ class Avatar
     /**
      * Set level
      *
-     * @param \int $level
+     * @param integer $level
      *
      * @return Avatar
      */
-    public function setLevel(\int $level)
+    public function setLevel($level)
     {
         $this->level = $level;
 
@@ -240,11 +283,11 @@ class Avatar
     /**
      * Set expMax
      *
-     * @param \int $expMax
+     * @param integer $expMax
      *
      * @return Avatar
      */
-    public function setExpMax(\int $expMax)
+    public function setExpMax($expMax)
     {
         $this->exp_max = $expMax;
 
@@ -264,11 +307,11 @@ class Avatar
     /**
      * Set expCurrent
      *
-     * @param \int $expCurrent
+     * @param integer $expCurrent
      *
      * @return Avatar
      */
-    public function setExpCurrent(\int $expCurrent)
+    public function setExpCurrent($expCurrent)
     {
         $this->exp_current = $expCurrent;
 
@@ -288,11 +331,11 @@ class Avatar
     /**
      * Set healthMax
      *
-     * @param \int $healthMax
+     * @param integer $healthMax
      *
      * @return Avatar
      */
-    public function setHealthMax(\int $healthMax)
+    public function setHealthMax($healthMax)
     {
         $this->health_max = $healthMax;
 
@@ -312,11 +355,11 @@ class Avatar
     /**
      * Set healthCurrent
      *
-     * @param \int $healthCurrent
+     * @param integer $healthCurrent
      *
      * @return Avatar
      */
-    public function setHealthCurrent(\int $healthCurrent)
+    public function setHealthCurrent($healthCurrent)
     {
         $this->health_current = $healthCurrent;
 
@@ -403,5 +446,174 @@ class Avatar
     public function getStrengthBase()
     {
         return $this->strength_base;
+    }
+
+
+    /**
+     * Set head
+     *
+     * @param \AppBundle\Entity\Item $head
+     *
+     * @return Avatar
+     */
+    public function setHead(\AppBundle\Entity\Item $head = null)
+    {
+        $this->head = $head;
+
+        return $this;
+    }
+
+    /**
+     * Get head
+     *
+     * @return \AppBundle\Entity\Item
+     */
+    public function getHead()
+    {
+        return $this->head;
+    }
+
+    /**
+     * Set body
+     *
+     * @param \AppBundle\Entity\Item $body
+     *
+     * @return Avatar
+     */
+    public function setBody(\AppBundle\Entity\Item $body = null)
+    {
+        $this->body = $body;
+
+        return $this;
+    }
+
+    /**
+     * Get body
+     *
+     * @return \AppBundle\Entity\Item
+     */
+    public function getBody()
+    {
+        return $this->body;
+    }
+
+    /**
+     * Set feet
+     *
+     * @param \AppBundle\Entity\Item $feet
+     *
+     * @return Avatar
+     */
+    public function setFeet(\AppBundle\Entity\Item $feet = null)
+    {
+        $this->feet = $feet;
+
+        return $this;
+    }
+
+    /**
+     * Get feet
+     *
+     * @return \AppBundle\Entity\Item
+     */
+    public function getFeet()
+    {
+        return $this->feet;
+    }
+
+    /**
+     * Set hands
+     *
+     * @param \AppBundle\Entity\Item $hands
+     *
+     * @return Avatar
+     */
+    public function setHands(\AppBundle\Entity\Item $hands = null)
+    {
+        $this->hands = $hands;
+
+        return $this;
+    }
+
+    /**
+     * Get hands
+     *
+     * @return \AppBundle\Entity\Item
+     */
+    public function getHands()
+    {
+        return $this->hands;
+    }
+
+    /**
+     * Set wings
+     *
+     * @param \AppBundle\Entity\Item $wings
+     *
+     * @return Avatar
+     */
+    public function setWings(\AppBundle\Entity\Item $wings = null)
+    {
+        $this->wings = $wings;
+
+        return $this;
+    }
+
+    /**
+     * Get wings
+     *
+     * @return \AppBundle\Entity\Item
+     */
+    public function getWings()
+    {
+        return $this->wings;
+    }
+
+    /**
+     * Set neck
+     *
+     * @param \AppBundle\Entity\Item $neck
+     *
+     * @return Avatar
+     */
+    public function setNeck(\AppBundle\Entity\Item $neck = null)
+    {
+        $this->neck = $neck;
+
+        return $this;
+    }
+
+    /**
+     * Get neck
+     *
+     * @return \AppBundle\Entity\Item
+     */
+    public function getNeck()
+    {
+        return $this->neck;
+    }
+
+    /**
+     * Set ring
+     *
+     * @param \AppBundle\Entity\Item $ring
+     *
+     * @return Avatar
+     */
+    public function setRing(\AppBundle\Entity\Item $ring = null)
+    {
+        $this->ring = $ring;
+
+        return $this;
+    }
+
+    /**
+     * Get ring
+     *
+     * @return \AppBundle\Entity\Item
+     */
+    public function getRing()
+    {
+        return $this->ring;
     }
 }

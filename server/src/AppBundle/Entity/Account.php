@@ -2,14 +2,13 @@
 // src/Appbundle/Entity/Account.php
 namespace AppBundle\Entity;
 
-use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
 * @ORM\Entity
 * @ORM\Table(name="account")
 */
-class Account extends BaseUser
+class Account
 {
     /**
     * @ORM\Column(type="integer")
@@ -17,6 +16,11 @@ class Account extends BaseUser
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+
+    /**
+    * @ORM\Column(type="string")
+     */
+    protected $token;
 
     /**
      * @ORM\OneToOne(targetEntity="Avatar", mappedBy="account")
@@ -108,5 +112,29 @@ class Account extends BaseUser
     public function getFitbit()
     {
         return $this->fitbit;
+    }
+
+    /**
+     * Set token
+     *
+     * @param string $token
+     *
+     * @return Account
+     */
+    public function setToken($token)
+    {
+        $this->token = $token;
+
+        return $this;
+    }
+
+    /**
+     * Get token
+     *
+     * @return string
+     */
+    public function getToken()
+    {
+        return $this->token;
     }
 }
