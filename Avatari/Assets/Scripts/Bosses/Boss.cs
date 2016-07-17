@@ -9,7 +9,7 @@ public class Boss {
     private string requirement;
     private string info;
     private bool locked;
-    private int level;
+    private Level level;
     private int bossID;
    
     public Boss (string name, string info, int level, int bossID) {
@@ -17,8 +17,8 @@ public class Boss {
         this.spriteName = "monster" + bossID;
         this.info = info;
         this.bossID = bossID;
-        this.level = level;
-        this.requirement = "Reach level " + this.level;
+        this.level = new Level(level);
+        this.requirement = "Reach level " + this.level.CurrentValue;
         this.locked = true;
     }
 
@@ -36,5 +36,9 @@ public class Boss {
 
     public string getInfo() {
         return this.info;
+    }
+
+    public int getLevel() {
+        return this.level.CurrentValue;
     }
 }
