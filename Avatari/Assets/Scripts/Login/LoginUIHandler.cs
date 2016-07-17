@@ -59,6 +59,7 @@ public class LoginUIHandler : MonoBehaviour {
         var response = data["status"];
 
         if(response.AsInt != 200) {
+            Debug.Log(checkAcccountRequest.text);
             StartCoroutine(CreateAccount(name));
         } else {
             this.sessionKey = data["data"].AsInt;
@@ -113,6 +114,7 @@ public class LoginUIHandler : MonoBehaviour {
      *  Open up the url for authenitcation.
      */
     private void Authenticate() {
+        Debug.Log("Authenication nation");
         Application.OpenURL(String.Format(Config.ControllerURLOAuthFormat, this.token));
         browserOpened = true;
     }

@@ -44,14 +44,87 @@ public class PopulateCache : MonoBehaviour {
             this.mutex.WaitOne();
             this.callCount++;
             this.mutex.ReleaseMutex();
-            Debug.Log(this.callCount);
         } else {
             throw new Exception("FATAL: Fitbit data could not be obtained.");
         }
     }
 
-    private void FillCacheWithFitbitData (JSONNode data) {
+    private void FillCacheWithFitbitData(JSONNode data) {
+        PopulateLifetimeStats(data["lifetime"]["lifetime"]["total"]);
+        PopulateCalories(data["calories"]["activities-calories"]);
+        PopulateActivityCalories(data["activityCalories"]["activities-activityCalories"]);
+        PopulateSteps(data["steps"]["activities-steps"]);
+        PopulateDistance(data["distance"]["activities-distance"]);
+        PopulateFairlyActive(data["minutesFairlyActive"]["activities-minutesFairlyActive"]);
+        PopulateVeryActive(data["minutesVeryActive"]["activities-minutesVeryActive"]);
+    }
 
+    /**
+     *  Populate the cache with lifetime stats
+     *  of a fitbit users from JSON data.
+     */
+    private void PopulateLifetimeStats(JSONNode data) {
+        this.cache.fitbit.lifetime = new LifetimeStats(
+            data["activeScore"].AsInt,
+            data["caloritesOut"].AsInt,
+            data["distance"].AsDouble,
+            data["floors"].AsInt,
+            data["steps"].AsInt
+        );
+    }
+
+    private void PopulateCalories(JSONNode data) {
+        foreach(JSONNode record in data.AsArray) {
+            this.cache.AddPairToCalories(new FitbitPair<int>(
+                data["dateTime"].Value,
+                data["value"].AsInt
+            ));
+        }
+    }
+
+    private void PopulateActivityCalories(JSONNode data) {
+        foreach (JSONNode record in data.AsArray) {
+            this.cache.AddPairToActivityCalories(new FitbitPair<int>(
+                data["dateTime"].Value,
+                data["value"].AsInt
+            ));
+        }
+    }
+
+    private void PopulateSteps(JSONNode data) {
+        foreach (JSONNode record in data.AsArray) {
+            this.cache.AddPairToSteps(new FitbitPair<int>(
+                data["dateTime"].Value,
+                data["value"].AsInt
+            ));
+        }
+    }
+
+    private void PopulateDistance(JSONNode data) {
+        foreach (JSONNode record in data.AsArray) {
+            this.cache.AddPairToDistance(new FitbitPair<double>(
+                data["dateTime"].Value,
+                data["value"].AsDouble
+            ));
+        }
+    }
+
+    private void PopulateFairlyActive(JSONNode data) {
+        foreach (JSONNode record in data.AsArray) {
+            this.cache.AddPairToFairlyActive(new FitbitPair<int>(
+                data["dateTime"].Value,
+                data["value"].AsInt
+            ));
+        }
+    }
+
+    private void PopulateVeryActive(JSONNode data) {
+        foreach (JSONNode record in data.AsArray) {
+            this.cache.AddPairToVeryActive(new FitbitPair<int>(
+                data["dateTime"].Value,
+                data["value"].AsInt
+            ));
+        }
     }
 
     private IEnumerator PopulateItems () {
@@ -69,7 +142,6 @@ public class PopulateCache : MonoBehaviour {
             this.mutex.WaitOne();
             this.callCount++;
             this.mutex.ReleaseMutex();
-            Debug.Log(this.callCount);
         } else {
             throw new Exception("FATAL: Item data could not be obtained.");
         }

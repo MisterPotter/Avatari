@@ -6,7 +6,13 @@ using System;
  *  The cache class to be used throughout all scenes.
  */
 public class Cache : MonoBehaviour, IDataSource {
+
+    /**
+     *  Singleton instance.
+     */
     public static Cache cache;
+
+    public Fitbit fitbit { get; set; }
 
     /**
      *  The list of inventory areas that the player owns.
@@ -48,6 +54,9 @@ public class Cache : MonoBehaviour, IDataSource {
      */
     public Player player { get; set; }
 
+    /**
+     *  The session key to use for all requests.
+     */
     public int sessionKey { get; set; }
 
     public List<Sprite> LoadAreas() {
@@ -91,6 +100,34 @@ public class Cache : MonoBehaviour, IDataSource {
     }
 
     /**
+     *  Fitbit data
+     */
+
+    public void AddPairToCalories(FitbitPair<int> pair) {
+        this.fitbit.calories.Add(pair);
+    }
+
+    public void AddPairToActivityCalories(FitbitPair<int> pair) {
+        this.fitbit.activityCalories.Add(pair);
+    }
+
+    public void AddPairToSteps(FitbitPair<int> pair) {
+        this.fitbit.activeSteps.Add(pair);
+    }
+
+    public void AddPairToDistance(FitbitPair<double> pair) {
+        this.fitbit.activeDistance.Add(pair);
+    }
+
+    public void AddPairToFairlyActive(FitbitPair<int> pair) {
+        this.fitbit.fairlyActive.Add(pair);
+    }
+
+    public void AddPairToVeryActive(FitbitPair<int> pair) {
+        this.fitbit.veryActive.Add(pair);
+    }
+
+    /**
      *  Used to add items to the inventory list.
      */
     public void AddItemToInventory(Item item) {
@@ -104,6 +141,9 @@ public class Cache : MonoBehaviour, IDataSource {
         cache.inventoryCharacters.Add(tari);
     }
 
+    /**
+     *  Used to add areas to inventory.
+     */
     public void AddAreaToInventory(string name) {
         Sprite area = Resources.Load<Sprite>("Sprites/Areas/" + name);
         if(area != null) {
@@ -129,6 +169,7 @@ public class Cache : MonoBehaviour, IDataSource {
     private void CreateInstance() {
         DontDestroyOnLoad(gameObject);
         cache = this;
+        fitbit = new Fitbit();
         cache.inventoryItems = new List<Item>();
         cache.inventoryCharacters = new List<Tari>();
         cache.inventoryAreas = new List<Sprite>();
