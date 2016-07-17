@@ -11,7 +11,6 @@ public class LoginUIHandler : MonoBehaviour {
     private GenerateToken tokenGenerator;
 
     private bool browserOpened;
-    private string name;
     private string token;
     private int sessionKey;
 
@@ -25,7 +24,6 @@ public class LoginUIHandler : MonoBehaviour {
 
     public void Login() {
         if (avatarName.text != "") {
-            this.name = this.avatarName.text;
             this.token = this.tokenGenerator.token;
             StartCoroutine(CheckAccountExists(avatarName.text));
         }
@@ -103,6 +101,9 @@ public class LoginUIHandler : MonoBehaviour {
         browserOpened = true;
     }
 
+    /**
+     *  Check when the app in back in focus and the browser is open
+     */
     private void OnApplicationFocus(bool focusState) {
         if(focusState && browserOpened) {
             StartCoroutine(IsAuthenticated());
