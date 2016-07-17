@@ -66,7 +66,7 @@ public class PopulateCache : MonoBehaviour {
     private void PopulateLifetimeStats(JSONNode data) {
         this.cache.fitbit.lifetime = new LifetimeStats(
             data["activeScore"].AsInt,
-            data["caloritesOut"].AsInt,
+            data["caloriesOut"].AsInt,
             data["distance"].AsDouble,
             data["floors"].AsInt,
             data["steps"].AsInt
@@ -76,8 +76,8 @@ public class PopulateCache : MonoBehaviour {
     private void PopulateCalories(JSONNode data) {
         foreach(JSONNode record in data.AsArray) {
             this.cache.AddPairToCalories(new FitbitPair<int>(
-                data["dateTime"].Value,
-                data["value"].AsInt
+                record["dateTime"].Value,
+                record["value"].AsInt
             ));
         }
     }
@@ -85,8 +85,8 @@ public class PopulateCache : MonoBehaviour {
     private void PopulateActivityCalories(JSONNode data) {
         foreach (JSONNode record in data.AsArray) {
             this.cache.AddPairToActivityCalories(new FitbitPair<int>(
-                data["dateTime"].Value,
-                data["value"].AsInt
+                record["dateTime"].Value,
+                record["value"].AsInt
             ));
         }
     }
@@ -94,8 +94,8 @@ public class PopulateCache : MonoBehaviour {
     private void PopulateSteps(JSONNode data) {
         foreach (JSONNode record in data.AsArray) {
             this.cache.AddPairToSteps(new FitbitPair<int>(
-                data["dateTime"].Value,
-                data["value"].AsInt
+                record["dateTime"].Value,
+                record["value"].AsInt
             ));
         }
     }
@@ -103,8 +103,8 @@ public class PopulateCache : MonoBehaviour {
     private void PopulateDistance(JSONNode data) {
         foreach (JSONNode record in data.AsArray) {
             this.cache.AddPairToDistance(new FitbitPair<double>(
-                data["dateTime"].Value,
-                data["value"].AsDouble
+                record["dateTime"].Value,
+                record["value"].AsDouble
             ));
         }
     }
@@ -112,8 +112,8 @@ public class PopulateCache : MonoBehaviour {
     private void PopulateFairlyActive(JSONNode data) {
         foreach (JSONNode record in data.AsArray) {
             this.cache.AddPairToFairlyActive(new FitbitPair<int>(
-                data["dateTime"].Value,
-                data["value"].AsInt
+                record["dateTime"].Value,
+                record["value"].AsInt
             ));
         }
     }
@@ -121,8 +121,8 @@ public class PopulateCache : MonoBehaviour {
     private void PopulateVeryActive(JSONNode data) {
         foreach (JSONNode record in data.AsArray) {
             this.cache.AddPairToVeryActive(new FitbitPair<int>(
-                data["dateTime"].Value,
-                data["value"].AsInt
+                record["dateTime"].Value,
+                record["value"].AsInt
             ));
         }
     }
