@@ -95,6 +95,7 @@
     <Compile Include="Assets\Scripts\Inventory\ScrollViews\LoadAreaScrollView.cs" />
     <Compile Include="Assets\Scripts\Inventory\ScrollViews\LoadCharacterScrollView.cs" />
     <Compile Include="Assets\Scripts\Inventory\ScrollViews\LoadInventoryScrollView.cs" />
+    <Compile Include="Assets\Scripts\Login\GenerateToken.cs" />
     <Compile Include="Assets\Scripts\Login\LoginUIHandler.cs" />
     <Compile Include="Assets\Scripts\Player\Player.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerStatistic.cs" />

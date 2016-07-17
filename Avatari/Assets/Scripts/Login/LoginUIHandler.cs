@@ -8,18 +8,25 @@ using SimpleJSON;
 public class LoginUIHandler : MonoBehaviour {
 
     private Text avatarName;
+    private GenerateToken tokenGenerator;
+
     private bool browserOpened;
     private string name;
+    private string token;
     private int sessionKey;
 
     private void Awake() {
-        avatarName = Utility.LoadObject<Text>("AvatarInput");
-        browserOpened = false;
+        this.avatarName = Utility.LoadObject<Text>("AvatarInput");
+        this.tokenGenerator = Utility.LoadObject<GenerateToken>(
+            "TokenGenerator"
+        );
+        this.browserOpened = false;
     }
 
     public void Login() {
         if (avatarName.text != "") {
-            this.name = avatarName.text;
+            this.name = this.avatarName.text;
+            this.token = this.tokenGenerator.token;
             StartCoroutine(CheckAccountExists(avatarName.text));
         }
     }
@@ -30,7 +37,7 @@ public class LoginUIHandler : MonoBehaviour {
      */
     private IEnumerator CheckAccountExists(string name) {
         WWWForm checkAccountForm = new WWWForm();
-        checkAccountForm.AddField(Config.TokenParam, Config.Token);
+        checkAccountForm.AddField(Config.TokenParam, this.token);
         checkAccountForm.AddField(Config.LoginNameParam, name);
         WWW checkAcccountRequest = new WWW(Config.ControllerURLLogin, checkAccountForm);
 
@@ -52,7 +59,7 @@ public class LoginUIHandler : MonoBehaviour {
      */
     private IEnumerator CreateAccount(string name) {
         WWWForm createAccountForm = new WWWForm();
-        createAccountForm.AddField(Config.TokenParam, Config.Token);
+        createAccountForm.AddField(Config.TokenParam, this.token);
         createAccountForm.AddField(Config.LoginNameParam, name);
         WWW createAccountRequest = new WWW(Config.ControllerURLAccounts, createAccountForm);
 
@@ -92,7 +99,7 @@ public class LoginUIHandler : MonoBehaviour {
      *  Open up the url for authenitcation.
      */
     private void Authenticate() {
-        Application.OpenURL(Config.ControllerURLOAuth);
+        Application.OpenURL(String.Format(Config.ControllerURLOAuthFormat, this.token));
         browserOpened = true;
     }
 
