@@ -1,53 +1,95 @@
 ﻿using System;
-
-public abstract class Goal {
-    public const uint EMPTY = 0;
-    public uint steps { get; set; }
-    public uint stepGoal;
-    public uint calories { get; set; }
-    public uint calorieGoal;
-    public uint distance { get; set; }
-    public uint distanceGoal;
-    public uint activeMin { get; set; }
-    public uint activeMinGoal;
+using System.Collections.Generic;
+/**
+* @author: Denholm
+* @summary: Defines a template goal and the daily/challenge/lifetime goals that extend it
+* */
+public class Goal {
+    private const float EMPTY = 0.0f;
+    public float progress;
+    public float goal;
+    public string description;
 
     public Goal() {
-        this.steps = EMPTY;
-        this.stepGoal = EMPTY;
-        this.calories = EMPTY;
-        this.calorieGoal = EMPTY;
-        this.distance = EMPTY;
-        this.distanceGoal = EMPTY;
-        this.activeMin = EMPTY;
-        this.activeMinGoal = EMPTY;
+        this.progress = EMPTY;
+        this.goal = EMPTY;
+        this.description = "";
     }
 
-    public Goal(uint stepGoal, uint calorieGoal, uint distanceGoal, uint activeMinGoal) {
-        this.steps = EMPTY;
-        this.calories = EMPTY;
-        this.distance = EMPTY;
-        this.activeMin = EMPTY;
-        this.stepGoal = stepGoal;
-        this.calorieGoal = calorieGoal;
-        this.distanceGoal = distanceGoal;
-        this.activeMinGoal = activeMinGoal;
+    public Goal(string description, float goal) {
+        this.description = description;
+        this.progress = EMPTY;
+        this.goal = goal;
+    }
+
+    public Goal(string description, float progress, float goal) {
+        this.description = description;
+        this.progress = progress;
+        this.goal = goal;
     }
 }
 
-public class DailyGoal : Goal {
+public class DailyGoals {
+    public Goal stepGoal { get; set; }
+    public Goal calorieGoal { get; set; }
+    public Goal distanceGoal { get; set; }
+    public Goal activeMinGoal { get; set; }
 
-    public DailyGoal() : base() { }
+    public DailyGoals(){
+        this.stepGoal = new Goal();
+        this.calorieGoal = new Goal();
+        this.distanceGoal = new Goal();
+        this.activeMinGoal = new Goal();
+    }
 
-    public DailyGoal(uint dailyStepsGoal, uint dailyCalorieGoal, uint dailyDistanceGoal, uint dailyActiveMinGoal) :
-        base(dailyStepsGoal, dailyCalorieGoal, dailyDistanceGoal, dailyActiveMinGoal) { }
-
+    public DailyGoals(float dailyStepsGoal, float dailyCalorieGoal, float dailyDistanceGoal, float dailyActiveMinGoal){
+        this.stepGoal = new Goal("Step goal", dailyStepsGoal);
+        this.calorieGoal = new Goal("Calorie goal", dailyCalorieGoal);
+        this.distanceGoal = new Goal("Distance goal (km)", dailyDistanceGoal);
+        this.activeMinGoal = new Goal("Active minutes goal", dailyActiveMinGoal);
+    }
 }
 
-public class LifetimeGoal : Goal {
+//NOTE: Though this currently duplicates Daily goals it might differ in the future and thus is kept separate
+public class LifetimeGoals {
+    public Goal stepGoal { get; set; }
+    public Goal calorieGoal { get; set; }
+    public Goal distanceGoal { get; set; }
+    public Goal activeMinGoal { get; set; }
 
-    public LifetimeGoal() : base() { }
+    public LifetimeGoals() {
+        this.stepGoal = new Goal();
+        this.calorieGoal = new Goal();
+        this.distanceGoal = new Goal();
+        this.activeMinGoal = new Goal();
+    }
 
-    public LifetimeGoal(uint LTStepGoal, uint LTCalorieGoal, uint LTDistanceGoal, uint LTActiveMinGoal) :
-        base(LTStepGoal, LTCalorieGoal, LTDistanceGoal, LTActiveMinGoal) { }
+    public LifetimeGoals(float LTStepGoal, float LTCalorieGoal, float LTDistanceGoal, float LTActiveMinGoal) {
+        this.stepGoal = new Goal("Step goal", LTStepGoal);
+        this.calorieGoal = new Goal("Calorie goal", LTCalorieGoal);
+        this.distanceGoal = new Goal("Distance goal (km)", LTDistanceGoal);
+        this.activeMinGoal = new Goal("Active minutes goal", LTActiveMinGoal);
+    }
+}
+
+public class Challenges {
+    public Goal biking { get; set; }
+    public Goal running { get; set; }
+    public Goal hiking { get; set; }
+    public Goal swimming { get; set; }
+
+    public Challenges() {
+        this.biking = new Goal();
+        this.running = new Goal();
+        this.hiking = new Goal();
+        this.swimming = new Goal();
+    }
+
+    public Challenges(float bikingGoal, float runningGoal, float hikingGoal, float swimmingGoal) {
+        this.biking = new Goal("Biking goal", bikingGoal);
+        this.running = new Goal("Running goal", runningGoal);
+        this.hiking = new Goal("Hiking goal", hikingGoal);
+        this.swimming = new Goal("Swimming goal", swimmingGoal);
+    }
 }
 
