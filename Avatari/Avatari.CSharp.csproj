@@ -72,7 +72,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\JSON Tests\CSharp\Test_CSharp.cs" />
     <Compile Include="Assets\Scripts\Bosses\Boss.cs" />
     <Compile Include="Assets\Scripts\Bosses\BossLoader.cs" />
     <Compile Include="Assets\Scripts\Challenges\Goal.cs" />
@@ -89,7 +88,9 @@
     <Compile Include="Assets\Scripts\Inventory\EquippedPanel\EquippedSlot.cs" />
     <Compile Include="Assets\Scripts\Inventory\EquippedPanel\InventoryScrollViewHandler.cs" />
     <Compile Include="Assets\Scripts\Inventory\EquippedPanel\LoadEquippedPanel.cs" />
-    <Compile Include="Assets\Scripts\Inventory\Item.cs" />
+    <Compile Include="Assets\Scripts\Inventory\InventoryItems\Item.cs" />
+    <Compile Include="Assets\Scripts\Inventory\InventoryItems\Tari.cs" />
+    <Compile Include="Assets\Scripts\Inventory\ScrollViews\CharacterSlot.cs" />
     <Compile Include="Assets\Scripts\Inventory\ScrollViews\InventorySlot.cs" />
     <Compile Include="Assets\Scripts\Inventory\ScrollViews\LoadAreaScrollView.cs" />
     <Compile Include="Assets\Scripts\Inventory\ScrollViews\LoadCharacterScrollView.cs" />
@@ -103,9 +104,6 @@
     <Compile Include="Assets\Scripts\UI\ProgressBar\LevelText.cs" />
     <Compile Include="Assets\Scripts\UI\ProgressBar\ProgressBar.cs" />
     <Compile Include="Assets\Scripts\Utility.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Assets\JSON Tests\TroubleShoot.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>
