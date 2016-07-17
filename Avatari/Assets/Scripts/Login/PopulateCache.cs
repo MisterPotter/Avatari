@@ -164,7 +164,9 @@ public class PopulateCache : MonoBehaviour {
             item["description"].Value,
             item["id"].AsInt,
             (Item.ItemType)item["type"].AsInt,
-            (Item.ItemRarity)item["rarity"].AsInt
+            (Item.ItemRarity)item["rarity"].AsInt,
+            (Statistic.Type)4,
+            1
         );
     }
 
