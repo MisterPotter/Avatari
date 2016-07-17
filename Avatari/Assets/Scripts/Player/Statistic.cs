@@ -3,16 +3,18 @@
 * @author: Charlotte
 * @summary: Defines a base class for player statistics
 * */
+
 public abstract class Statistic {
 
     // Attributes for each kind of statistic. Only ever set at init
     public readonly int minValue;
     public readonly int maxValue;
     public readonly string description;
+    public readonly Type statType;
 
     // Current value of the statistic
-    private int currentValue;
-    
+    protected int currentValue;
+
     public int CurrentValue {
         get {
             return this.currentValue;
@@ -22,17 +24,28 @@ public abstract class Statistic {
         }
     }
 
-    public Statistic(int minValue, int maxValue, string description) {
+    public enum Type {
+        Level,
+        Experience,
+        Health,
+        Strength,
+        Agility,
+        Defense
+    }
+
+    public Statistic(int minValue, int maxValue, string description, Type statType) {
         this.maxValue = maxValue;
         this.minValue = minValue;
         this.description = description;
+        this.statType = statType;
         this.currentValue = minValue;
     }
 
-    public Statistic(int minValue, int maxValue, string description, int initValue) {
+    public Statistic(int minValue, int maxValue, string description, Type statType, int initValue) {
         this.maxValue = maxValue;
         this.minValue = minValue;
         this.description = description;
+        this.statType = statType;
         this.currentValue = initValue;
     }
 
@@ -62,12 +75,16 @@ public class Level : Statistic {
 
     public Level() : base(Constants.MinLevel,
                           Constants.MaxLevel,
-                          Constants.LevelDescription) {}
+                          Constants.LevelDescription,
+                          Type.Level) {
+    }
 
     public Level(int level) : base(Constants.MinLevel,
                                    Constants.MaxLevel,
                                    Constants.LevelDescription,
-                                   level) {}
+                                   Type.Level,
+                                   level) {
+    }
 }
 
 // TODO: probably don't want experience to ever decrease, should override change, add methods to ensure this.
@@ -75,52 +92,72 @@ public class Experience : Statistic {
 
     public Experience() : base(Constants.MinExperience,
                                Constants.MaxExperience,
-                               Constants.ExperienceDescription) {}
+                               Constants.ExperienceDescription,
+                               Type.Experience) {
+    }
 
     public Experience(int experience) : base(Constants.MinExperience,
                                              Constants.MaxExperience,
                                              Constants.ExperienceDescription,
-                                             experience) {}
+                                             Type.Experience,
+                                             experience) {
+    }
 }
 
 public class Health : Statistic {
     public Health() : base(Constants.MinStat,
                            Constants.MaxStat,
-                           Constants.HealthDescription) {}
+                           Constants.HealthDescription,
+                           Type.Health) {
+    }
     public Health(int health) : base(Constants.MinStat,
                                      Constants.MaxStat,
                                      Constants.HealthDescription,
-                                     health) {}
+                                     Type.Health,
+                                     health) {
+    }
 }
 
 public class Agility : Statistic {
     public Agility() : base(Constants.MinStat,
                             Constants.MaxStat,
-                            Constants.AgilityDescription) {}
+                            Constants.AgilityDescription,
+                            Type.Agility) {
+    }
     public Agility(int agility) : base(Constants.MinStat,
                                        Constants.MaxStat,
                                        Constants.AgilityDescription,
-                                       agility) { }
+                                       Type.Agility,
+                                       agility) {
+    }
 }
 
 public class Strength : Statistic {
     public Strength() : base(Constants.MinStat,
                              Constants.MaxStat,
-                             Constants.StrengthDescription) {}
+                             Constants.StrengthDescription,
+                             Type.Strength) {
+    }
     public Strength(int strength) : base(Constants.MinStat,
                                          Constants.MaxStat,
                                          Constants.StrengthDescription,
-                                         strength) { }
+                                         Type.Strength,
+                                         strength) {
+    }
 }
 
 public class Defense : Statistic {
     public Defense() : base(Constants.MinStat,
                             Constants.MaxStat,
-                            Constants.DefenseDescription) { }
+                            Constants.DefenseDescription,
+                            Type.Defense) {
+    }
     public Defense(int defense) : base(Constants.MinStat,
                                        Constants.MaxStat,
                                        Constants.DefenseDescription,
-                                       defense) { }
+                                       Type.Defense,
+                                       defense) {
+    }
 }
 
 /**
