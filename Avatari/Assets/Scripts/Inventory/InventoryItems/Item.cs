@@ -58,9 +58,9 @@ public class Item {
     }
 
     public enum ItemRarity {
-        Rare,
+        Common,
         Uncommon,
-        Common
+        Rare
     }
 
     public Item(
