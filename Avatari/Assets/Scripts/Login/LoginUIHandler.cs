@@ -3,24 +3,38 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System;
 using System.Collections;
+using System.Threading;
 using SimpleJSON;
 
 public class LoginUIHandler : MonoBehaviour {
 
     private Text avatarName;
+    private Cache cache;
+    private PopulateCache cachePopulator;
     private GenerateToken tokenGenerator;
 
+    private bool authenticated;
     private bool browserOpened;
     private string token;
     private int sessionKey;
 
     private void Awake() {
+        Initialize();
+    }
+
+    private void Initialize() {
         this.avatarName = Utility.LoadObject<Text>("AvatarInput");
+        this.cache = Utility.LoadObject<Cache>("Cache");
+        this.cachePopulator = Utility.LoadObject<PopulateCache>(
+            "PopulateCache"
+        );
         this.tokenGenerator = Utility.LoadObject<GenerateToken>(
             "TokenGenerator"
         );
         this.browserOpened = false;
-    }
+        this.authenticated = false;
+
+}
 
     public void Login() {
         if (avatarName.text != "") {
@@ -48,6 +62,7 @@ public class LoginUIHandler : MonoBehaviour {
             StartCoroutine(CreateAccount(name));
         } else {
             this.sessionKey = data["data"].AsInt;
+            this.cache.sessionKey = this.sessionKey;
             Authenticate();
         }
     }
@@ -87,7 +102,8 @@ public class LoginUIHandler : MonoBehaviour {
         var response = data["status"];
 
         if (response.AsInt == 200) {
-            SceneManager.LoadScene("home");
+            this.cachePopulator.Populate();
+            this.authenticated = true;
         } else {
             throw new Exception("Did not authenticate!");
         }
@@ -105,7 +121,7 @@ public class LoginUIHandler : MonoBehaviour {
      *  Check when the app in back in focus and the browser is open
      */
     private void OnApplicationFocus(bool focusState) {
-        if(focusState && browserOpened) {
+        if(focusState && this.browserOpened && ! this.authenticated) {
             StartCoroutine(IsAuthenticated());
         }
     }

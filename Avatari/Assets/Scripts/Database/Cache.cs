@@ -48,6 +48,8 @@ public class Cache : MonoBehaviour, IDataSource {
      */
     public Player player { get; set; }
 
+    public int sessionKey { get; set; }
+
     public List<Sprite> LoadAreas() {
         return cache.inventoryAreas;
     }
