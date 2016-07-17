@@ -18,7 +18,6 @@ public class LoginUIHandler : MonoBehaviour {
     }
 
     public void Login() {
-        Debug.Log(avatarName.text);
         if (avatarName.text != "") {
             this.name = avatarName.text;
             StartCoroutine(CheckAccountExists(avatarName.text));
@@ -41,11 +40,8 @@ public class LoginUIHandler : MonoBehaviour {
         var response = data["status"];
 
         if(response.AsInt != 200) {
-            Debug.Log("Creating account");
             StartCoroutine(CreateAccount(name));
         } else {
-            Debug.Log("Authenicating");
-            Debug.Log("Ok: " + checkAcccountRequest.text);
             this.sessionKey = data["data"].AsInt;
             Authenticate();
         }
@@ -66,7 +62,6 @@ public class LoginUIHandler : MonoBehaviour {
         var response = data["status"];
 
         if (response.AsInt == 200) {
-            Debug.Log("Account Created");
             StartCoroutine(CheckAccountExists(name));
         } else {
             throw new Exception("Error, could not create account: " + name);
@@ -78,7 +73,6 @@ public class LoginUIHandler : MonoBehaviour {
      */
     private IEnumerator IsAuthenticated() {
         WWWForm authForm = new WWWForm();
-        Debug.Log(this.sessionKey);
         authForm.AddField(Config.SessionKey, this.sessionKey);
 
         WWW checkAuthRequest = new WWW(Config.ControllerURLIsOAuth, authForm);
@@ -88,13 +82,8 @@ public class LoginUIHandler : MonoBehaviour {
         var response = data["status"];
 
         if (response.AsInt == 200) {
-            Debug.Log(checkAuthRequest.text);
-            Debug.Log("Account authenticated");
             SceneManager.LoadScene("home");
         } else {
-            Debug.Log(checkAuthRequest.text);
-            Debug.Log(response);
-            Debug.Log(checkAuthRequest.error);
             throw new Exception("Did not authenticate!");
         }
     }
@@ -103,7 +92,6 @@ public class LoginUIHandler : MonoBehaviour {
      *  Open up the url for authenitcation.
      */
     private void Authenticate() {
-        Debug.Log("Opening URL...");
         Application.OpenURL(Config.ControllerURLOAuth);
         browserOpened = true;
     }
