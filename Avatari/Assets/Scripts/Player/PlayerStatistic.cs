@@ -1,5 +1,6 @@
 ﻿
 
+using System;
 using System.Diagnostics;
 /**
 * @author: Charlotte
@@ -31,13 +32,45 @@ public class PlayerStatistic {
         this.defense = new Defense(defense);
     }
 
-    public void updatePlayerStatistics() {
+    public void UpdatePlayerStatistics() {
         updateExperience();
         updateHealth();
         updateStrength();
         updateAgility();
         updateDefense();
         updateLevel();
+    }
+
+    /**
+     * Update the player's statistic upon item equip or unequip.
+     */ 
+    public void UpdateStatOnItemChange(Item item, bool equipped) {
+        int value = item.statBoost;
+        if (!equipped) {
+            value = -value;
+        }
+        switch(item.statType) {
+            case Statistic.Type.Experience:
+                this.experience.AddToValue(value);
+                break;
+            case Statistic.Type.Health:
+                this.health.AddToValue(value);
+                break;
+            case Statistic.Type.Agility:
+                this.agility.AddToValue(value);
+                break;
+            case Statistic.Type.Defense:
+                this.defense.AddToValue(value);
+                break;
+            case Statistic.Type.Strength:
+                this.strength.AddToValue(value);
+                break;
+            case Statistic.Type.Level:
+                this.level.AddToValue(value);
+                break;
+            default:
+                throw new Exception("Invalid Statistic type on item equip or unequip: " + item.statType);
+        }
     }
 
     /**
