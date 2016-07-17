@@ -10,7 +10,6 @@ public class CharacterSlot : MonoBehaviour, IPointerDownHandler {
      *  a lot of interactability. 
      */
     public bool empty { get { return tari == null; } }
-    public Image slot { get; set; }
     public Tari tari;
 
     private Cache cache;
@@ -22,6 +21,7 @@ public class CharacterSlot : MonoBehaviour, IPointerDownHandler {
     private void Awake() {
         cache = Utility.LoadObject<Cache>("Cache");
         dialogSpawner = Utility.LoadObject<Transform>("DialogSpawner");
+        characterImage = Utility.LoadObject<Image>("CharacterSlot");
     }
 
     /**
@@ -31,9 +31,9 @@ public class CharacterSlot : MonoBehaviour, IPointerDownHandler {
         if (empty) return;
 
         GameObject dialogPrefab = Resources.Load<GameObject>(
-            "Prefabs/UI/Inventory/Dialogs/ItemDialog");
+            "Prefabs/UI/Inventory/Dialogs/CharacterDialog");
         if (dialogPrefab == null) {
-            throw new Exception("Unequip dialog prefab was not found.");
+            throw new Exception("Character dialog prefab was not found.");
         }
         CleanUpExistingDialogs();
         CreateCharacterDialog(dialogPrefab);
@@ -61,6 +61,7 @@ public class CharacterSlot : MonoBehaviour, IPointerDownHandler {
         description.text = this.tari.description;
         accept.onClick.AddListener(
             delegate {
+                EquipSprite();
                 Destroy(dialog);
             }
         );
@@ -71,5 +72,11 @@ public class CharacterSlot : MonoBehaviour, IPointerDownHandler {
         );
 
         dialog.transform.SetParent(this.dialogSpawner, false);
+    }
+
+    public void EquipSprite() {
+        Sprite[] spriteSheet = Resources.LoadAll<Sprite>("Characters/" + tari.spriteName);
+        this.characterImage.sprite = Utility.GetSprite("idle", spriteSheet);
+        this.cache.player.sprite = this.tari.spriteName;
     }
 }

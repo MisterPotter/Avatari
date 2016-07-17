@@ -57,10 +57,12 @@ public class LoadCharacterScrollView : MonoBehaviour {
 
         int i = 0;
         foreach(Tari tari in taris) {
-            Image slot = clone.transform.GetChild(i++).GetChild(0)
-                .GetComponent<Image>();
+            Transform slot = clone.transform.GetChild(i++).GetChild(0);
+            Image slotImage = slot.GetComponent<Image>();
+            CharacterSlot slotScript = slot.GetComponent<CharacterSlot>();
             Sprite[] spriteSheet = Resources.LoadAll<Sprite>("Characters/" + tari.spriteName);
-            slot.sprite = Utility.GetSprite("idle", spriteSheet);
+            slotImage.sprite = Utility.GetSprite("idle", spriteSheet);
+            slotScript.tari = tari;
         }
     }
 
