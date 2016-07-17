@@ -35,6 +35,16 @@ public class Item {
      */
     public ItemRarity itemRarity { get; set; }
 
+    /**
+     * What player statistic this item affects.
+     */
+    public Statistic.Type statType { get; set; } 
+
+    /**
+     * To what the degree the stat is affected.
+     */
+    public int statBoost { get; set; }
+
     public enum ItemType {
         Head,
         Neck,
@@ -48,20 +58,23 @@ public class Item {
     }
 
     public enum ItemRarity {
-        Rare,
+        Common,
         Uncommon,
-        Common
+        Rare
     }
 
     public Item(
             string name, string resourceName, string description,
-            int id, ItemType type, ItemRarity rarity) {
+            int id, ItemType type, ItemRarity rarity, Statistic.Type statType,
+            int statBoost) {
         this.itemName = name;
         this.resourceName = resourceName;
         this.itemDescription = description;
         this.itemID = id;
         this.itemType = type;
         this.itemRarity = rarity;
+        this.statType = statType;
+        this.statBoost = statBoost;
     }
 
     /**

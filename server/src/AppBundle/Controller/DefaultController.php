@@ -6,6 +6,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Session\Session;
+
 
 
 class DefaultController extends Controller
@@ -73,29 +75,30 @@ class DefaultController extends Controller
      */
     public function avatarAction(Request $request)
     {
+      $session = new Session();
+
       $response = new JsonResponse();
-      /*
-      if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
-        $response->setData(array(
-          'status' => 503,
-          'data' => 'not logged in'
-        ));
-      } else {
-      */
       if(true){
-        $account_id = 1;
+        $account_id = $request->get('avatari_user_id');
+
         $account = $this->getDoctrine()->getRepository('AppBundle:Account')->findOneById($account_id);
         $avatar = $account->getAvatar();
 
         $items = $avatar->getItems();
         $itemsData = array();
         foreach ($items as $item) {
+          if($item == $avatar->getHead() || $item == $avatar->getBody() || $item == $avatar->getFeet() || $item == $avatar->getHands() || $item == $avatar->getWings() || $item == $avatar->getNeck()){
+            $isEquipt = True;
+          } else {
+            $isEquipt = False;
+          }
           $itemsData[] = [
             'id' => $item->getId(),
             'name' => $item->getName(),
             'description' => $item->getDescription(),
             'type' => $item->getType(),
-            'rarity' => $item->getRarity()
+            'rarity' => $item->getRarity(),
+            'isEquipt' => $isEquipt
           ];
         }
 
@@ -121,10 +124,10 @@ class DefaultController extends Controller
           'stats' => [
                         'strength' => $avatar->getStrengthBase(),
                         'agility' => $avatar->getAgilityBase(),
-                        'defence' => $avatar->getDefenceBase(),
+                        'defence' => $avatar->getdefenceBase(),
                       ],
-          'items' => $itemsData,
-          'goals' => $goalsData
+          'items' => $itemsData
+
         ];
 
         $response->setData(array(
@@ -132,6 +135,192 @@ class DefaultController extends Controller
             'data' => $data
         ));
       }
+      return $response;
+    }
+
+    /**
+     * @Route("/avatar/set", name="avatar_set")
+     */
+    public function avatarSetAction(Request $request)
+    {
+      $session = new Session();
+      $response = new JsonResponse();
+      $em = $this->getDoctrine()->getManager();
+      $account_id = $request->get('avatari_user_id');
+
+      $account = $em->getRepository('AppBundle:Account')->findOneById($account_id);
+      if(!$account){
+        $response->setData(array(
+            'status' => 503,
+            'data' => 'Not Logged In'
+        ));
+        return $response;
+      }
+      $set = [];
+      $avatar = $account->getAvatar();
+      if($level = $request->get('level', false)){
+        $avatar->setLevel((int)$level);
+        $set[] = 'level';
+      }
+      if($exp = $request->get('experience', false)){
+        $avatar->setExpCurrent((int)$exp);
+        $set[] = 'experience';
+      }
+      if($health = $request->get('health', false)){
+        $avatar->setHealthCurrent((int)$health);
+        $set[] = 'health';
+      }
+      if($strength = $request->get('strength', false)){
+        $avatar->setStrengthBase((int)$strength);
+        $set[] = 'strength';
+      }
+      if($agility = $request->get('agility', false)){
+        $avatar->setAgilityBase((int)$agility);
+        $set[] = 'agility';
+      }
+      if($defense = $request->get('defense', false)){
+        $avatar->setDefenceBasehBase((int)$defense);
+        $set[] = 'defense';
+      }
+      $response->setData(array(
+          'status' => 200,
+          'data' => $set
+      ));
+      $em->persist($avatar);
+      $em->flush();
+
+      return $response;
+    }
+
+
+    /**
+     * @Route("/avatar/item/give", name="avatar_give_item")
+     */
+    public function avatarGiveItemAction(Request $request)
+    {
+      $session = new Session();
+      $response = new JsonResponse();
+      $em = $this->getDoctrine()->getManager();
+      $account_id = $request->get('avatari_user_id');
+
+      $account = $em->getRepository('AppBundle:Account')->findOneById($account_id);
+      if(!$account){
+        $response->setData(array(
+            'status' => 503,
+            'data' => 'Not Logged In'
+        ));
+        return $response;
+      }
+
+      if($item_id = $request->get('item_id',false)){
+        $avatar = $account->getAvatar();
+
+        $item = $em->getRepository('AppBundle:Item')->findOneById($item_id);
+        if(!$item){
+          $response->setData(array(
+              'status' => 503,
+              'data' => 'Item does not exist'
+          ));
+        } else {
+          $response->setData(array(
+              'status' => 200,
+              'data' => 'Item added'
+          ));
+          $avatar->addItem($item);
+          $item->addAvatar($avatar);
+          $em->persist($item);
+          $em->persist($avatar);
+          $em->flush();
+        }
+      } else {
+        $response->setData(array(
+            'status' => 503,
+            'data' => 'item_id must be set'
+        ));
+      }
+
+      return $response;
+    }
+
+    /**
+     * @Route("/avatar/item/equip", name="avatar_equip_item")
+     */
+    public function avatarEquipItemAction(Request $request)
+    {
+      $session = new Session();
+      $response = new JsonResponse();
+      $em = $this->getDoctrine()->getManager();
+      $account_id = $request->get('avatari_user_id');
+
+      $account = $em->getRepository('AppBundle:Account')->findOneById($account_id);
+      if(!$account){
+        $response->setData(array(
+            'status' => 503,
+            'data' => 'Not Logged In'
+        ));
+        return $response;
+      }
+
+      if($item_id = $request->get('item_id',false)){
+
+        $avatar = $account->getAvatar();
+
+        $item = $em->getRepository('AppBundle:Item')->findOneById($item_id);
+        if(!$item){
+          $response->setData(array(
+              'status' => 503,
+              'data' => 'Item does not exist'
+          ));
+        } else {
+          $response->setData(array(
+              'status' => 200,
+              'data' => 'Item equipt'
+          ));
+          if ($location = $request->get('location', false)){
+            switch ($location) {
+              case 'head':
+                $avatar->setHead($item);
+                break;
+              case 'body':
+                $avatar->setBody($item);
+                break;
+              case 'feet':
+                $avatar->setFeet($item);
+                break;
+              case 'hands':
+                $avatar->setHands($item);
+                break;
+              case 'wings':
+                $avatar->setWings($item);
+                break;
+              case 'neck':
+                $avatar->setNeck($item);
+                break;
+
+              default:
+                $response->setData(array(
+                    'status' => 503,
+                    'data' => 'Invalid Location'
+                ));
+                break;
+            }
+            $avatar->setHead($item);
+            $em->persist($avatar);
+            $em->flush();
+          } else {
+            $response->setData(array(
+                'status' => 503,
+                'data' => 'location must be set'
+            ));
+          }
+        }
+      } else {
+        $response->setData(array(
+            'status' => 503,
+            'data' => 'item_id must be set'
+        ));
+      }
+
       return $response;
     }
 }

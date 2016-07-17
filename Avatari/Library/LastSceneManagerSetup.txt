@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/_Scenes/inventory.unity
+- path: Assets/_Scenes/challenges.unity
   isLoaded: 1
   isActive: 1

@@ -32,7 +32,7 @@ public class LoadCharacterScrollView : MonoBehaviour {
     }
 
     private void LoadCharacters() {
-        List<Sprite> inventoryCharacters = this.cache.LoadCharacters();
+        List<Tari> inventoryCharacters = this.cache.LoadCharacters();
         int rows = (inventoryCharacters.Count / itemsPerRow) + 1;
         content.sizeDelta = new Vector2(0.0f, rows*rowVertOffset+bottomPadding);
         for(int i=0; i<rows; ++i) {
@@ -40,7 +40,7 @@ public class LoadCharacterScrollView : MonoBehaviour {
             int numItemsLeft = Mathf.Min(inventoryCharacters.Count-itemsPassed,
                 itemsPerRow
             );
-            IEnumerable<Sprite> itemsLeft = inventoryCharacters
+            IEnumerable<Tari> itemsLeft = inventoryCharacters
                 .Skip(itemsPassed)
                 .Take(numItemsLeft);
 
@@ -48,7 +48,7 @@ public class LoadCharacterScrollView : MonoBehaviour {
         }
     }
 
-    private void InstatiateRow(int row, IEnumerable<Sprite> sprites) {
+    private void InstatiateRow(int row, IEnumerable<Tari> taris) {
         Vector3 offset = Vector3.down * rowVertOffset * row;
         GameObject clone = (GameObject)Instantiate(
             rowPrefab, offset, Quaternion.identity
@@ -56,10 +56,13 @@ public class LoadCharacterScrollView : MonoBehaviour {
         clone.transform.SetParent(rowSpawner, false);
 
         int i = 0;
-        foreach(Sprite sprite in sprites) {
-            Image slot = clone.transform.GetChild(i++).GetChild(0)
-                .GetComponent<Image>();
-            slot.sprite = sprite;
+        foreach(Tari tari in taris) {
+            Transform slot = clone.transform.GetChild(i++).GetChild(0);
+            Image slotImage = slot.GetComponent<Image>();
+            CharacterSlot slotScript = slot.GetComponent<CharacterSlot>();
+            Sprite[] spriteSheet = Resources.LoadAll<Sprite>("Characters/" + tari.spriteName);
+            slotImage.sprite = Utility.GetSprite("idle", spriteSheet);
+            slotScript.tari = tari;
         }
     }
 
