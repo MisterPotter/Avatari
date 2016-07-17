@@ -13,13 +13,11 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>Android:13</UnityBuildTarget>
     <UnityVersion>5.3.5f1</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -73,7 +71,11 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Bosses\Boss.cs" />
     <Compile Include="Assets\Scripts\Bosses\BossLoader.cs" />
+    <Compile Include="Assets\Scripts\Challenges\ChallengeLoader.cs" />
+    <Compile Include="Assets\Scripts\Challenges\DailyGoalLoader.cs" />
     <Compile Include="Assets\Scripts\Challenges\Goal.cs" />
+    <Compile Include="Assets\Scripts\Challenges\GoalViewHandler.cs" />
+    <Compile Include="Assets\Scripts\Challenges\LifetimeGoalLoader.cs" />
     <Compile Include="Assets\Scripts\Challenges\PlayerGoals.cs" />
     <Compile Include="Assets\Scripts\Database\Cache.cs" />
     <Compile Include="Assets\Scripts\Database\IDataSource.cs" />
