@@ -15,7 +15,7 @@ public class LifetimeGoalLoader : MonoBehaviour {
 
     private void Awake() {
         Initialize();
-        LoadDailyGoals();
+        LoadLifetimeGoals();
     }
 
     private void Initialize() {
@@ -25,7 +25,7 @@ public class LifetimeGoalLoader : MonoBehaviour {
         panelSpawner = Utility.LoadObject<Transform>("LifetimeGoalSpawner");
     }
 
-    private void LoadDailyGoals() {
+    private void LoadLifetimeGoals() {
         LifetimeGoals ltGoals = this.cache.lifetimeGoals;
         
         Goal[] goals = {

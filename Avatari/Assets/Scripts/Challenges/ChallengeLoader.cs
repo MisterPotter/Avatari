@@ -14,7 +14,7 @@ public class ChallengeLoader : MonoBehaviour {
 
     private void Awake() {
         Initialize();
-        LoadDailyGoals();
+        LoadChallenges();
     }
 
     private void Initialize() {
@@ -24,7 +24,7 @@ public class ChallengeLoader : MonoBehaviour {
         panelSpawner = Utility.LoadObject<Transform>("ChallengeSpawner");
     }
 
-    private void LoadDailyGoals() {
+    private void LoadChallenges() {
         Challenges challenges = this.cache.challenges;
         Goal[] goals = {
             challenges.biking,
