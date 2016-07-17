@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System;
 using System.Collections;
@@ -7,14 +8,19 @@ using SimpleJSON;
 public class LoginUIHandler : MonoBehaviour {
 
     private Text avatarName;
+    private bool browserOpened;
+    private string name;
+    private int sessionKey;
 
     private void Awake() {
         avatarName = Utility.LoadObject<Text>("AvatarInput");
+        browserOpened = false;
     }
 
     public void Login() {
         Debug.Log(avatarName.text);
         if (avatarName.text != "") {
+            this.name = avatarName.text;
             StartCoroutine(CheckAccountExists(avatarName.text));
         }
     }
@@ -40,6 +46,7 @@ public class LoginUIHandler : MonoBehaviour {
         } else {
             Debug.Log("Authenicating");
             Debug.Log("Ok: " + checkAcccountRequest.text);
+            this.sessionKey = data["data"].AsInt;
             Authenticate();
         }
     }
@@ -51,14 +58,14 @@ public class LoginUIHandler : MonoBehaviour {
         WWWForm createAccountForm = new WWWForm();
         createAccountForm.AddField(Config.TokenParam, Config.Token);
         createAccountForm.AddField(Config.LoginNameParam, name);
-        WWW createAcccountRequest = new WWW(Config.ControllerURLAccounts, createAccountForm);
+        WWW createAccountRequest = new WWW(Config.ControllerURLAccounts, createAccountForm);
 
-        yield return createAccountForm;
+        yield return createAccountRequest;
 
-        var data = JSON.Parse(createAcccountRequest.text);
+        var data = JSON.Parse(createAccountRequest.text);
         var response = data["status"];
 
-        if (response.AsInt != 200) {
+        if (response.AsInt == 200) {
             Debug.Log("Account Created");
             StartCoroutine(CheckAccountExists(name));
         } else {
@@ -66,15 +73,45 @@ public class LoginUIHandler : MonoBehaviour {
         }
     }
 
+    /**
+     *  Check if autentication was successfull.
+     */
+    private IEnumerator IsAuthenticated() {
+        WWWForm authForm = new WWWForm();
+        Debug.Log(this.sessionKey);
+        authForm.AddField(Config.SessionKey, this.sessionKey);
+
+        WWW checkAuthRequest = new WWW(Config.ControllerURLIsOAuth, authForm);
+        yield return checkAuthRequest;
+
+        var data = JSON.Parse(checkAuthRequest.text);
+        var response = data["status"];
+
+        if (response.AsInt == 200) {
+            Debug.Log(checkAuthRequest.text);
+            Debug.Log("Account authenticated");
+            SceneManager.LoadScene("home");
+        } else {
+            Debug.Log(checkAuthRequest.text);
+            Debug.Log(response);
+            Debug.Log(checkAuthRequest.error);
+            throw new Exception("Did not authenticate!");
+        }
+    }
+
+    /**
+     *  Open up the url for authenitcation.
+     */
     private void Authenticate() {
         Debug.Log("Opening URL...");
         Application.OpenURL(Config.ControllerURLOAuth);
+        browserOpened = true;
     }
 
-
-
     private void OnApplicationFocus(bool focusState) {
-        if (focusState) Debug.Log("We back baby");
+        if(focusState && browserOpened) {
+            StartCoroutine(IsAuthenticated());
+        }
     }
 
 }
