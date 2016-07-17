@@ -110,11 +110,11 @@ class Item
     /**
      * Set type
      *
-     * @param \float $type
+     * @param  $type
      *
      * @return Item
      */
-    public function setType(\float $type)
+    public function setType($type)
     {
         $this->type = $type;
 
@@ -124,7 +124,7 @@ class Item
     /**
      * Get type
      *
-     * @return \float
+     * @return
      */
     public function getType()
     {
@@ -138,7 +138,7 @@ class Item
      *
      * @return Item
      */
-    public function setRarity(\float $rarity)
+    public function setRarity( $rarity)
     {
         $this->rarity = $rarity;
 
@@ -148,7 +148,7 @@ class Item
     /**
      * Get rarity
      *
-     * @return \float
+     * @return
      */
     public function getRarity()
     {
@@ -187,5 +187,9 @@ class Item
     public function getAvatar()
     {
         return $this->avatar;
+    }
+
+    public function __toString(){
+      return $this->id;
     }
 }

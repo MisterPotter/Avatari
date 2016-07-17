@@ -1,5 +1,8 @@
 ﻿using System.Collections;
-
+/**
+* @author: Denholm
+* @summary: Defines a base class for a boss
+* */
 public class Boss {
     private string bossName;
     private string spriteName;

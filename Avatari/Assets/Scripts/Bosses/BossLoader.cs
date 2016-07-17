@@ -2,6 +2,10 @@
 using UnityEngine.UI;
 using System.Collections.Generic;
 
+/**
+* @author: Denholm
+* @summary: Handler responsible for populating boss scene
+* */
 public class BossLoader : MonoBehaviour {
 
     private Cache cache;

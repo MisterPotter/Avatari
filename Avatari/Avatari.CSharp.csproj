@@ -61,10 +61,23 @@
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>Assets\Plugins\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="Avatari.CSharp.Plugins.csproj">
+      <Project>{4B7DF316-5353-C5F8-BD7E-6A9F2DCAE809}</Project>
+      <Name>Avatari.CSharp.Plugins</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Assets\JSON Tests\CSharp\Test_CSharp.cs" />
     <Compile Include="Assets\Scripts\Bosses\Boss.cs" />
     <Compile Include="Assets\Scripts\Bosses\BossLoader.cs" />
+    <Compile Include="Assets\Scripts\Challenges\Goal.cs" />
+    <Compile Include="Assets\Scripts\Challenges\PlayerGoals.cs" />
+    <Compile Include="Assets\Scripts\Config.cs" />
     <Compile Include="Assets\Scripts\Database\Cache.cs" />
     <Compile Include="Assets\Scripts\Database\IDataSource.cs" />
     <Compile Include="Assets\Scripts\Database\MockDBInterface.cs" />
@@ -83,6 +96,7 @@
     <Compile Include="Assets\Scripts\Inventory\ScrollViews\LoadAreaScrollView.cs" />
     <Compile Include="Assets\Scripts\Inventory\ScrollViews\LoadCharacterScrollView.cs" />
     <Compile Include="Assets\Scripts\Inventory\ScrollViews\LoadInventoryScrollView.cs" />
+    <Compile Include="Assets\Scripts\Login\LoginUIHandler.cs" />
     <Compile Include="Assets\Scripts\Player\Player.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerStatistic.cs" />
     <Compile Include="Assets\Scripts\Player\Statistic.cs" />
@@ -91,6 +105,9 @@
     <Compile Include="Assets\Scripts\UI\ProgressBar\LevelText.cs" />
     <Compile Include="Assets\Scripts\UI\ProgressBar\ProgressBar.cs" />
     <Compile Include="Assets\Scripts\Utility.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\JSON Tests\TroubleShoot.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>
