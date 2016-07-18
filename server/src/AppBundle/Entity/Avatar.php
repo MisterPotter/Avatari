@@ -28,6 +28,16 @@ class Avatar
      private $account;
 
      /**
+     * @ORM\ManyToOne(targetEntity="Tari")
+     */
+     private $tari;
+
+     /**
+     * @ORM\ManyToOne(targetEntity="Area")
+     */
+     private $area;
+
+     /**
       * @ORM\OneToMany(targetEntity="Goal", mappedBy="avatar")
       */
       private $goals;
@@ -615,5 +625,53 @@ class Avatar
     public function getRing()
     {
         return $this->ring;
+    }
+
+    /**
+     * Set tari
+     *
+     * @param \AppBundle\Entity\Tari $tari
+     *
+     * @return Avatar
+     */
+    public function setTari(\AppBundle\Entity\Tari $tari = null)
+    {
+        $this->tari = $tari;
+
+        return $this;
+    }
+
+    /**
+     * Get tari
+     *
+     * @return \AppBundle\Entity\Tari
+     */
+    public function getTari()
+    {
+        return $this->tari;
+    }
+
+    /**
+     * Set area
+     *
+     * @param \AppBundle\Entity\Area $area
+     *
+     * @return Avatar
+     */
+    public function setArea(\AppBundle\Entity\Area $area = null)
+    {
+        $this->area = $area;
+
+        return $this;
+    }
+
+    /**
+     * Get area
+     *
+     * @return \AppBundle\Entity\Area
+     */
+    public function getArea()
+    {
+        return $this->area;
     }
 }

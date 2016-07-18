@@ -38,7 +38,7 @@ class FitbitController extends Controller
       $provider = new Fitbit([
           'clientId'          => '227T6K',
           'clientSecret'      => '538c707fa361dbfcb1b63c7ea24b27ee',
-          'redirectUri'       => 'http://ec2-54-200-193-115.us-west-2.compute.amazonaws.com/app_dev.php/oauth'
+          'redirectUri'       => 'http://ec2-54-187-83-158.us-west-2.compute.amazonaws.com/app_dev.php/oauth'
       ]);
 
       // If we don't have an authorization code then get one
@@ -118,7 +118,7 @@ class FitbitController extends Controller
       $provider = new Fitbit([
           'clientId'          => '227T6K',
           'clientSecret'      => '538c707fa361dbfcb1b63c7ea24b27ee',
-          'redirectUri'       => 'http://ec2-54-200-193-115.us-west-2.compute.amazonaws.com/app_dev.php/oauth'
+          'redirectUri'       => 'http://ec2-54-187-83-158.us-west-2.compute.amazonaws.com/app_dev.php/oauth'
       ]);
 
       try {
