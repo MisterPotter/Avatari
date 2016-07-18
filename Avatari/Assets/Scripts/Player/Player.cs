@@ -15,6 +15,17 @@ public class Player {
         public Item ringGear;
         public Item shieldGear;
 
+        public EquippedGear() {
+            this.headGear = null;
+            this.bodyGear = null;
+            this.footGear = null;
+            this.weaponGear = null;
+            this.neckGear = null;
+            this.wingGear = null;
+            this.ringGear = null;
+            this.shieldGear = null;
+        }
+
         public EquippedGear(
                 Item head, Item body, Item foot, Item weapon,
                 Item neck, Item wing, Item ring, Item sheild) {
@@ -34,6 +45,8 @@ public class Player {
      */
     public EquippedGear gear { get; set; }
 
+    public string username { get; set; }
+
     /**
      *  The name of the sprite to be loaded for the player.
      */
@@ -51,6 +64,15 @@ public class Player {
         this.sprite = null;
         this.stats = null;
         this.area = null;
+    }
+
+    public Player(
+            EquippedGear gear, string username, string spriteName,
+            PlayerStatistic stats, Area area) {
+        this.gear = gear;
+        this.sprite = spriteName;
+        this.stats = stats;
+        this.area = area;
     }
 
     /**
