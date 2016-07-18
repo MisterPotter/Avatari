@@ -7,17 +7,25 @@ public class Player {
 
     public class EquippedGear {
         public Item headGear;
-        public Item chestGear;
+        public Item bodyGear;
         public Item footGear;
-        public Item handGear;
+        public Item weaponGear;
+        public Item neckGear;
         public Item wingGear;
+        public Item ringGear;
+        public Item shieldGear;
 
-        public EquippedGear(Item head, Item chest, Item foot, Item hand, Item wing) {
+        public EquippedGear(
+                Item head, Item body, Item foot, Item weapon,
+                Item neck, Item wing, Item ring, Item sheild) {
             this.headGear = head;
-            this.chestGear = chest;
+            this.bodyGear = body;
             this.footGear = foot;
-            this.handGear = hand;
+            this.weaponGear = weapon;
+            this.neckGear = neck;
             this.wingGear = wing;
+            this.ringGear = ring;
+            this.shieldGear = sheild;
         }
     }
 
@@ -58,14 +66,8 @@ public class Player {
                 }
                 break;
             case Item.ItemType.Body:
-                if (item.itemID == gear.chestGear.itemID) {
-                    this.gear.chestGear = null;
-                    itemUnequipped = true;
-                }
-                break;
-            case Item.ItemType.Hands:
-                if (item.itemID == gear.handGear.itemID) {
-                    this.gear.handGear = null;
+                if (item.itemID == gear.bodyGear.itemID) {
+                    this.gear.bodyGear = null;
                     itemUnequipped = true;
                 }
                 break;
@@ -75,9 +77,33 @@ public class Player {
                     itemUnequipped = true;
                 }
                 break;
+            case Item.ItemType.Weapon:
+                if (item.itemID == gear.weaponGear.itemID) {
+                    this.gear.weaponGear = null;
+                    itemUnequipped = true;
+                }
+                break;
+            case Item.ItemType.Neck:
+                if (item.itemID == gear.neckGear.itemID) {
+                    this.gear.neckGear = null;
+                    itemUnequipped = true;
+                }
+                break;
             case Item.ItemType.Wings:
                 if (item.itemID == gear.wingGear.itemID) {
                     this.gear.wingGear = null;
+                    itemUnequipped = true;
+                }
+                break;
+            case Item.ItemType.Ring:
+                if (item.itemID == gear.ringGear.itemID) {
+                    this.gear.ringGear = null;
+                    itemUnequipped = true;
+                }
+                break;
+            case Item.ItemType.Shield:
+                if (item.itemID == gear.shieldGear.itemID) {
+                    this.gear.shieldGear = null;
                     itemUnequipped = true;
                 }
                 break;
@@ -109,14 +135,7 @@ public class Player {
                 if (currentlyEquipped != null) {
                     UnequipItem(currentlyEquipped);
                 }
-                this.gear.chestGear = item;
-                itemEquipped = true;
-                break;
-            case Item.ItemType.Hands:
-                if (currentlyEquipped != null) {
-                    UnequipItem(currentlyEquipped);
-                }
-                this.gear.handGear = item;
+                this.gear.bodyGear = item;
                 itemEquipped = true;
                 break;
             case Item.ItemType.Feet:
@@ -126,11 +145,39 @@ public class Player {
                 this.gear.footGear = item;
                 itemEquipped = true;
                 break;
+            case Item.ItemType.Weapon:
+                if (currentlyEquipped != null) {
+                    UnequipItem(currentlyEquipped);
+                }
+                this.gear.weaponGear = item;
+                itemEquipped = true;
+                break;
+            case Item.ItemType.Neck:
+                if (currentlyEquipped != null) {
+                    UnequipItem(currentlyEquipped);
+                }
+                this.gear.neckGear = item;
+                itemEquipped = true;
+                break;
             case Item.ItemType.Wings:
                 if (currentlyEquipped != null) {
                     UnequipItem(currentlyEquipped);
                 }
                 this.gear.wingGear = item;
+                itemEquipped = true;
+                break;
+            case Item.ItemType.Ring:
+                if (currentlyEquipped != null) {
+                    UnequipItem(currentlyEquipped);
+                }
+                this.gear.ringGear = item;
+                itemEquipped = true;
+                break;
+            case Item.ItemType.Shield:
+                if (currentlyEquipped != null) {
+                    UnequipItem(currentlyEquipped);
+                }
+                this.gear.shieldGear = item;
                 itemEquipped = true;
                 break;
             default:
@@ -151,13 +198,19 @@ public class Player {
             case Item.ItemType.Head:
                 return this.gear.headGear;
             case Item.ItemType.Body:
-                return this.gear.chestGear;
-            case Item.ItemType.Hands:
-                return this.gear.handGear;
+                return this.gear.bodyGear;
             case Item.ItemType.Feet:
                 return this.gear.footGear;
+            case Item.ItemType.Weapon:
+                return this.gear.weaponGear;
+            case Item.ItemType.Neck:
+                return this.gear.neckGear;
             case Item.ItemType.Wings:
                 return this.gear.wingGear;
+            case Item.ItemType.Ring:
+                return this.gear.ringGear;
+            case Item.ItemType.Shield:
+                return this.gear.shieldGear;
             default:
                 throw new Exception("Invalid item type while eqipping: "
                     + type);

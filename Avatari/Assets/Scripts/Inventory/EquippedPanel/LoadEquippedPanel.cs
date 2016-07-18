@@ -11,10 +11,13 @@ public class LoadEquippedPanel : MonoBehaviour {
 
     private Image characterImage;
     private GameObject headSlot;
-    private GameObject chestSlot;
+    private GameObject bodySlot;
     private GameObject feetSlot;
-    private GameObject handsSlot;
+    private GameObject weaponSlot;
+    private GameObject neckSlot;
     private GameObject wingsSlot;
+    private GameObject ringSlot;
+    private GameObject shieldSlot;
 
     private Cache cache;
 
@@ -39,10 +42,13 @@ public class LoadEquippedPanel : MonoBehaviour {
         this.characterImage = Utility.LoadObject<Image>("CharacterSlot");
 
         this.headSlot = GameObject.FindGameObjectWithTag("HeadSlot");
-        this.chestSlot = GameObject.FindGameObjectWithTag("ChestSlot");
+        this.bodySlot = GameObject.FindGameObjectWithTag("BodySlot");
         this.feetSlot = GameObject.FindGameObjectWithTag("FeetSlot");
-        this.handsSlot = GameObject.FindGameObjectWithTag("HandsSlot");
+        this.weaponSlot = GameObject.FindGameObjectWithTag("WeaponSlot");
+        this.neckSlot = GameObject.FindGameObjectWithTag("NecklaceSlot");
         this.wingsSlot = GameObject.FindGameObjectWithTag("WingsSlot");
+        this.ringSlot = GameObject.FindGameObjectWithTag("RingSlot");
+        this.shieldSlot = GameObject.FindGameObjectWithTag("ShieldSlot");
     }
 
     /**
@@ -67,8 +73,12 @@ public class LoadEquippedPanel : MonoBehaviour {
         LoadEquippedItem(Item.ItemType.Head, equippedGear);
         LoadEquippedItem(Item.ItemType.Body, equippedGear);
         LoadEquippedItem(Item.ItemType.Feet, equippedGear);
-        LoadEquippedItem(Item.ItemType.Hands, equippedGear);
+        LoadEquippedItem(Item.ItemType.Weapon, equippedGear);
         LoadEquippedItem(Item.ItemType.Wings, equippedGear);
+        LoadEquippedItem(Item.ItemType.Neck, equippedGear);
+        LoadEquippedItem(Item.ItemType.Ring, equippedGear);
+        LoadEquippedItem(Item.ItemType.Shield, equippedGear);
+
     }
 
     private void LoadEquippedItem(Item.ItemType itemType, Player.EquippedGear equippedGear) {
@@ -84,31 +94,49 @@ public class LoadEquippedPanel : MonoBehaviour {
                 slot = this.headSlot.GetComponent<Image>();
                 slotScript = this.headSlot.GetComponent<EquippedSlot>();
                 item = equippedGear.headGear;
-                defaultResource = "head";
+                defaultResource = "helmet";
                 break;
             case Item.ItemType.Body:
-                slot = this.chestSlot.GetComponent<Image>();
-                slotScript = this.chestSlot.GetComponent<EquippedSlot>();
-                item = equippedGear.chestGear;
-                defaultResource = "body";
+                slot = this.bodySlot.GetComponent<Image>();
+                slotScript = this.bodySlot.GetComponent<EquippedSlot>();
+                item = equippedGear.bodyGear;
+                defaultResource = "armor";
                 break;
             case Item.ItemType.Feet:
                 slot = this.feetSlot.GetComponent<Image>();
                 slotScript = this.feetSlot.GetComponent<EquippedSlot>();
                 item = equippedGear.footGear;
-                defaultResource = "shoes";
+                defaultResource = "boots";
                 break;
-            case Item.ItemType.Hands:
-                slot = this.handsSlot.GetComponent<Image>();
-                slotScript = this.handsSlot.GetComponent<EquippedSlot>();
-                item = equippedGear.handGear;
-                defaultResource = "hands";
+            case Item.ItemType.Weapon:
+                slot = this.weaponSlot.GetComponent<Image>();
+                slotScript = this.weaponSlot.GetComponent<EquippedSlot>();
+                item = equippedGear.weaponGear;
+                defaultResource = "weapon";
+                break;
+            case Item.ItemType.Neck:
+                slot = this.neckSlot.GetComponent<Image>();
+                slotScript = this.neckSlot.GetComponent<EquippedSlot>();
+                item = equippedGear.neckGear;
+                defaultResource = "necklace";
                 break;
             case Item.ItemType.Wings:
                 slot = this.wingsSlot.GetComponent<Image>();
                 slotScript = this.wingsSlot.GetComponent<EquippedSlot>();
                 item = equippedGear.wingGear;
                 defaultResource = "wings";
+                break;
+            case Item.ItemType.Ring:
+                slot = this.ringSlot.GetComponent<Image>();
+                slotScript = this.ringSlot.GetComponent<EquippedSlot>();
+                item = equippedGear.ringGear;
+                defaultResource = "ring";
+                break;
+            case Item.ItemType.Shield:
+                slot = this.shieldSlot.GetComponent<Image>();
+                slotScript = this.shieldSlot.GetComponent<EquippedSlot>();
+                item = equippedGear.shieldGear;
+                defaultResource = "shield";
                 break;
             default:
                 Debug.LogError("Invalid equipped item type for player: "
@@ -119,6 +147,9 @@ public class LoadEquippedPanel : MonoBehaviour {
         // If nothing is equipt, use the default resource
         if (item == null) {
             slot.sprite = Resources.Load<Sprite>("Inventory/" + defaultResource);
+            slotScript.item = null;
+            slotScript.slot = slot;
+            slotScript.slotDefault = slot.sprite;
             return;
         }
 

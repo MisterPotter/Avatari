@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 117271ac40a9c564d875940af1fd6e40
-timeCreated: 1468654155
+timeCreated: 1468826504
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -173,7 +173,7 @@ TextureImporter:
     21300332: 34x34icons180709 (1)_166
     21300334: 34x34icons180709 (1)_167
     21300336: 34x34icons180709 (1)_168
-    21300338: 34x34icons180709 (1)_169
+    21300338: wooden_round_shield
     21300340: 34x34icons180709 (1)_170
     21300342: 34x34icons180709 (1)_171
     21300344: 34x34icons180709 (1)_172
@@ -3652,7 +3652,7 @@ TextureImporter:
         - {x: 17, y: -10}
         - {x: 17, y: 14}
         - {x: 10, y: 17}
-    - name: 34x34icons180709 (1)_169
+    - name: wooden_round_shield
       rect:
         serializedVersion: 2
         x: 34

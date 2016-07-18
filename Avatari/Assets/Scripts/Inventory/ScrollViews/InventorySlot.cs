@@ -22,8 +22,11 @@ public class InventorySlot : MonoBehaviour, IPointerDownHandler {
     private const string HeadSlotTag = "HeadSlot";
     private const string ChestSlotTag = "ChestSlot";
     private const string FeetSlotTag = "FeetSlot";
-    private const string HandsSlotTag = "HandsSlot";
+    private const string WeaponSlotTag = "WeaponSlot";
+    private const string NeckSlotTag = "NecklaceSlot";
     private const string WingsSlotTag = "WingsSlot";
+    private const string RingSlotTag = "RingSlot";
+    private const string ShieldSlotTag = "ShieldSlot";
 
     private void Awake() {
         cache = Utility.LoadObject<Cache>("Cache");
@@ -100,12 +103,22 @@ public class InventorySlot : MonoBehaviour, IPointerDownHandler {
                 slot = GameObject.FindGameObjectWithTag(ChestSlotTag);
                 break;
             case Item.ItemType.Feet:
+                slot = GameObject.FindGameObjectWithTag(FeetSlotTag);
                 break;
-            case Item.ItemType.Hands:
-                slot = GameObject.FindGameObjectWithTag(HandsSlotTag);
+            case Item.ItemType.Weapon:
+                slot = GameObject.FindGameObjectWithTag(WeaponSlotTag);
+                break;
+            case Item.ItemType.Neck:
+                slot = GameObject.FindGameObjectWithTag(NeckSlotTag);
                 break;
             case Item.ItemType.Wings:
                 slot = GameObject.FindGameObjectWithTag(WingsSlotTag);
+                break;
+            case Item.ItemType.Ring:
+                slot = GameObject.FindGameObjectWithTag(RingSlotTag);
+                break;
+            case Item.ItemType.Shield:
+                slot = GameObject.FindGameObjectWithTag(ShieldSlotTag);
                 break;
             default:
                 Debug.LogError("Invalid equipped item type for player: "
