@@ -35,6 +35,21 @@ public class Cache : MonoBehaviour, IDataSource {
     private List<Boss> bosses;
 
     /**
+    *  The list of a user's daily goals.
+    */
+    public DailyGoals dailyGoals { get; set; }
+
+    /**
+    *  The list of a user's daily goals.
+    */
+    public Challenges challenges { get; set; }
+
+    /**
+    *  The list of a user's daily goals.
+    */
+    public LifetimeGoals lifetimeGoals { get; set; }
+
+    /**
      *  All inventory icons.
      */
     private Sprite[] inventorySprites;
@@ -54,11 +69,15 @@ public class Cache : MonoBehaviour, IDataSource {
      */
     public Player player { get; set; }
 
-    /**
+    
+    /*
      *  The session key to use for all requests.
      */
     public int sessionKey { get; set; }
 
+    /**
+    *  Retrieval functions
+    */
     public List<Sprite> LoadAreas() {
         return cache.inventoryAreas;
     }
@@ -175,6 +194,9 @@ public class Cache : MonoBehaviour, IDataSource {
         cache.inventoryAreas = new List<Sprite>();
         cache.player = new Player();
         cache.bosses = new List<Boss>();
+        cache.dailyGoals = new DailyGoals();
+        cache.challenges = new Challenges();
+        cache.lifetimeGoals = new LifetimeGoals();
         LoadSprites();
     }
 

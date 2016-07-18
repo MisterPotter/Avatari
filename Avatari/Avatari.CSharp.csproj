@@ -74,7 +74,11 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Bosses\Boss.cs" />
     <Compile Include="Assets\Scripts\Bosses\BossLoader.cs" />
+    <Compile Include="Assets\Scripts\Challenges\ChallengeLoader.cs" />
+    <Compile Include="Assets\Scripts\Challenges\DailyGoalLoader.cs" />
     <Compile Include="Assets\Scripts\Challenges\Goal.cs" />
+    <Compile Include="Assets\Scripts\Challenges\GoalViewHandler.cs" />
+    <Compile Include="Assets\Scripts\Challenges\LifetimeGoalLoader.cs" />
     <Compile Include="Assets\Scripts\Challenges\PlayerGoals.cs" />
     <Compile Include="Assets\Scripts\Config.cs" />
     <Compile Include="Assets\Scripts\Database\Cache.cs" />

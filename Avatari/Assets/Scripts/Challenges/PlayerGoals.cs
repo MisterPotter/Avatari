@@ -1,17 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 
+/**
+* @author: Denholm
+* @summary: A wrapper to associate player goals, but isn't really used at the moment
+* */
 public class PlayerGoals {
-    public List<DailyGoal> dailyGoals;
-    public List<LifetimeGoal> lifetimeGoals;
+    public List<Goal> dailyGoals;
+    public List<Goal> challenges;
+    public List<Goal> lifetimeGoals;
 
     public PlayerGoals() {
-        dailyGoals = new List<DailyGoal>();
-        lifetimeGoals = new List<LifetimeGoal>();
+        dailyGoals = new List<Goal>();
+        challenges = new List<Goal>();
+        lifetimeGoals = new List<Goal>();
     }
 
-    public PlayerGoals(List<DailyGoal> dailyGoals, List<LifetimeGoal> lifetimeGoals) {
+    public PlayerGoals(List<Goal> dailyGoals, List<Goal> challenges, List<Goal> lifetimeGoals) {
         this.dailyGoals = dailyGoals;
+        this.challenges = challenges;
         this.lifetimeGoals = lifetimeGoals;
     }
 }
