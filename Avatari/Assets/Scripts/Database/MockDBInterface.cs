@@ -51,9 +51,9 @@ public class MockDBInterface : MonoBehaviour {
         cache.AddCharacterToInventory(new Tari(2, "Mega Dude", "MegaDude", "Not quite net worthy."));
 
         // Add areas
-        cache.AddAreaToInventory("Lava");
-        cache.AddAreaToInventory("Forest");
-        cache.AddAreaToInventory("Final");
+        cache.AddAreaToInventory(new Area(1, "Lava", "Lava", "Lava like, we should destroy that ring here."));
+        cache.AddAreaToInventory(new Area(2, "Forest", "Forest", "Nature like."));
+        cache.AddAreaToInventory(new Area(3, "Final", "Final", "Is this out of Naruto?"));
     }
 
     private void PopulatePlayerInfo() {
