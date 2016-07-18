@@ -11,20 +11,29 @@ public class Config {
     public static readonly string ControllerURLIsOAuth = ControllerURLRoot + "isOauth";
 
     /*
-     *  Inventory
+     *  Inventory.
+     *
+     *  API refers to all the content we have access to for the
+     *  Fitbit API. What we actually get back here is what the server
+     *  requests, if differen't data is needed, the requests from the
+     *  server to the fitbit API need to be changed.
      */
     public static readonly string ControllerURLAPI = ControllerURLRoot + "api";
+    public static readonly string ControllerURLAreas = ControllerURLRoot + "areas";
     public static readonly string ControllerURLItems = ControllerURLRoot + "items";
     public static readonly string ControllerURLPlayer = ControllerURLRoot + "avatar";
+    public static readonly string ControllerURLTaris = ControllerURLRoot + "taris";
 
     /*
      *  Request parameters.
      */
     public static readonly string LoginNameParam = "avatar_name";
     public static readonly string TokenParam = "token";
-    
+
     /*
-     *  Keys for parsing
+     *  Keys for parsing responses.
      */
+    public static readonly string Data = "data";
     public static readonly string SessionKey = "avatari_user_id";
+    public static readonly string Status = "status";
 }

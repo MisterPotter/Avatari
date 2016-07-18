@@ -16,6 +16,8 @@ public class InventorySlot : MonoBehaviour, IPointerDownHandler {
     private Cache cache;
     private Transform dialogSpawner;
     private const string TitleFormat = "Equip {0}?";
+    private const string RemoveStatusFormat = "-{0} {1}";
+    private const string AddStatusFormat = "+{0} {1}";
 
     private const string HeadSlotTag = "HeadSlot";
     private const string ChestSlotTag = "ChestSlot";
@@ -60,11 +62,15 @@ public class InventorySlot : MonoBehaviour, IPointerDownHandler {
         );
         Text title = dialog.transform.GetChild(0).GetComponent<Text>();
         Text description = dialog.transform.GetChild(1).GetComponent<Text>();
-        Button accept = dialog.transform.GetChild(2).GetComponent<Button>();
-        Button decline = dialog.transform.GetChild(3).GetComponent<Button>();
+        Text removeStatus = dialog.transform.GetChild(2).GetComponent<Text>();
+        Text addStatus = dialog.transform.GetChild(3).GetComponent<Text>();
+        Button accept = dialog.transform.GetChild(4).GetComponent<Button>();
+        Button decline = dialog.transform.GetChild(5).GetComponent<Button>();
 
         title.text = String.Format(TitleFormat, this.item.itemName);
         description.text = item.itemDescription;
+        SetRemoveStatus(removeStatus);
+        addStatus.text = String.Format(AddStatusFormat, item.statBoost, item.statType);
         accept.onClick.AddListener(
             delegate {
                 EquipItem();
@@ -85,45 +91,45 @@ public class InventorySlot : MonoBehaviour, IPointerDownHandler {
      */
     private void EquipItem() {
         Sprite resource = this.cache.LoadInventorySprite(item.resourceName);
-        GameObject slot;
+        GameObject slot = null;
         switch (item.itemType) {
             case Item.ItemType.Head:
                 slot = GameObject.FindGameObjectWithTag(HeadSlotTag);
-                slot.GetComponent<Image>().sprite = resource;
-                slot.GetComponent<EquippedSlot>().item = this.item;
-                this.cache.player.gear.headGear = this.item;
                 break;
             case Item.ItemType.Body:
                 slot = GameObject.FindGameObjectWithTag(ChestSlotTag);
-                slot.GetComponent<Image>().sprite = resource;
-                slot.GetComponent<EquippedSlot>().item = this.item;
-                this.cache.player.gear.chestGear = this.item;
                 break;
             case Item.ItemType.Feet:
-                slot = GameObject.FindGameObjectWithTag(FeetSlotTag);
-                slot.GetComponent<Image>().sprite = resource;
-                slot.GetComponent<EquippedSlot>().item = this.item;
-                this.cache.player.gear.footGear = this.item;
                 break;
             case Item.ItemType.Hands:
                 slot = GameObject.FindGameObjectWithTag(HandsSlotTag);
-                slot.GetComponent<Image>().sprite = resource;
-                slot.GetComponent<EquippedSlot>().item = this.item;
-                this.cache.player.gear.handGear = this.item;
                 break;
             case Item.ItemType.Wings:
                 slot = GameObject.FindGameObjectWithTag(WingsSlotTag);
-                slot.GetComponent<Image>().sprite = resource;
-                slot.GetComponent<EquippedSlot>().item = this.item;
-                this.cache.player.gear.wingGear = this.item;
                 break;
             default:
                 Debug.LogError("Invalid equipped item type for player: "
                     + this.item.itemType);
                 return;
         }
+
+        slot.GetComponent<Image>().sprite = resource;
+        slot.GetComponent<EquippedSlot>().item = this.item;
+        this.cache.player.EquipItem(this.item);
     }
 
+    private void SetRemoveStatus(Text removeStatus) {
+        Item currentlyEquipped = this.cache.player.GetEquipped(this.item.itemType);
 
+        if (currentlyEquipped != null) {
+            removeStatus.text = String.Format(
+                RemoveStatusFormat,
+                currentlyEquipped.statBoost,
+                currentlyEquipped.statType
+            );
+        } else {
+            removeStatus.text = "";
+        }
+    }
 
 }
