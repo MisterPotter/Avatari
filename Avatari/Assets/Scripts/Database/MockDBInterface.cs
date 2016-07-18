@@ -49,13 +49,13 @@ public class MockDBInterface : MonoBehaviour {
 
     private void PopulateBosses() {
         Cache cache = Utility.LoadObject<Cache>("Cache");
-        cache.AddBossToList(new Boss("Vicky", "", 2, 1));
-        cache.AddBossToList(new Boss("Rombo", "", 3, 2));
-        cache.AddBossToList(new Boss("Patsy", "", 5, 3));
-        cache.AddBossToList(new Boss("Squidward", "", 8, 4));
-        cache.AddBossToList(new Boss("Bloop", "", 10, 5));
-        cache.AddBossToList(new Boss("Ali", "", 12, 6));
-        cache.AddBossToList(new Boss("Moeby", "", 15, 7));
+        cache.AddBossToList(new Boss("Vicky", "", new PlayerStatistic(2, 2500, 13, 1, 1, 1), 1));
+        cache.AddBossToList(new Boss("Rombo", "", new PlayerStatistic(3, 3100, 14, 2, 3, 2 ), 2));
+        cache.AddBossToList(new Boss("Patsy", "", new PlayerStatistic(5, 5500, 14, 3, 3, 5 ), 3));
+        cache.AddBossToList(new Boss("Squidward", "", new PlayerStatistic(8, 8800, 15, 2, 4, 6), 4));
+        cache.AddBossToList(new Boss("Bloop", "", new PlayerStatistic(10, 10300, 16, 4, 5, 7 ), 5));
+        cache.AddBossToList(new Boss("Ali", "", new PlayerStatistic(12, 12600, 17, 8, 9, 12), 6));
+        cache.AddBossToList(new Boss("Moeby", "", new PlayerStatistic(15, 15010, 20, 13, 15, 18), 7));
     }
 
 }
