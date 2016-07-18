@@ -12,7 +12,7 @@ public class PopulateCache : MonoBehaviour {
     private Cache cache;
     private Mutex mutex;
 
-    private const uint ExpectedCalls = 2;
+    private const uint ExpectedCalls = 3;
 
     private void Awake() {
         this.callCount = 0;
@@ -23,6 +23,7 @@ public class PopulateCache : MonoBehaviour {
     public void Populate() {
         StartCoroutine(PopulateFitbitData());
         StartCoroutine(PopulateItems());
+        StartCoroutine(PopulateAreas());
         StartCoroutine(LoadHomeScreen());
     }
 
@@ -44,6 +45,7 @@ public class PopulateCache : MonoBehaviour {
             this.mutex.WaitOne();
             this.callCount++;
             this.mutex.ReleaseMutex();
+            Debug.Log(callCount);
         } else {
             throw new Exception("FATAL: Fitbit data could not be obtained.");
         }
@@ -142,6 +144,7 @@ public class PopulateCache : MonoBehaviour {
             this.mutex.WaitOne();
             this.callCount++;
             this.mutex.ReleaseMutex();
+
         } else {
             throw new Exception("FATAL: Item data could not be obtained.");
         }
@@ -151,6 +154,44 @@ public class PopulateCache : MonoBehaviour {
         JSONArray items = data["items"].AsArray;
         foreach (JSONNode item in items) {
             this.cache.AddItemToInventory(CreateItemFromJSON(item));
+        }
+    }
+
+    private IEnumerator PopulateAreas() {
+        WWWForm form = new WWWForm();
+        form.AddField(Config.SessionKey, this.cache.sessionKey);
+        WWW www = new WWW(Config.ControllerURLAreas, form);
+
+        yield return www;
+
+        var data = JSON.Parse(www.text);
+        int response = data["status"].AsInt;
+
+        if (response == 200) {
+            FillCacheWithAreas(data["data"]);
+            this.mutex.WaitOne();
+            this.callCount++;
+            this.mutex.ReleaseMutex();
+            Debug.Log(callCount);
+        } else {
+            throw new Exception("FATAL: Area data could not be obtained.");
+        }
+    }
+
+    /**
+     *  Populate the areas list in cache with the areas from the response.
+     */
+    private void FillCacheWithAreas(JSONNode data) {
+        JSONArray areas = data["areas"].AsArray;
+        foreach(JSONNode area in areas) {
+            this.cache.AddAreaToInventory(
+                new Area(
+                    area["id"].AsInt,
+                    area["name"].Value,
+                    area["name"].Value,
+                    area["description"].Value
+                )
+            );
         }
     }
 
