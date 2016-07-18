@@ -32,7 +32,7 @@ public class PlayerStatistic {
         this.defense = new Defense(defense);
     }
 
-    public void UpdatePlayerStatistics() {
+    public void UpdatePlayerStatisticsSince(DateTime date) {
         updateExperience();
         updateHealth();
         updateStrength();
