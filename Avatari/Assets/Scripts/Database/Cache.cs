@@ -17,7 +17,7 @@ public class Cache : MonoBehaviour, IDataSource {
     /**
      *  The list of inventory areas that the player owns.
      */
-    private List<Sprite> inventoryAreas;
+    private List<Area> inventoryAreas;
 
     /**
      *  The list of inventory characters that the player owns.
@@ -78,7 +78,7 @@ public class Cache : MonoBehaviour, IDataSource {
     /**
     *  Retrieval functions
     */
-    public List<Sprite> LoadAreas() {
+    public List<Area> LoadAreas() {
         return cache.inventoryAreas;
     }
 
@@ -163,11 +163,8 @@ public class Cache : MonoBehaviour, IDataSource {
     /**
      *  Used to add areas to inventory.
      */
-    public void AddAreaToInventory(string name) {
-        Sprite area = Resources.Load<Sprite>("Sprites/Areas/" + name);
-        if(area != null) {
-            cache.inventoryAreas.Add(area);
-        }
+    public void AddAreaToInventory(Area area) {
+        cache.inventoryAreas.Add(area);
     }
 
     /**
@@ -191,7 +188,7 @@ public class Cache : MonoBehaviour, IDataSource {
         fitbit = new Fitbit();
         cache.inventoryItems = new List<Item>();
         cache.inventoryCharacters = new List<Tari>();
-        cache.inventoryAreas = new List<Sprite>();
+        cache.inventoryAreas = new List<Area>();
         cache.player = new Player();
         cache.bosses = new List<Boss>();
         cache.dailyGoals = new DailyGoals();

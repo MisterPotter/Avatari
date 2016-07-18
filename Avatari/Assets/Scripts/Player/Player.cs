@@ -31,6 +31,8 @@ public class Player {
      */
     public string sprite { get; set; }
 
+    public Area area { get; set; }
+
     /**
      * The statistics of the player 
      */
@@ -40,6 +42,7 @@ public class Player {
         this.gear = null;
         this.sprite = null;
         this.stats = null;
+        this.area = null;
     }
 
     /**

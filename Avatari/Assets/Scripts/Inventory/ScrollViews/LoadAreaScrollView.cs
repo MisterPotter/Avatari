@@ -31,35 +31,33 @@ public class LoadAreaScrollView : MonoBehaviour {
     }
 
     private void LoadAreas() {
-        List<Sprite> inventoryAreas = this.cache.LoadAreas();
+        List<Area> inventoryAreas = this.cache.LoadAreas();
         int rows = inventoryAreas.Count;
 
         // Set the size of the content to hold the content
         content.sizeDelta = new Vector2(0.0f, rowVertOffset*rows+bottomPadding);
 
         for (int i = 0; i < rows; ++i) {
-            int itemsPassed = i;
-            IEnumerable<Sprite> areasLeft = inventoryAreas
-                .Skip(itemsPassed)
-                .Take(1);
-
-            InstatiateRow(i, areasLeft);
+            InstatiateRow(i, inventoryAreas[i]);
         }
     }
 
-    private void InstatiateRow(int row, IEnumerable<Sprite> sprites) {
+    private void InstatiateRow(int row, Area area) {
         Vector3 offset = Vector3.down * rowVertOffset * row;
         GameObject clone = (GameObject)Instantiate(
             rowPrefab, offset, Quaternion.identity
         );
         clone.transform.SetParent(rowSpawner, false);
 
-        int i = 0;
-        foreach (Sprite sprite in sprites) {
-            Image slot = clone.transform.GetChild(i++).GetChild(0)
-                .GetComponent<Image>();
-            slot.sprite = sprite;
+        Sprite sprite = Resources.Load<Sprite>("Sprites/Areas/" + area.spriteName);
+        if(sprite == null) {
+            Debug.LogError("Error: couldn't load area sprite: " + area.spriteName);
         }
+        Transform slotObject = clone.transform.GetChild(0).GetChild(0);
+        Image slot = slotObject.GetComponent<Image>();
+        AreaSlot slotScript = slotObject.GetComponent<AreaSlot>();
+        slot.sprite = sprite;
+        slotScript.area = area;
     }
 
 }

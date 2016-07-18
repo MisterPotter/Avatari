@@ -4,10 +4,10 @@ using System.Collections.Generic;
 public interface IDataSource {
 
     /**
-     *  @summary: Loads inventory area sprites from cache.
-     *  @return: A list of inventory area sprites from cache.
+     *  @summary: Loads inventory areas from cache.
+     *  @return: A list of inventory areas from cache.
      */
-    List<Sprite> LoadAreas();
+    List<Area> LoadAreas();
 
     /**
      *  @summary: Loads inventory character sprites from cache.
