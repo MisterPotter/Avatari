@@ -42,6 +42,9 @@ public class Player {
         this.stats = null;
     }
 
+    /**
+     *  Removed an item.
+     */
     public void UnequipItem(Item item) {
         bool itemUnequipped = false;
         switch(item.itemType) {
@@ -84,39 +87,48 @@ public class Player {
         }
     }
 
+    /**
+     *  Equips an item. Removed one first if one is already equipped.
+     */
     public void EquipItem(Item item) {
+        Item currentlyEquipped = GetEquipped(item.itemType);
         bool itemEquipped = false;
 
         switch (item.itemType) {
             case Item.ItemType.Head:
-                if (item.itemID == this.gear.headGear.itemID) {
-                    this.gear.headGear = item;
-                    itemEquipped = true;
+                if(currentlyEquipped != null) {
+                    UnequipItem(currentlyEquipped);
                 }
+                this.gear.headGear = item;
+                itemEquipped = true;
                 break;
             case Item.ItemType.Body:
-                if (item.itemID == gear.chestGear.itemID) {
-                    this.gear.chestGear = item;
-                    itemEquipped = true;
+                if (currentlyEquipped != null) {
+                    UnequipItem(currentlyEquipped);
                 }
+                this.gear.chestGear = item;
+                itemEquipped = true;
                 break;
             case Item.ItemType.Hands:
-                if (item.itemID == gear.handGear.itemID) {
-                    this.gear.handGear = item;
-                    itemEquipped = true;
+                if (currentlyEquipped != null) {
+                    UnequipItem(currentlyEquipped);
                 }
+                this.gear.handGear = item;
+                itemEquipped = true;
                 break;
             case Item.ItemType.Feet:
-                if (item.itemID == gear.footGear.itemID) {
-                    this.gear.footGear = item;
-                    itemEquipped = true;
+                if (currentlyEquipped != null) {
+                    UnequipItem(currentlyEquipped);
                 }
+                this.gear.footGear = item;
+                itemEquipped = true;
                 break;
             case Item.ItemType.Wings:
-                if (item.itemID == gear.wingGear.itemID) {
-                    this.gear.wingGear = item;
-                    itemEquipped = true;
+                if (currentlyEquipped != null) {
+                    UnequipItem(currentlyEquipped);
                 }
+                this.gear.wingGear = item;
+                itemEquipped = true;
                 break;
             default:
                 throw new Exception("Invalid item type while eqipping: "
@@ -125,6 +137,27 @@ public class Player {
 
         if (itemEquipped) {
             this.stats.UpdateStatOnItemChange(item, true);
+        }
+    }
+
+    /**
+     *  Get the currently equipped item in a particular slot.
+     */
+    public Item GetEquipped(Item.ItemType type) {
+        switch (type) {
+            case Item.ItemType.Head:
+                return this.gear.headGear;
+            case Item.ItemType.Body:
+                return this.gear.chestGear;
+            case Item.ItemType.Hands:
+                return this.gear.handGear;
+            case Item.ItemType.Feet:
+                return this.gear.footGear;
+            case Item.ItemType.Wings:
+                return this.gear.wingGear;
+            default:
+                throw new Exception("Invalid item type while eqipping: "
+                    + type);
         }
     }
 }

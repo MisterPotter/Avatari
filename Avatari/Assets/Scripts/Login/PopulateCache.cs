@@ -67,7 +67,7 @@ public class PopulateCache : MonoBehaviour {
         this.cache.fitbit.lifetime = new LifetimeStats(
             data["activeScore"].AsInt,
             data["caloriesOut"].AsInt,
-            data["distance"].AsDouble,
+            data["distance"].AsFloat,
             data["floors"].AsInt,
             data["steps"].AsInt
         );

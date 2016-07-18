@@ -17,6 +17,7 @@ public class EquippedSlot : MonoBehaviour, IPointerDownHandler {
     private Cache cache;
     private Transform dialogSpawner;
     private const string titleFormat = "Unequip {0}?";
+    private const string statusFormat = "-{0} {1}";
 
     private void Awake() {
         cache = Utility.LoadObject<Cache>("Cache");
@@ -52,10 +53,12 @@ public class EquippedSlot : MonoBehaviour, IPointerDownHandler {
             prefab, new Vector2(0.0f, 0.0f), Quaternion.identity
         );
         Text title = dialog.transform.GetChild(0).GetComponent<Text>();
-        Button accept = dialog.transform.GetChild(1).GetComponent<Button>();
-        Button decline = dialog.transform.GetChild(2).GetComponent<Button>();
+        Text status = dialog.transform.GetChild(1).GetComponent<Text>();
+        Button accept = dialog.transform.GetChild(2).GetComponent<Button>();
+        Button decline = dialog.transform.GetChild(3).GetComponent<Button>();
 
         title.text = String.Format(titleFormat, this.item.itemName);
+        status.text = String.Format(statusFormat, this.item.statBoost, this.item.statType.ToString());
         accept.onClick.AddListener(
             delegate {
                 UnequipItem();
