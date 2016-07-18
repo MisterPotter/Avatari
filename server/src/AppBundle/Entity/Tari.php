@@ -44,6 +44,16 @@ class Tari
     }
 
     /**
+     * set id
+     *
+     * @return integer
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
      * Set name
      *
      * @param string $name

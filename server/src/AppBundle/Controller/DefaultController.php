@@ -225,6 +225,7 @@ class DefaultController extends Controller
         return $response;
       }
       $set = [];
+      $error = [];
       $avatar = $account->getAvatar();
       if($level = $request->get('level', false)){
         $avatar->setLevel((int)$level);
@@ -250,12 +251,36 @@ class DefaultController extends Controller
         $avatar->setDefenceBasehBase((int)$defense);
         $set[] = 'defense';
       }
-      $response->setData(array(
-          'status' => 200,
-          'data' => $set
-      ));
-      $em->persist($avatar);
-      $em->flush();
+      if($tari_id = $request->get('tari', false)){
+        if($tari = $em->getRepository('AppBundle:Tari')->findOneById($tari_id)){
+          $avatar->setTari($tari);
+          $set[] = 'tari';
+        }else{
+          $error[] = "Tari with id ".$tari_id." does not exist";
+        }
+      }
+      if($area_id = $request->get('area', false)){
+        if($area = $em->getRepository('AppBundle:Area')->findOneById($area_id)){
+          $avatar->setArea($area);
+          $set[] = 'area';
+        }else{
+          $error[] = "Area with id ".$area_id." does not exist";
+        }
+      }
+      if (count($error) == 0){
+        $response->setData(array(
+            'status' => 200,
+            'data' => $set
+        ));
+        $em->persist($avatar);
+        $em->flush();
+      } else {
+        $response->setData(array(
+            'status' => 503,
+            'data' => $error
+        ));
+      }
+
 
       return $response;
     }

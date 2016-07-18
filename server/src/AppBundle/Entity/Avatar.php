@@ -172,8 +172,6 @@ class Avatar
         $this->agility_base = 5;
         $this->defence_base = 5;
         $this->strength_base = 5;
-        $this->area = 1;
-        $this->tari = 1;
     }
 
     /**
