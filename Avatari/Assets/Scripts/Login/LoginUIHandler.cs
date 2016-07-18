@@ -80,6 +80,8 @@ public class LoginUIHandler : MonoBehaviour {
 
         yield return createAccountRequest;
 
+        Debug.Log(createAccountRequest.text);
+
         var data = JSON.Parse(createAccountRequest.text);
         var response = data[Config.Status];
 
