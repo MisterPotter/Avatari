@@ -20,7 +20,7 @@ public class InventorySlot : MonoBehaviour, IPointerDownHandler {
     private const string AddStatusFormat = "+{0} {1}";
 
     private const string HeadSlotTag = "HeadSlot";
-    private const string ChestSlotTag = "ChestSlot";
+    private const string BodySlotTag = "BodySlot";
     private const string FeetSlotTag = "FeetSlot";
     private const string WeaponSlotTag = "WeaponSlot";
     private const string NeckSlotTag = "NecklaceSlot";
@@ -100,7 +100,7 @@ public class InventorySlot : MonoBehaviour, IPointerDownHandler {
                 slot = GameObject.FindGameObjectWithTag(HeadSlotTag);
                 break;
             case Item.ItemType.Body:
-                slot = GameObject.FindGameObjectWithTag(ChestSlotTag);
+                slot = GameObject.FindGameObjectWithTag(BodySlotTag);
                 break;
             case Item.ItemType.Feet:
                 slot = GameObject.FindGameObjectWithTag(FeetSlotTag);

@@ -12,7 +12,7 @@ public class PopulateCache : MonoBehaviour {
     private Cache cache;
     private Mutex mutex;
 
-    private const uint ExpectedCalls = 4;
+    private const uint ExpectedCalls = 5;
 
     private void Awake() {
         this.callCount = 0;
@@ -25,6 +25,7 @@ public class PopulateCache : MonoBehaviour {
         StartCoroutine(PopulateItems());
         StartCoroutine(PopulateAreas());
         StartCoroutine(PopulateTaris());
+        StartCoroutine(PopulatePlayer());
         StartCoroutine(LoadHomeScreen());
     }
 
@@ -249,6 +250,66 @@ public class PopulateCache : MonoBehaviour {
                     tari["description"].Value
                 )
             );
+        }
+    }
+
+    /**
+     * Populates player with info from AWS.
+     */
+    private IEnumerator PopulatePlayer() {
+        WWWForm form = new WWWForm();
+        form.AddField(Config.SessionKey, this.cache.sessionKey);
+        WWW www = new WWW(Config.ControllerURLPlayer, form);
+
+        yield return www;
+
+        var data = JSON.Parse(www.text);
+        int response = data["status"].AsInt;
+
+        if (response == 200) {
+            FillCacheWithPlayerInfo(data["data"]);
+            this.mutex.WaitOne();
+            this.callCount++;
+            this.mutex.ReleaseMutex();
+            Debug.Log(callCount);
+        } else {
+            throw new Exception("FATAL: Taris data could not be obtained.");
+        }
+    }
+
+    private void FillCacheWithPlayerInfo(JSONNode data) {
+        JSONNode player = data["avatar"];
+        PlayerStatistic stats = new PlayerStatistic(
+            player["level"].AsInt,
+            player["exp"]["exp_current"].AsInt,
+            player["health"]["health_current"].AsInt,
+            player["stats"]["strength"].AsInt,
+            player["stats"]["agility"].AsInt,
+            player["stats"]["defence"].AsInt
+        );
+
+        JSONNode areaNode = data["area"];
+        Area area = new Area(
+            areaNode["id"].AsInt,
+            areaNode["name"].Value,
+            areaNode["spriteName"].Value,
+            areaNode["description"]
+        );
+        this.cache.player = new Player(
+                new Player.EquippedGear(),
+                player["name"].Value,
+                // We have access to the tari here if we happen to need it
+                player["tari"]["spriteName"].Value,
+                stats,
+                area
+        );
+
+        // Populate items
+        JSONArray items = player["items"].AsArray;
+        foreach(JSONNode item in items) {
+            this.cache.player.EquipItem(
+                null //TODO
+             );
         }
     }
 
