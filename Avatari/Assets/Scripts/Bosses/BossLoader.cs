@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System;
 
 /**
 * @author: Denholm
@@ -12,11 +13,11 @@ public class BossLoader : MonoBehaviour {
     private RectTransform content;
     private GameObject panelPrefab;
     private Transform panelSpawner;
+    private Transform dialogSpawner;
     private const float rowVertOffset = 60.0f;
 
     private int playerLevel;
-
-    private const string levelInsufficient = "Your character's level isn't high enough to fight this boss.";
+    private List<Boss> bosses;
 
     private void Awake () {
         Initialize();
@@ -29,10 +30,11 @@ public class BossLoader : MonoBehaviour {
         content = Utility.LoadObject<RectTransform>("BossContent");
         panelPrefab = Resources.Load<GameObject>("Prefabs/UI/Bosses/BossPanel");
         panelSpawner = Utility.LoadObject<Transform>("BossPanelSpawner");
+        dialogSpawner = Utility.LoadObject<Transform>("DialogSpawner");
     }
 
     private void LoadBosses() {
-        List<Boss> bosses = this.cache.LoadBosses();
+        bosses = this.cache.LoadBosses();
         content.sizeDelta = new Vector2(0.0f, bosses.Count*rowVertOffset);
         Vector3 offset = Vector3.down * rowVertOffset;
 
@@ -63,6 +65,12 @@ public class BossLoader : MonoBehaviour {
 
             Image bossInfo = clone.transform.GetChild(3).GetComponent<Image>();
             bossInfo.sprite = cache.LoadUtilitySprite("info");
+
+            BossDialog bossScript = clone.transform.GetComponent<BossDialog>();
+            bossScript.boss = boss;
+            if (canChallenge) {
+                bossScript.canChallenge = true;
+            }
         }
         
     }
