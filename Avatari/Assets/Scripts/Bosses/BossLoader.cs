@@ -13,7 +13,6 @@ public class BossLoader : MonoBehaviour {
     private RectTransform content;
     private GameObject panelPrefab;
     private Transform panelSpawner;
-    private Transform dialogSpawner;
     private const float rowVertOffset = 60.0f;
 
     private int playerLevel;
@@ -30,7 +29,6 @@ public class BossLoader : MonoBehaviour {
         content = Utility.LoadObject<RectTransform>("BossContent");
         panelPrefab = Resources.Load<GameObject>("Prefabs/UI/Bosses/BossPanel");
         panelSpawner = Utility.LoadObject<Transform>("BossPanelSpawner");
-        dialogSpawner = Utility.LoadObject<Transform>("DialogSpawner");
     }
 
     private void LoadBosses() {
