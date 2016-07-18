@@ -82,7 +82,7 @@ class DefaultController extends Controller
         $tarisData[] = [
           'id' => $tari->getId(),
           'name' => $tari->getName(),
-          'name' => $tari->getSpriteName(),
+          'spriteName' => $tari->getSpriteName(),
           'description' => $tari->getDescription(),
         ];
       }
@@ -107,7 +107,7 @@ class DefaultController extends Controller
         $areasData[] = [
           'id' => $area->getId(),
           'name' => $area->getName(),
-          'name' => $area->getSpriteName(),
+          'spriteName' => $area->getSpriteName(),
           'description' => $area->getDescription(),
         ];
       }
