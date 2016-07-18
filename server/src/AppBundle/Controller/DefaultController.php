@@ -71,6 +71,56 @@ class DefaultController extends Controller
     }
 
     /**
+     * @Route("/taris", name="taris")
+     */
+    public function tarisAction(Request $request)
+    {
+      $response = new JsonResponse();
+      $taris = $this->getDoctrine()->getRepository('AppBundle:Tari')->findAll();
+      $tarisData = array();
+      foreach ($taris as $tari) {
+        $tarisData[] = [
+          'id' => $tari->getId(),
+          'name' => $tari->getName(),
+          'name' => $tari->getSpriteName(),
+          'description' => $tari->getDescription(),
+        ];
+      }
+
+      $data['taris'] = $tarisData;
+      $response->setData(array(
+          'status' => 200,
+          'data' => $data
+      ));
+      return $response;
+    }
+
+    /**
+     * @Route("/areas", name="areas")
+     */
+    public function areasAction(Request $request)
+    {
+      $response = new JsonResponse();
+      $areas = $this->getDoctrine()->getRepository('AppBundle:Area')->findAll();
+      $areasData = array();
+      foreach ($areas as $area) {
+        $areasData[] = [
+          'id' => $area->getId(),
+          'name' => $area->getName(),
+          'name' => $area->getSpriteName(),
+          'description' => $area->getDescription(),
+        ];
+      }
+
+      $data['areas'] = $areasData;
+      $response->setData(array(
+          'status' => 200,
+          'data' => $data
+      ));
+      return $response;
+    }
+
+    /**
      * @Route("/avatar", name="avatar")
      */
     public function avatarAction(Request $request)
@@ -110,9 +160,27 @@ class DefaultController extends Controller
           ];
         }
 
+        $tari = $avatar->getTari();
+        $tariData = [
+          'id' => $tari->getId(),
+          'name' => $tari->getName(),
+          'spriteName' => $tari->getSpriteName(),
+          'description' => $tari->getDescription(),
+        ];
+
+        $area = $avatar->getArea();
+        $areaData = [
+          'id' => $area->getId(),
+          'name' => $area->getName(),
+          'spriteName' => $area->getSpriteName(),
+          'description' => $area->getDescription(),
+        ];
+
         $data['avatar'] = [
           'name'    => $avatar->getName(),
           'level'   => $avatar->getLevel(),
+          'tari'    => $tariData,
+          'area'    => $areaData,
           'health'  => [
                         'health_max' => $avatar->getHealthMax(),
                         'health_current' => $avatar->getHealthCurrent()
