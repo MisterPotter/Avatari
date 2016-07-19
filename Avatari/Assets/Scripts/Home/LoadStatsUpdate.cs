@@ -91,14 +91,11 @@ public class LoadStatsUpdate : MonoBehaviour {
     }
 
     private void UpdatePlayerStats() {
-        foreach (FitbitPair<int> fb in cache.fitbit.activeSteps) {
-            Debug.Log(fb.value + " " + fb.date.ToString());
-        }
         this.cache.player.stats.UpdatePlayerStatisticsSince(cache, lastLoginDate);
     }
 
     private PlayerStatistic GetPlayerStats() {
-        return this.cache.player.stats;
+        return Utility.DeepClone<PlayerStatistic>(this.cache.player.stats);
     }
 
     private void CleanUpExistingDialogs() {

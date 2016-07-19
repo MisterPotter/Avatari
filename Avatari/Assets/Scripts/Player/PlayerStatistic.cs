@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 
 /**
 * @author: Charlotte
 * @summary: Stores the player statistics
 */
+[Serializable]
 public class PlayerStatistic {
     public Level level;
     public Experience experience;
@@ -37,7 +40,7 @@ public class PlayerStatistic {
      * as well as the date to update from
      */ 
     public void UpdatePlayerStatisticsSince(Cache cache, DateTime date) {
-        updateExperience();
+        updateExperience(cache, date);
         updateHealth();
         updateStrength();
         updateAgility();
@@ -112,9 +115,28 @@ public class PlayerStatistic {
         }
     }
 
-    private void updateExperience() {
+    /**
+     * User gets experience even if they don't complete all their goals.
+     * Calculate ratio of goal acheived, add up total experience
+     */ 
+    private void updateExperience(Cache cache, DateTime date) {
+        Fitbit fitbit = cache.fitbit;
 
+        List<double> steps = GetRelevantData(fitbit.activeSteps, date);
+        List<double> distance = GetRelevantData(fitbit.activeDistance, date);
+        List<double> fairlyActiveMinutes = GetRelevantData(fitbit.fairlyActive, date);
+        List<double> realActiveMinutes = GetRelevantData(fitbit.veryActive, date);
+
+        List<double> activeMinutes = AddLists(fairlyActiveMinutes, realActiveMinutes);
+
+        double expFromSteps = GetDailyGoalRatio(steps.Cast<double>().ToList(), cache.dailyGoals.stepGoal.goal);
+        double expFromDistance = GetDailyGoalRatio(distance, cache.dailyGoals.distanceGoal.goal);
+        double expFromMinutes = GetDailyGoalRatio(activeMinutes.Cast<double>().ToList(), cache.dailyGoals.activeMinGoal.goal);
+
+        experience.CurrentValueDouble = (expFromDistance + expFromSteps + expFromMinutes) * Constants.ExperiencePerGoalRatio;
     }
+
+
 
     /**
      * Updates health statistic. Checks for the time of day.
@@ -134,5 +156,54 @@ public class PlayerStatistic {
 
     private void updateDefense() {
 
+    }
+    
+    /**
+     * For simplicity, don't look at today's data.
+     * It will be handled when the user logs in the next time
+     */ 
+    private List<double> GetRelevantData(List<FitbitPair<double>> pairs, DateTime date) {
+        List <double> data = new List<double>();
+        DateTime currentDate = DateTime.Today;
+        foreach( FitbitPair<double> pair in pairs ) {
+            if (pair.date >= date && pair.date != currentDate) {
+                data.Add(pair.value);
+            }
+        }
+        return data;
+    }
+
+    private List<double> GetRelevantData(List<FitbitPair<int>> pairs, DateTime date) {
+        List<double> data = new List<double>();
+        DateTime currentDate = DateTime.Today;
+        foreach (FitbitPair<int> pair in pairs) {
+            if (pair.date >= date && pair.date != currentDate) {
+                data.Add(pair.value);
+            }
+        }
+        return data;
+    }
+
+    /**
+     * Get ratio of a series of data and its associated daily goal
+     */
+    private double GetDailyGoalRatio(List<double> data, double goal) {
+        double totalGoal = 0;
+        double totalActual = 0;
+        foreach ( double entry in data ) {
+            totalActual += entry;
+            totalGoal += goal;
+        }
+        return totalActual / totalGoal;
+    }
+
+    // assumes lists are the same length
+    private List<double> AddLists(List<double> list1, List<double> list2) {
+        List<double> combined = new List<double>();
+
+        for (int i = 0; i < list1.Count; i++) {
+            combined.Add(list1[i] + list2[i]);
+        }
+        return combined;
     }
 }

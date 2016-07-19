@@ -19,10 +19,21 @@ public static class Constants {
 
     /* Constants associated with Fitbit goals for stats calculations */
     public const int StepGoal = 10000;
+    public const int CalorieGoal = 2000;
     public const int DistanceGoal = 8;
     public const int ActiveMinutesGoal = 30;
 
-    public const int ExperiencePerGoalRatio = 50;
+    public const int LifeStepGoal = 2000000;
+    public const int LifeCalorieGoal = 500000;
+    public const int LifeDistanceGoal = 10000;
+    public const int LifeActiveMinutesGoal = 10000;
+
+    public const int BikeChallenge = 20;
+    public const int RunningChallenge = 10;
+    public const int HikingChallenge = 10;
+    public const int SwimmingChallenge = 5; 
+
+    public const int ExperiencePerGoalRatio = 25;
 
     /* 
      * This represents how much your stat would change if you go above or below your goal.

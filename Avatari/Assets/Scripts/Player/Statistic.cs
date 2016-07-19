@@ -4,6 +4,7 @@
 * @summary: Defines a base class for player statistics
 * */
 
+[Serializable]
 public abstract class Statistic {
 
     // Attributes for each kind of statistic. Only ever set at init
@@ -89,6 +90,7 @@ public abstract class Statistic {
 }
 
 // TODO: probably don't want level to ever decrease, should override change, add methods to ensure this.
+[Serializable]
 public class Level : Statistic {
 
     public Level() : base(Constants.MinLevel,
@@ -106,6 +108,7 @@ public class Level : Statistic {
 }
 
 // TODO: probably don't want experience to ever decrease, should override change, add methods to ensure this.
+[Serializable]
 public class Experience : Statistic {
 
     public Experience() : base(Constants.MinExperience,
@@ -122,6 +125,7 @@ public class Experience : Statistic {
     }
 }
 
+[Serializable]
 public class Health : Statistic {
     public Health() : base(Constants.MinStat,
                            Constants.MaxStat,
@@ -136,6 +140,7 @@ public class Health : Statistic {
     }
 }
 
+[Serializable]
 public class Agility : Statistic {
     public Agility() : base(Constants.MinStat,
                             Constants.MaxStat,
@@ -150,6 +155,7 @@ public class Agility : Statistic {
     }
 }
 
+[Serializable]
 public class Strength : Statistic {
     public Strength() : base(Constants.MinStat,
                              Constants.MaxStat,
@@ -164,6 +170,7 @@ public class Strength : Statistic {
     }
 }
 
+[Serializable]
 public class Defense : Statistic {
     public Defense() : base(Constants.MinStat,
                             Constants.MaxStat,
