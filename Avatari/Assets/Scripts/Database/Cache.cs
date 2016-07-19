@@ -195,6 +195,7 @@ public class Cache : MonoBehaviour, IDataSource {
         cache.challenges = new Challenges();
         cache.lifetimeGoals = new LifetimeGoals();
         LoadDefaultGoals();
+        LoadDefaultBosses();
         LoadSprites();
     }
 
@@ -217,6 +218,16 @@ public class Cache : MonoBehaviour, IDataSource {
                                                 Constants.LifeCalorieGoal,
                                                 Constants.LifeDistanceGoal,
                                                 Constants.LifeActiveMinutesGoal);
+    }
+
+    private void LoadDefaultBosses() {
+        cache.AddBossToList(new Boss("Vicky", "", new PlayerStatistic(1, 1500, 13, 1, 1, 1), 1));
+        cache.AddBossToList(new Boss("Rombo", "", new PlayerStatistic(3, 3100, 14, 2, 3, 2), 2));
+        cache.AddBossToList(new Boss("Patsy", "", new PlayerStatistic(5, 5500, 14, 3, 3, 5), 3));
+        cache.AddBossToList(new Boss("Squidward", "", new PlayerStatistic(8, 8800, 15, 2, 4, 6), 4));
+        cache.AddBossToList(new Boss("Bloop", "", new PlayerStatistic(10, 10300, 16, 4, 5, 7), 5));
+        cache.AddBossToList(new Boss("Ali", "", new PlayerStatistic(12, 12600, 17, 8, 9, 12), 6));
+        cache.AddBossToList(new Boss("Moeby", "", new PlayerStatistic(15, 15010, 20, 13, 15, 18), 7));
     }
 
     private void LoadSprites() {

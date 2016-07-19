@@ -12,7 +12,7 @@ public class MockDBInterface : MonoBehaviour {
         PopulateInventory();
         //PopulatePlayerInfo();
         PopulateGoals();
-        PopulateBosses();
+        //PopulateBosses();
     }
 
     private void LoadCache() {
