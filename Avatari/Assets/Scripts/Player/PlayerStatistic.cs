@@ -42,9 +42,9 @@ public class PlayerStatistic {
     public void UpdatePlayerStatisticsSince(Cache cache, DateTime date) {
         updateExperience(cache, date);
         updateHealth();
-        updateStrength();
-        updateAgility();
-        updateDefense();
+        updateStrength(cache, date);
+        updateAgility(cache, date);
+        updateDefense(cache, date);
         updateLevel();
     }
 
@@ -129,11 +129,12 @@ public class PlayerStatistic {
 
         List<double> activeMinutes = AddLists(fairlyActiveMinutes, realActiveMinutes);
 
-        double expFromSteps = GetDailyGoalRatio(steps.Cast<double>().ToList(), cache.dailyGoals.stepGoal.goal);
+        double expFromSteps = GetDailyGoalRatio(steps, cache.dailyGoals.stepGoal.goal);
         double expFromDistance = GetDailyGoalRatio(distance, cache.dailyGoals.distanceGoal.goal);
-        double expFromMinutes = GetDailyGoalRatio(activeMinutes.Cast<double>().ToList(), cache.dailyGoals.activeMinGoal.goal);
+        double expFromMinutes = GetDailyGoalRatio(activeMinutes, cache.dailyGoals.activeMinGoal.goal);
 
-        experience.CurrentValueDouble = (expFromDistance + expFromSteps + expFromMinutes) * Constants.ExperiencePerGoalRatio;
+        // add new experience to previous experience
+        experience.CurrentValueDouble += (expFromDistance + expFromSteps + expFromMinutes) * Constants.ExperiencePerGoalRatio;
     }
 
 
@@ -146,16 +147,78 @@ public class PlayerStatistic {
 
     }
 
-    private void updateStrength() {
+    /**
+     * Strength is updated based on how much of the step goal has been acheived per day
+     */ 
+    private void updateStrength(Cache cache, DateTime date) {
+        List<double> steps = GetRelevantData(cache.fitbit.activeSteps, date);
+        double goalRatio = GetDailyGoalRatio(steps, cache.dailyGoals.stepGoal.goal);
 
+        double strengthChange = (goalRatio-1) * Constants.StatChangePerGoalRatio;
+
+        double bonusExperience = 0.0;
+
+        // be a merciful god and take the ceiling if strength change is negative
+        // (since we take the floor when rounding to int usually)
+        if (strengthChange < 0) {
+            strengthChange = Math.Ceiling(strengthChange);
+        } else {
+            bonusExperience = goalRatio * Constants.BonusExperience;
+        }
+
+        experience.CurrentValueDouble += bonusExperience;
+        strength.CurrentValueDouble += strengthChange;
     }
 
-    private void updateAgility() {
+    /**
+     * Agility is updated based on active minutes goals
+     */ 
+    private void updateAgility(Cache cache, DateTime date) {
+        List<double> fairlyActiveMinutes = GetRelevantData(cache.fitbit.fairlyActive, date);
+        List<double> realActiveMinutes = GetRelevantData(cache.fitbit.veryActive, date);
 
+        List<double> activeMinutes = AddLists(fairlyActiveMinutes, realActiveMinutes);
+
+        double goalRatio = GetDailyGoalRatio(activeMinutes, cache.dailyGoals.activeMinGoal.goal);
+
+        double agilityChange = (goalRatio - 1) * Constants.StatChangePerGoalRatio;
+
+        double bonusExperience = 0.0;
+
+        // be a merciful god and take the ceiling if strength change is negative
+        // (since we take the floor when rounding to int usually)
+        if (agilityChange < 0) {
+            agilityChange = Math.Ceiling(agilityChange);
+        } else {
+            bonusExperience = goalRatio * Constants.BonusExperience;
+        }
+
+        experience.CurrentValueDouble += bonusExperience;
+        agility.CurrentValueDouble += agilityChange;
     }
 
-    private void updateDefense() {
+    /**
+     * Defense is updated based on distance goals
+     */ 
+    private void updateDefense(Cache cache, DateTime date) {
+        List<double> distance = GetRelevantData(cache.fitbit.activeDistance, date);
 
+        double goalRatio = GetDailyGoalRatio(distance, cache.dailyGoals.distanceGoal.goal);
+
+        double defenseChange = (goalRatio - 1) * Constants.StatChangePerGoalRatio;
+
+        double bonusExperience = 0.0;
+
+        // be a merciful god and take the ceiling if strength change is negative
+        // (since we take the floor when rounding to int usually)
+        if (defenseChange < 0) {
+            defenseChange = Math.Ceiling(defenseChange);
+        } else {
+            bonusExperience = goalRatio * Constants.BonusExperience;
+        }
+
+        experience.CurrentValueDouble += bonusExperience;
+        defense.CurrentValueDouble += defenseChange;
     }
     
     /**

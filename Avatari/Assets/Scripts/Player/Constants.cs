@@ -33,14 +33,15 @@ public static class Constants {
     public const int HikingChallenge = 10;
     public const int SwimmingChallenge = 5; 
 
-    public const int ExperiencePerGoalRatio = 25;
+    public const int ExperiencePerGoalRatio = 50;
+    public const int BonusExperience = 10;
 
     /* 
      * This represents how much your stat would change if you go above or below your goal.
      * ie. statchange = ( ratio of goal achieved - 1) * statChangePerGoalRatio
      * statchange = ( 1.5 - 1 ) * 2 = 1 stat point if 50% over goal.
      */
-    public const int StatChangePerGoalRatio = 2;
+    public const int StatChangePerGoalRatio = 10;
 
     /**
      * Array containing the number of experience to reach the level equal to the index.

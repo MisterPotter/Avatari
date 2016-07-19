@@ -36,7 +36,7 @@ public abstract class Statistic {
             return this.currentValueDouble;
         }
         set {
-            this.currentValueDouble = value;
+            this.currentValueDouble = CheckBounds(value);
             this.currentValue = (int) Math.Floor(this.currentValueDouble);
         }
     }
@@ -75,6 +75,16 @@ public abstract class Statistic {
     public void AddToValue(int amount) {
         int newValue = this.currentValue + amount;
         this.currentValue = CheckBounds(newValue);
+    }
+
+    private double CheckBounds(double newValue) {
+        if (newValue > this.maxValue) {
+            return this.maxValue;
+        } else if (newValue < this.minValue) {
+            return this.minValue;
+        } else {
+            return newValue;
+        }
     }
 
     private int CheckBounds(int newValue) {
