@@ -4,8 +4,8 @@ public class BattleController : MonoBehaviour {
 
     private bool turnStarted;
 
-    private PlayerStatistic boss;
     private Cache cache;
+    private PlayerStatistic boss;
     private PlayerStatistic player;
     
 
@@ -16,7 +16,8 @@ public class BattleController : MonoBehaviour {
     private void Initialize() {
         this.turnStarted = false;
         this.cache = Utility.LoadObject<Cache>("Cache");
-        this.player = this.cache.player
+        this.boss = Utility.DeepClone<PlayerStatistic>(this.cache.boss.getStats());
+        this.player = Utility.DeepClone<PlayerStatistic>(this.cache.player.stats);
     }
 
     public void Attack() {

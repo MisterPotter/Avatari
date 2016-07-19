@@ -69,6 +69,10 @@ public class Cache : MonoBehaviour, IDataSource {
      */
     public Player player { get; set; }
 
+    /**
+     *  The boss for the battle.
+     */
+    public Boss boss { get; set; }
     
     /*
      *  The session key to use for all requests.

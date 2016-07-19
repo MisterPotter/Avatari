@@ -10,7 +10,7 @@ public class MockDBInterface : MonoBehaviour {
     private void PopulateCache() {
         LoadCache();
         PopulateInventory();
-        //PopulatePlayerInfo();
+        PopulatePlayerInfo();
         PopulateGoals();
         PopulateBosses();
     }
@@ -52,14 +52,14 @@ public class MockDBInterface : MonoBehaviour {
         ));
 
         // Add character objects
-        /*cache.AddCharacterToInventory(new Tari(0, "Vivi", "Vivi", "A mystical creature."));
+        cache.AddCharacterToInventory(new Tari(0, "Vivi", "Vivi", "A mystical creature."));
         cache.AddCharacterToInventory(new Tari(1, "Donkey Kong", "DonkeyKong", "Load up those barrels."));
-        cache.AddCharacterToInventory(new Tari(2, "Mega Dude", "MegaDude", "Not quite net worthy."));*/
+        cache.AddCharacterToInventory(new Tari(2, "Mega Dude", "MegaDude", "Not quite net worthy."));
 
         // Add areas
-        /*cache.AddAreaToInventory(new Area(1, "Lava", "Lava", "Lava like, we should destroy that ring here."));
+        cache.AddAreaToInventory(new Area(1, "Lava", "Lava", "Lava like, we should destroy that ring here."));
         cache.AddAreaToInventory(new Area(2, "Forest", "Forest", "Nature like."));
-        cache.AddAreaToInventory(new Area(3, "Final", "Final", "Is this out of Naruto?"));*/
+        cache.AddAreaToInventory(new Area(3, "Final", "Final", "Is this out of Naruto?"));
     }
 
     private void PopulatePlayerInfo() {
