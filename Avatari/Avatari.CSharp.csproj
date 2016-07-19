@@ -72,6 +72,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Battle\BattleController.cs" />
     <Compile Include="Assets\Scripts\Bosses\Boss.cs" />
     <Compile Include="Assets\Scripts\Bosses\BossDialog.cs" />
     <Compile Include="Assets\Scripts\Bosses\BossLoader.cs" />
@@ -89,6 +90,7 @@
     <Compile Include="Assets\Scripts\Database\IDataSource.cs" />
     <Compile Include="Assets\Scripts\Database\MockDBInterface.cs" />
     <Compile Include="Assets\Scripts\Home\LoadCharacter.cs" />
+    <Compile Include="Assets\Scripts\Home\LoadStatsUpdate.cs" />
     <Compile Include="Assets\Scripts\Home\ProgressBar\AgilityProgressBar.cs" />
     <Compile Include="Assets\Scripts\Home\ProgressBar\DefenseProgressBar.cs" />
     <Compile Include="Assets\Scripts\Home\ProgressBar\HealthProgressBar.cs" />
@@ -108,6 +110,7 @@
     <Compile Include="Assets\Scripts\Login\GenerateToken.cs" />
     <Compile Include="Assets\Scripts\Login\LoginUIHandler.cs" />
     <Compile Include="Assets\Scripts\Login\PopulateCache.cs" />
+    <Compile Include="Assets\Scripts\Player\Constants.cs" />
     <Compile Include="Assets\Scripts\Player\Player.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerStatistic.cs" />
     <Compile Include="Assets\Scripts\Player\Statistic.cs" />
