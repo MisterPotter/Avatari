@@ -62,7 +62,7 @@ public class LoadStatsUpdate : MonoBehaviour {
         // then we don't need to update the stats
         updatedStats = null;
         if (NeedsUpdate(lastLoginDate)) {
-            UpdatePlayerStatsSince(lastLoginDate);
+            UpdatePlayerStats();
             updatedStats = GetPlayerStats();
         }
 
@@ -90,8 +90,11 @@ public class LoadStatsUpdate : MonoBehaviour {
         return (!isFirstLogin && date < DateTime.Today);
     }
 
-    private void UpdatePlayerStatsSince(DateTime date) {
-        this.cache.player.stats.UpdatePlayerStatisticsSince(date);
+    private void UpdatePlayerStats() {
+        foreach (FitbitPair<int> fb in cache.fitbit.activeSteps) {
+            Debug.Log(fb.value + " " + fb.date.ToString());
+        }
+        this.cache.player.stats.UpdatePlayerStatisticsSince(cache, lastLoginDate);
     }
 
     private PlayerStatistic GetPlayerStats() {

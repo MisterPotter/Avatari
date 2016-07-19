@@ -1,7 +1,6 @@
-﻿
-
-using System;
+﻿using System;
 using System.Diagnostics;
+
 /**
 * @author: Charlotte
 * @summary: Stores the player statistics
@@ -32,7 +31,12 @@ public class PlayerStatistic {
         this.defense = new Defense(defense);
     }
 
-    public void UpdatePlayerStatisticsSince(DateTime date) {
+    /**
+     * Called once the app is opened for the first time in a day
+     * Need to be passed an instance of the cache to access the fitbit data,
+     * as well as the date to update from
+     */ 
+    public void UpdatePlayerStatisticsSince(Cache cache, DateTime date) {
         updateExperience();
         updateHealth();
         updateStrength();
