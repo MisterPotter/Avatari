@@ -8,18 +8,16 @@ public class Boss {
     private string spriteName;
     private string requirement;
     private string info;
-    private bool locked;
     private PlayerStatistic stats;
     private int bossID;
    
     public Boss (string name, string info, PlayerStatistic stats, int bossID) {
         this.bossName = name;
-        this.spriteName = "monster" + bossID;
-        this.info = info;
         this.bossID = bossID;
+        this.spriteName = "monster" + this.bossID;
+        this.info = info;
         this.stats = stats;
         this.requirement = "Reach level " + this.stats.level.CurrentValue;
-        this.locked = true;
     }
 
     public string getSpriteName () {
