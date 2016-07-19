@@ -144,7 +144,7 @@ public class PlayerStatistic {
      * This is the stat that refills naturally over the day.
      */ 
     private void updateHealth() {
-
+        //TODO
     }
 
     /**
@@ -158,11 +158,7 @@ public class PlayerStatistic {
 
         double bonusExperience = 0.0;
 
-        // be a merciful god and take the ceiling if strength change is negative
-        // (since we take the floor when rounding to int usually)
-        if (strengthChange < 0) {
-            strengthChange = Math.Ceiling(strengthChange);
-        } else {
+        if (strengthChange > 0 ) {
             bonusExperience = goalRatio * Constants.BonusExperience;
         }
 
@@ -185,11 +181,7 @@ public class PlayerStatistic {
 
         double bonusExperience = 0.0;
 
-        // be a merciful god and take the ceiling if strength change is negative
-        // (since we take the floor when rounding to int usually)
-        if (agilityChange < 0) {
-            agilityChange = Math.Ceiling(agilityChange);
-        } else {
+        if (agilityChange > 0 ) {
             bonusExperience = goalRatio * Constants.BonusExperience;
         }
 
@@ -209,11 +201,7 @@ public class PlayerStatistic {
 
         double bonusExperience = 0.0;
 
-        // be a merciful god and take the ceiling if strength change is negative
-        // (since we take the floor when rounding to int usually)
-        if (defenseChange < 0) {
-            defenseChange = Math.Ceiling(defenseChange);
-        } else {
+        if (defenseChange > 0 ) {
             bonusExperience = goalRatio * Constants.BonusExperience;
         }
 
@@ -251,13 +239,13 @@ public class PlayerStatistic {
      * Get ratio of a series of data and its associated daily goal
      */
     private double GetDailyGoalRatio(List<double> data, double goal) {
-        double totalGoal = 0;
-        double totalActual = 0;
+        double totalRatio = 0;
+        double numRatio = 0;
         foreach ( double entry in data ) {
-            totalActual += entry;
-            totalGoal += goal;
+            totalRatio += (entry / goal);
+            numRatio++;
         }
-        return totalActual / totalGoal;
+        return totalRatio / numRatio;
     }
 
     // assumes lists are the same length

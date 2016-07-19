@@ -4,7 +4,7 @@
  */
 public static class Constants {
     public const int MaxLevel = 20;
-    public const int MinLevel = 0;
+    public const int MinLevel = 1;
     public const int MaxExperience = 20000;
     public const int MinExperience = 0;
     public const int MaxStat = 100;
@@ -41,11 +41,11 @@ public static class Constants {
      * ie. statchange = ( ratio of goal achieved - 1) * statChangePerGoalRatio
      * statchange = ( 1.5 - 1 ) * 2 = 1 stat point if 50% over goal.
      */
-    public const int StatChangePerGoalRatio = 10;
+    public const int StatChangePerGoalRatio = 5;
 
     /**
      * Array containing the number of experience to reach the level equal to the index.
      * eg. ExperienceToLevel[1] = 100 => there is 100 experience needed to reach level 1
      */
-    public static readonly int[] ExperienceToLevel = { 0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000, 11000, 12000, 13000, 14000, 15000, 16000, 17000, 18000, 19000, 20000 };
+    public static readonly int[] ExperienceToLevel = { 0, 0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000, 11000, 12000, 13000, 14000, 15000, 16000, 17000, 18000, 19000, 20000 };
 }

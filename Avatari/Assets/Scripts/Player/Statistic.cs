@@ -22,6 +22,7 @@ public abstract class Statistic {
         }
         set {
             this.currentValue = CheckBounds(value);
+            this.currentValueDouble = this.currentValue;
         }
     }
 
