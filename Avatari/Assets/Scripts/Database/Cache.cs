@@ -210,11 +210,10 @@ public class Cache : MonoBehaviour, IDataSource {
 
         cache.challenges = new Challenges(Constants.BikeChallenge,
                                           Constants.RunningChallenge,
-                                          Constants.HikingChallenge,
-                                          Constants.SwimmingChallenge);
+                                          Constants.HikingChallenge);
 
         cache.lifetimeGoals = new LifetimeGoals(Constants.LifeStepGoal,
-                                                Constants.LifeCalorieGoal,
+                                               // Constants.LifeCalorieGoal,
                                                 Constants.LifeDistanceGoal,
                                                 Constants.LifeActiveMinutesGoal);
     }

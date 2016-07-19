@@ -11,8 +11,8 @@ public class MockDBInterface : MonoBehaviour {
         LoadCache();
         PopulateInventory();
         //PopulatePlayerInfo();
-        PopulateGoals();
-        PopulateBosses();
+        //PopulateGoals();
+        //PopulateBosses();
     }
 
     private void LoadCache() {
@@ -86,17 +86,16 @@ public class MockDBInterface : MonoBehaviour {
         cache.dailyGoals.distanceGoal.progress = 1.22f;
         cache.dailyGoals.activeMinGoal.progress = 26;
 
-        cache.challenges = new Challenges(20, 10, 10, 5);
+        cache.challenges = new Challenges(20, 10, 10);
         cache.challenges.biking.progress = 10.6f;
         cache.challenges.running.progress = 4.6f;
         cache.challenges.hiking.progress = 0.6f;
-        cache.challenges.swimming.progress = 0.5f;
 
-        //cache.lifetimeGoals = new LifetimeGoals(1000000, 10000, 500);
-        //cache.lifetimeGoals.stepGoal.progress = 496000;
-        //cache.lifetimeGoals.calorieGoal.progress = 112;
-        //cache.lifetimeGoals.distanceGoal.progress = 1.22f;
-        //cache.lifetimeGoals.activeMinGoal.progress = 26;
+        cache.lifetimeGoals = new LifetimeGoals(1000000, 10000, 500);
+        cache.lifetimeGoals.stepGoal.progress = 496000;
+        cache.lifetimeGoals.calorieGoal.progress = 112;
+        cache.lifetimeGoals.distanceGoal.progress = 1.22f;
+        cache.lifetimeGoals.floorGoal.progress = 26;
     }
 
     private void PopulateBosses() {
