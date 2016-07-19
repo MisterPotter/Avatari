@@ -64,6 +64,7 @@ class AccountController extends Controller
      */
     public function createAction(Request $request)
     {
+      $em = $this->getDoctrine()->getManager();
       $errors = [];
       $response = new JsonResponse();
 
@@ -84,6 +85,12 @@ class AccountController extends Controller
         $account = new Account();
         $fitbit = new Fitbit();
         $avatar = new Avatar();
+
+        $tari = $em->getRepository('AppBundle:Tari')->findOneById(1);
+        $area = $em->getRepository('AppBundle:Area')->findOneById(1);
+
+        $avatar->setArea($area);
+        $avatar->setTari($tari);
         $avatar->setName($request->get('avatar_name'));
         $account->setToken($request->get('token'));
         $fitbit->setAccount($account);

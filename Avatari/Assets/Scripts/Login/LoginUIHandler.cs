@@ -1,9 +1,7 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System;
 using System.Collections;
-using System.Threading;
 using SimpleJSON;
 
 public class LoginUIHandler : MonoBehaviour {
@@ -36,6 +34,9 @@ public class LoginUIHandler : MonoBehaviour {
 
 }
 
+    /**
+     *  Login if the user has entered some text and hit the login button.
+     */
     public void Login() {
         if (avatarName.text != "") {
             this.token = this.tokenGenerator.token;
@@ -56,13 +57,13 @@ public class LoginUIHandler : MonoBehaviour {
         yield return checkAcccountRequest;
 
         var data = JSON.Parse(checkAcccountRequest.text);
-        var response = data["status"];
+        var response = data[Config.Status];
 
         if(response.AsInt != 200) {
             Debug.Log(checkAcccountRequest.text);
             StartCoroutine(CreateAccount(name));
         } else {
-            this.sessionKey = data["data"].AsInt;
+            this.sessionKey = data[Config.Data].AsInt;
             this.cache.sessionKey = this.sessionKey;
             Authenticate();
         }
@@ -79,8 +80,10 @@ public class LoginUIHandler : MonoBehaviour {
 
         yield return createAccountRequest;
 
+        Debug.Log(createAccountRequest.text);
+
         var data = JSON.Parse(createAccountRequest.text);
-        var response = data["status"];
+        var response = data[Config.Status];
 
         if (response.AsInt == 200) {
             StartCoroutine(CheckAccountExists(name));
@@ -100,7 +103,7 @@ public class LoginUIHandler : MonoBehaviour {
         yield return checkAuthRequest;
 
         var data = JSON.Parse(checkAuthRequest.text);
-        var response = data["status"];
+        var response = data[Config.Status];
 
         if (response.AsInt == 200) {
             this.cachePopulator.Populate();
@@ -114,7 +117,6 @@ public class LoginUIHandler : MonoBehaviour {
      *  Open up the url for authenitcation.
      */
     private void Authenticate() {
-        Debug.Log("Authenication nation");
         Application.OpenURL(String.Format(Config.ControllerURLOAuthFormat, this.token));
         browserOpened = true;
     }

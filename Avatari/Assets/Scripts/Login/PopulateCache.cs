@@ -12,7 +12,7 @@ public class PopulateCache : MonoBehaviour {
     private Cache cache;
     private Mutex mutex;
 
-    private const uint ExpectedCalls = 2;
+    private const uint ExpectedCalls = 5;
 
     private void Awake() {
         this.callCount = 0;
@@ -23,12 +23,14 @@ public class PopulateCache : MonoBehaviour {
     public void Populate() {
         StartCoroutine(PopulateFitbitData());
         StartCoroutine(PopulateItems());
+        StartCoroutine(PopulateAreas());
+        StartCoroutine(PopulateTaris());
+        StartCoroutine(PopulatePlayer());
         StartCoroutine(LoadHomeScreen());
     }
 
     /**
-     *  Populate the cache with all our fitbit data. Start with this, than
-     *  move onto items.
+     *  Populate the cache with all our fitbit data.
      */
     private IEnumerator PopulateFitbitData() {
         WWWForm form = new WWWForm();
@@ -44,6 +46,7 @@ public class PopulateCache : MonoBehaviour {
             this.mutex.WaitOne();
             this.callCount++;
             this.mutex.ReleaseMutex();
+            Debug.Log(callCount);
         } else {
             throw new Exception("FATAL: Fitbit data could not be obtained.");
         }
@@ -67,7 +70,7 @@ public class PopulateCache : MonoBehaviour {
         this.cache.fitbit.lifetime = new LifetimeStats(
             data["activeScore"].AsInt,
             data["caloriesOut"].AsInt,
-            data["distance"].AsDouble,
+            data["distance"].AsFloat,
             data["floors"].AsInt,
             data["steps"].AsInt
         );
@@ -135,6 +138,9 @@ public class PopulateCache : MonoBehaviour {
         }
     }
 
+    /**
+     *  Populate cache with items from AWS.
+     */
     private IEnumerator PopulateItems () {
         WWWForm form = new WWWForm();
         form.AddField(Config.SessionKey, this.cache.sessionKey);
@@ -150,6 +156,7 @@ public class PopulateCache : MonoBehaviour {
             this.mutex.WaitOne();
             this.callCount++;
             this.mutex.ReleaseMutex();
+
         } else {
             throw new Exception("FATAL: Item data could not be obtained.");
         }
@@ -163,8 +170,8 @@ public class PopulateCache : MonoBehaviour {
     }
 
     /**
- *  Converts our JSON node to an item.
- */
+     *  Converts our JSON node to an item.
+     */
     private Item CreateItemFromJSON(JSONNode item) {
         return new Item(
             item["name"].Value,
@@ -176,6 +183,142 @@ public class PopulateCache : MonoBehaviour {
             (Statistic.Type)4,
             1
         );
+    }
+
+    /**
+     *  Populate Areas with values from Database.
+     */
+    private IEnumerator PopulateAreas() {
+        WWWForm form = new WWWForm();
+        form.AddField(Config.SessionKey, this.cache.sessionKey);
+        WWW www = new WWW(Config.ControllerURLAreas, form);
+
+        yield return www;
+
+        var data = JSON.Parse(www.text);
+        int response = data["status"].AsInt;
+
+        if (response == 200) {
+            FillCacheWithAreas(data["data"]);
+            this.mutex.WaitOne();
+            this.callCount++;
+            this.mutex.ReleaseMutex();
+            Debug.Log(callCount);
+        } else {
+            throw new Exception("FATAL: Area data could not be obtained.");
+        }
+    }
+
+    private void FillCacheWithAreas(JSONNode data) {
+        JSONArray areas = data["areas"].AsArray;
+        foreach(JSONNode area in areas) {
+            this.cache.AddAreaToInventory(
+                new Area(
+                    area["id"].AsInt,
+                    area["name"].Value,
+                    area["name"].Value,
+                    area["description"].Value
+                )
+            );
+        }
+    }
+
+    /**
+     *  Populate cache with Tari information from AWS.
+     */
+    private IEnumerator PopulateTaris() {
+        WWWForm form = new WWWForm();
+        form.AddField(Config.SessionKey, this.cache.sessionKey);
+        WWW www = new WWW(Config.ControllerURLTaris, form);
+
+        yield return www;
+
+        var data = JSON.Parse(www.text);
+        int response = data["status"].AsInt;
+
+        if (response == 200) {
+            FillCacheWithTaris(data["data"]);
+            this.mutex.WaitOne();
+            this.callCount++;
+            this.mutex.ReleaseMutex();
+            Debug.Log(callCount);
+        } else {
+            throw new Exception("FATAL: Taris data could not be obtained.");
+        }
+    }
+
+    private void FillCacheWithTaris(JSONNode data) {
+        JSONArray taris = data["taris"].AsArray;
+        foreach(JSONNode tari in taris) {
+            this.cache.AddCharacterToInventory(
+                new Tari(
+                    tari["id"].AsInt,
+                    tari["name"].Value,
+                    tari["name"].Value,
+                    tari["description"].Value
+                )
+            );
+        }
+    }
+
+    /**
+     * Populates player with info from AWS.
+     */
+    private IEnumerator PopulatePlayer() {
+        WWWForm form = new WWWForm();
+        form.AddField(Config.SessionKey, this.cache.sessionKey);
+        WWW www = new WWW(Config.ControllerURLPlayer, form);
+
+        yield return www;
+
+        var data = JSON.Parse(www.text);
+        int response = data["status"].AsInt;
+
+        if (response == 200) {
+            FillCacheWithPlayerInfo(data["data"]);
+            this.mutex.WaitOne();
+            this.callCount++;
+            this.mutex.ReleaseMutex();
+            Debug.Log(callCount);
+        } else {
+            throw new Exception("FATAL: Taris data could not be obtained.");
+        }
+    }
+
+    private void FillCacheWithPlayerInfo(JSONNode data) {
+        JSONNode player = data["avatar"];
+        PlayerStatistic stats = new PlayerStatistic(
+            player["level"].AsInt,
+            player["exp"]["exp_current"].AsInt,
+            player["health"]["health_current"].AsInt,
+            player["stats"]["strength"].AsInt,
+            player["stats"]["agility"].AsInt,
+            player["stats"]["defence"].AsInt
+        );
+
+        JSONNode areaNode = data["area"];
+        Area area = new Area(
+            areaNode["id"].AsInt,
+            areaNode["name"].Value,
+            areaNode["spriteName"].Value,
+            areaNode["description"]
+        );
+        this.cache.player = new Player(
+                new Player.EquippedGear(),
+                player["name"].Value,
+                // We have access to the tari here if we happen to need it
+                player["tari"]["spriteName"].Value,
+                stats,
+                area
+        );
+
+        // Populate items
+        JSONArray items = player["items"].AsArray;
+        foreach(JSONNode item in items) {
+            this.cache.player.EquipItem(
+                null //TODO
+             );
+        }
     }
 
     /**

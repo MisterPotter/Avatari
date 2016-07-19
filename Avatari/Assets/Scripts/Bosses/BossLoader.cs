@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System;
 
 /**
 * @author: Denholm
@@ -14,8 +15,12 @@ public class BossLoader : MonoBehaviour {
     private Transform panelSpawner;
     private const float rowVertOffset = 60.0f;
 
+    private int playerLevel;
+    private List<Boss> bosses;
+
     private void Awake () {
         Initialize();
+        GetPlayerLevel();
         LoadBosses();
     }
 
@@ -27,7 +32,7 @@ public class BossLoader : MonoBehaviour {
     }
 
     private void LoadBosses() {
-        List<Boss> bosses = this.cache.LoadBosses();
+        bosses = this.cache.LoadBosses();
         content.sizeDelta = new Vector2(0.0f, bosses.Count*rowVertOffset);
         Vector3 offset = Vector3.down * rowVertOffset;
 
@@ -37,18 +42,38 @@ public class BossLoader : MonoBehaviour {
                 (offset*i++), Quaternion.identity);
             clone.transform.SetParent(panelSpawner, false);
 
-            Text bossTitle = clone.transform.GetChild(0).GetComponent<Text>();
-            bossTitle.text = boss.getName();
+            // boss is challengeable if the player has that level or greater
+            bool canChallenge = playerLevel >= boss.getLevel();
 
+            Text bossTitle = clone.transform.GetChild(0).GetComponent<Text>();
+            if (canChallenge) {
+                bossTitle.text = boss.getName();
+            } else {
+                bossTitle.text = "???";
+            }
             Text bossRequirement = clone.transform.GetChild(1).GetComponent<Text>();
             bossRequirement.text = boss.getRequirement();
 
             Image bossIcon = clone.transform.GetChild(2).GetComponent<Image>();
-            bossIcon.sprite = cache.LoadBossSprite(boss.getSpriteName());
+            if (canChallenge) {
+                bossIcon.sprite = cache.LoadBossSprite(boss.getSpriteName());
+            } else {
+                bossIcon.sprite = cache.LoadBossSprite("mystery");
+            }
 
             Image bossInfo = clone.transform.GetChild(3).GetComponent<Image>();
             bossInfo.sprite = cache.LoadUtilitySprite("info");
+
+            BossDialog bossScript = clone.transform.GetComponent<BossDialog>();
+            bossScript.boss = boss;
+            if (canChallenge) {
+                bossScript.canChallenge = true;
+            }
         }
         
+    }
+
+    private void GetPlayerLevel() {
+        playerLevel = this.cache.LoadPlayerLevel();
     }
 }
