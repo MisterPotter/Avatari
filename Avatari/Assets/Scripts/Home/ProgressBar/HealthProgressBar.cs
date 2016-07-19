@@ -16,4 +16,11 @@ public class HealthProgressBar : ProgressBar {
         this.slider = Utility.LoadObject<Slider>("HealthSlider");
     }
 
+    protected override void FindTotal() {
+        this.total = Utility.LoadObject<Text>("HealthValue");
+    }
+
+    protected override void UpdateTotal() {
+        this.total.text = this.currValue + " / " + this.maxValue;
+    }
 }

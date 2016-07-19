@@ -16,4 +16,11 @@ public class AgilityProgressBar : ProgressBar {
         this.slider = Utility.LoadObject<Slider>("AgilitySlider");
     }
 
+    protected override void FindTotal() {
+        this.total = Utility.LoadObject<Text>("AgilityValue");
+    }
+
+    protected override void UpdateTotal() {
+        this.total.text = this.currValue + " / " + this.maxValue;
+    }
 }
