@@ -71,6 +71,14 @@ public class PopulateCache : MonoBehaviour {
             data["floors"].AsInt,
             data["steps"].AsInt
         );
+
+        //Convert into the front end object
+        this.cache.lifetimeGoals = new LifetimeGoals(1000000, 10000, 500, 1000);
+        LifetimeGoals goals = this.cache.lifetimeGoals;
+        goals.stepGoal.progress     = (float)cache.fitbit.lifetime.steps;
+        //goals.calorieGoal.progress  = (float)cache.fitbit.lifetime.caloriesOut;
+        goals.distanceGoal.progress = (float)cache.fitbit.lifetime.distance;
+        goals.floorGoal.progress    = (float)cache.fitbit.lifetime.floor;
     }
 
     private void PopulateCalories(JSONNode data) {

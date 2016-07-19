@@ -55,20 +55,20 @@ public class LifetimeGoals {
     public Goal stepGoal { get; set; }
     public Goal calorieGoal { get; set; }
     public Goal distanceGoal { get; set; }
-    public Goal activeMinGoal { get; set; }
+    public Goal floorGoal { get; set; }
 
     public LifetimeGoals() {
         this.stepGoal = new Goal();
         this.calorieGoal = new Goal();
         this.distanceGoal = new Goal();
-        this.activeMinGoal = new Goal();
+        this.floorGoal = new Goal();
     }
 
-    public LifetimeGoals(float LTStepGoal, float LTCalorieGoal, float LTDistanceGoal, float LTActiveMinGoal) {
+    public LifetimeGoals(float LTStepGoal, float LTCalorieGoal, float LTDistanceGoal, float LTFloorGoal) {
         this.stepGoal = new Goal("Step goal", LTStepGoal);
         this.calorieGoal = new Goal("Calorie goal", LTCalorieGoal);
         this.distanceGoal = new Goal("Distance goal (km)", LTDistanceGoal);
-        this.activeMinGoal = new Goal("Active minutes goal", LTActiveMinGoal);
+        this.floorGoal = new Goal("Floor goal", LTFloorGoal);
     }
 }
 

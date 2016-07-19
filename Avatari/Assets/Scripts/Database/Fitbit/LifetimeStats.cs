@@ -15,5 +15,4 @@ public class LifetimeStats {
         this.floor = floor;
         this.steps = steps;
     }
-
 }

@@ -63,11 +63,11 @@ public class MockDBInterface : MonoBehaviour {
         cache.challenges.hiking.progress = 0.6f;
         cache.challenges.swimming.progress = 0.5f;
 
-        cache.lifetimeGoals = new LifetimeGoals(500000, 10000, 500, 6000);
-        cache.lifetimeGoals.stepGoal.progress = 1256;
-        cache.lifetimeGoals.calorieGoal.progress = 112;
-        cache.lifetimeGoals.distanceGoal.progress = 1.22f;
-        cache.lifetimeGoals.activeMinGoal.progress = 26;
+        //cache.lifetimeGoals = new LifetimeGoals(1000000, 10000, 500);
+        //cache.lifetimeGoals.stepGoal.progress = 496000;
+        //cache.lifetimeGoals.calorieGoal.progress = 112;
+        //cache.lifetimeGoals.distanceGoal.progress = 1.22f;
+        //cache.lifetimeGoals.activeMinGoal.progress = 26;
     }
 
     private void PopulateBosses() {
