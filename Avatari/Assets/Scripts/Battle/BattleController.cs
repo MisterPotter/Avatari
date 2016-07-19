@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BattleController : MonoBehaviour {
 
@@ -20,7 +21,7 @@ public class BattleController : MonoBehaviour {
         this.player = Utility.DeepClone<PlayerStatistic>(this.cache.player.stats);
     }
 
-    public void Attack() {
+    public void AttackHandler() {
         if(!turnStarted) {
             turnStarted = true;
             Debug.Log("Attack");
@@ -28,11 +29,17 @@ public class BattleController : MonoBehaviour {
         }
     }
 
-    public void Flee() {
+    public void FleeHandler() {
         if (!turnStarted) {
             turnStarted = true;
-            Debug.Log("Flee");
+            Flee();
             turnStarted = false;
         }
+    }
+
+    private void Flee() {
+        //TODO, calculate flee chance based on ratios then flee.
+        //Show dialog for things that have changed.
+        SceneManager.LoadScene("home");
     }
 }

@@ -76,6 +76,7 @@ public class MockDBInterface : MonoBehaviour {
         );
         player.sprite = "Vivi";
         player.stats = new PlayerStatistic(4, 4100, 2, 3, 4, 5);
+        player.area = new Area(2, "Forest", "Forest", "Nature like.");
         cache.player = player;
     }
 

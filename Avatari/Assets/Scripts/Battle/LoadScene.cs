@@ -8,9 +8,14 @@ public class LoadScene : MonoBehaviour {
     private Transform fightPanel;
     private Transform statsPanel;
 
+    private const string healthFormat = "Health: {0}";
+    private const string hitChanceFormat = "HitChance: {0:0.#}";
+    private const string damageFormat = "Damage: {0}";
+
     private void Awake() {
         Initialize();
         LoadFightArea();
+        LoadStatsArea();
     }
 
     private void Initialize() {
@@ -39,5 +44,29 @@ public class LoadScene : MonoBehaviour {
         // Load Area
         areaSprite.sprite = Resources.Load<Sprite>("Sprites/Areas/"
             + this.cache.player.area.spriteName);
+    }
+
+    private void LoadStatsArea() {
+        Transform userStats = this.statsPanel.GetChild(0);
+        Transform bossStats = this.statsPanel.GetChild(1);
+
+        PopulateStatsPanel(userStats, this.cache.player.stats,
+            this.cache.boss.getStats());
+        PopulateStatsPanel(bossStats, this.cache.boss.getStats(),
+            this.cache.player.stats);
+    }
+
+    private void PopulateStatsPanel(Transform panel, PlayerStatistic me, PlayerStatistic against) {
+        Text health = panel.GetChild(0).GetComponent<Text>();
+        Text hitChance = panel.GetChild(1).GetComponent<Text>();
+        Text damage = panel.GetChild(2).GetComponent<Text>();
+
+        // Please don't have zero stats
+        double hitChanceDealt = me.agility.CurrentValueDouble / against.agility.CurrentValueDouble;
+        double damageDealt = me.strength.CurrentValueDouble / against.defense.CurrentValueDouble;
+
+        health.text = String.Format(healthFormat, me.health.CurrentValue);
+        hitChance.text = String.Format(hitChanceFormat, hitChanceDealt);
+        damage.text = String.Format(damageFormat, damageDealt);
     }
 }
