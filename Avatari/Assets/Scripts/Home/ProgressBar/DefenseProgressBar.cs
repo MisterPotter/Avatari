@@ -16,4 +16,11 @@ public class DefenseProgressBar : ProgressBar {
         this.slider = Utility.LoadObject<Slider>("DefenseSlider");
     }
 
+    protected override void FindTotal() {
+        this.total = Utility.LoadObject<Text>("DefenseValue");
+    }
+
+    protected override void UpdateTotal() {
+        this.total.text = this.currValue + " / " + this.maxValue;
+    }
 }

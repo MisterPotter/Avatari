@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 /**
  *  @author: Tyler
@@ -33,5 +35,15 @@ public class Utility {
         }
 
         throw new Exception("Sprite with name: " + spriteName + " not found.");
+    }
+
+    public static T DeepClone<T>(T obj) {
+        using (var ms = new MemoryStream()) {
+            var formatter = new BinaryFormatter();
+            formatter.Serialize(ms, obj);
+            ms.Position = 0;
+
+            return (T)formatter.Deserialize(ms);
+        }
     }
 }

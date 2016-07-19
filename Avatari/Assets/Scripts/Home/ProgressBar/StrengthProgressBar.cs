@@ -16,4 +16,12 @@ public class StrengthProgressBar : ProgressBar {
         this.slider = Utility.LoadObject<Slider>("StrengthSlider");
     }
 
+    protected override void FindTotal() {
+        this.total = Utility.LoadObject<Text>("StrengthValue");
+    }
+
+    protected override void UpdateTotal() {
+        this.total.text = this.currValue + " / " + this.maxValue;
+    }
+
 }

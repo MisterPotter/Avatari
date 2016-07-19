@@ -11,6 +11,7 @@ public abstract class ProgressBar : MonoBehaviour {
     protected int currValue;
 
     protected Slider slider;
+    protected Text total;
     protected Cache cache;
 
 	void Start () {
@@ -19,7 +20,9 @@ public abstract class ProgressBar : MonoBehaviour {
         GetCurrentValue();
         FindSlider();
         UpdateSlider();
-	}
+        FindTotal();
+        UpdateTotal();
+    }
 
     private void FindCache() {
         cache = Utility.LoadObject<Cache>("Cache");
@@ -35,9 +38,14 @@ public abstract class ProgressBar : MonoBehaviour {
     protected abstract void FindSlider();
 
     // Change the slider value to reflect the current value
-    protected void UpdateSlider() {
+    private void UpdateSlider() {
         slider.maxValue = this.maxValue;
         slider.minValue = this.minValue;
         slider.value = this.currValue;
     }
+
+    protected abstract void FindTotal();
+
+    protected abstract void UpdateTotal();
+
 }

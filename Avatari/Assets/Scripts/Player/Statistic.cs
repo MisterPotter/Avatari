@@ -4,6 +4,7 @@
 * @summary: Defines a base class for player statistics
 * */
 
+[Serializable]
 public abstract class Statistic {
 
     // Attributes for each kind of statistic. Only ever set at init
@@ -21,6 +22,23 @@ public abstract class Statistic {
         }
         set {
             this.currentValue = CheckBounds(value);
+            this.currentValueDouble = this.currentValue;
+        }
+    }
+
+    /* 
+     * More precise current value
+     * currentValue is the floor of this value.
+     */
+    protected double currentValueDouble;
+
+    public double CurrentValueDouble {
+        get {
+            return this.currentValueDouble;
+        }
+        set {
+            this.currentValueDouble = CheckBounds(value);
+            this.currentValue = (int) Math.Floor(this.currentValueDouble);
         }
     }
 
@@ -39,6 +57,7 @@ public abstract class Statistic {
         this.description = description;
         this.statType = statType;
         this.currentValue = minValue;
+        this.currentValueDouble = minValue;
     }
 
     public Statistic(int minValue, int maxValue, string description, Type statType, int initValue) {
@@ -47,6 +66,7 @@ public abstract class Statistic {
         this.description = description;
         this.statType = statType;
         this.currentValue = initValue;
+        this.currentValueDouble = initValue;
     }
 
     /**
@@ -56,6 +76,16 @@ public abstract class Statistic {
     public void AddToValue(int amount) {
         int newValue = this.currentValue + amount;
         this.currentValue = CheckBounds(newValue);
+    }
+
+    private double CheckBounds(double newValue) {
+        if (newValue > this.maxValue) {
+            return this.maxValue;
+        } else if (newValue < this.minValue) {
+            return this.minValue;
+        } else {
+            return newValue;
+        }
     }
 
     private int CheckBounds(int newValue) {
@@ -71,6 +101,7 @@ public abstract class Statistic {
 }
 
 // TODO: probably don't want level to ever decrease, should override change, add methods to ensure this.
+[Serializable]
 public class Level : Statistic {
 
     public Level() : base(Constants.MinLevel,
@@ -88,6 +119,7 @@ public class Level : Statistic {
 }
 
 // TODO: probably don't want experience to ever decrease, should override change, add methods to ensure this.
+[Serializable]
 public class Experience : Statistic {
 
     public Experience() : base(Constants.MinExperience,
@@ -104,6 +136,7 @@ public class Experience : Statistic {
     }
 }
 
+[Serializable]
 public class Health : Statistic {
     public Health() : base(Constants.MinStat,
                            Constants.MaxStat,
@@ -118,6 +151,7 @@ public class Health : Statistic {
     }
 }
 
+[Serializable]
 public class Agility : Statistic {
     public Agility() : base(Constants.MinStat,
                             Constants.MaxStat,
@@ -132,6 +166,7 @@ public class Agility : Statistic {
     }
 }
 
+[Serializable]
 public class Strength : Statistic {
     public Strength() : base(Constants.MinStat,
                              Constants.MaxStat,
@@ -146,6 +181,7 @@ public class Strength : Statistic {
     }
 }
 
+[Serializable]
 public class Defense : Statistic {
     public Defense() : base(Constants.MinStat,
                             Constants.MaxStat,
@@ -158,30 +194,4 @@ public class Defense : Statistic {
                                        Type.Defense,
                                        defense) {
     }
-}
-
-/**
- * @summary: Static class to store constants associated with statistics
- * TODO: Find a better way to do this?
- */
-public static class Constants {
-    public const int MaxLevel = 20;
-    public const int MinLevel = 0;
-    public const int MaxExperience = 20000;
-    public const int MinExperience = 0;
-    public const int MaxStat = 20;
-    public const int MinStat = 0;
-
-    public const string LevelDescription = "Levels allow you to fight more bosses! Your level increases with experience.";
-    public const string ExperienceDescription = "Experience lets you level up! Experience is increased by beating bosses, completing challenges and activities, and equipping items.";
-    public const string HealthDescription = "Your health refills over the course of the day. You don't even have to do anything!";
-    public const string AgilityDescription = "Agility increases as you do more cardio activities. Keep that heart rate up!";
-    public const string StrengthDescription = "You get stronger as you take more steps. Make sure you go above and beyond your step goal!";
-    public const string DefenseDescription = "Your defense increases when you eat well, sleep lots, and drink water.";
-
-    /**
-     * Array containing the number of experience to reach the level equal to the index.
-     * eg. ExperienceToLevel[1] = 100 => there is 100 experience needed to reach level 1
-     */
-    public static readonly int[] ExperienceToLevel = {0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000, 11000, 12000, 13000, 14000, 15000, 16000, 17000, 18000, 19000, 20000};
 }

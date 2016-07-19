@@ -21,4 +21,11 @@ public class ExperienceProgressBar : ProgressBar {
         this.slider = Utility.LoadObject<Slider>("ExperienceSlider");
     }
 
+    protected override void FindTotal() {
+        this.total = Utility.LoadObject<Text>("Value");
+    }
+
+    protected override void UpdateTotal() {
+        total.text = (this.currValue - this.minValue) + " xp";
+    }
 }

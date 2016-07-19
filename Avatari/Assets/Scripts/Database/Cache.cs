@@ -194,7 +194,29 @@ public class Cache : MonoBehaviour, IDataSource {
         cache.dailyGoals = new DailyGoals();
         cache.challenges = new Challenges();
         cache.lifetimeGoals = new LifetimeGoals();
+        LoadDefaultGoals();
         LoadSprites();
+    }
+
+    /**
+     * Probably won't end up getting the user's personal goals. 
+     * Will populate default ones in the cache instance.
+     */ 
+    private void LoadDefaultGoals() {
+        cache.dailyGoals = new DailyGoals(Constants.StepGoal,
+                                          Constants.CalorieGoal,
+                                          Constants.DistanceGoal,
+                                          Constants.ActiveMinutesGoal);
+
+        cache.challenges = new Challenges(Constants.BikeChallenge,
+                                          Constants.RunningChallenge,
+                                          Constants.HikingChallenge,
+                                          Constants.SwimmingChallenge);
+
+        cache.lifetimeGoals = new LifetimeGoals(Constants.LifeStepGoal,
+                                                Constants.LifeCalorieGoal,
+                                                Constants.LifeDistanceGoal,
+                                                Constants.LifeActiveMinutesGoal);
     }
 
     private void LoadSprites() {
