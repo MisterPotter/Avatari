@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System;
@@ -117,7 +118,7 @@ public class BattleController : MonoBehaviour {
     public void FleeHandler() {
         if (!turnStarted) {
             turnStarted = true;
-            CreateFleeDialog(false);
+            CreateFleeDialog(Flee());
         }
     }
 
@@ -224,8 +225,8 @@ public class BattleController : MonoBehaviour {
         Text description = dialog.transform.GetChild(1).GetComponent<Text>();
         Button accept = dialog.transform.GetChild(2).GetComponent<Button>();
 
-        title.text = win? GameOverSuccessTitle : GameOverDiedTitle;
-        description.text = win?
+        title.text = win ? GameOverSuccessTitle : GameOverDiedTitle;
+        description.text = win ?
             String.Format(GameOverSuccess, this.cache.boss.getName()) :
             String.Format(GameOverDied, this.cache.boss.getName());
 
@@ -237,5 +238,24 @@ public class BattleController : MonoBehaviour {
         );
 
         dialog.transform.SetParent(this.dialogSpawner, false);
+    }
+
+    private bool Flee() {
+        System.Random rand = new System.Random();
+        double chance = Chance(this.player, this.boss);
+        return rand.Next(100) < chance ? true : false;
+    }
+
+    public double Chance(PlayerStatistic attacker, PlayerStatistic victim) {
+        if (attacker.agility.CurrentValueDouble < victim.agility.CurrentValueDouble) {
+            return (attacker.agility.CurrentValueDouble / victim.agility.CurrentValueDouble * 100);
+        } else {
+            return 95;
+        }
+    }
+
+    //Strength = damage value, defense = % damage reduction
+    public double CalcDamage(PlayerStatistic attacker, PlayerStatistic victim) {
+        return (attacker.strength.CurrentValueDouble - (victim.defense.CurrentValueDouble / 100));
     }
 }
