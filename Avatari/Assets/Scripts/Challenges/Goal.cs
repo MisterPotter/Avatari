@@ -55,20 +55,27 @@ public class LifetimeGoals {
     public Goal stepGoal { get; set; }
     public Goal calorieGoal { get; set; }
     public Goal distanceGoal { get; set; }
-    public Goal activeMinGoal { get; set; }
+    public Goal floorGoal { get; set; }
 
     public LifetimeGoals() {
         this.stepGoal = new Goal();
         this.calorieGoal = new Goal();
         this.distanceGoal = new Goal();
-        this.activeMinGoal = new Goal();
+        this.floorGoal = new Goal();
     }
 
-    public LifetimeGoals(float LTStepGoal, float LTCalorieGoal, float LTDistanceGoal, float LTActiveMinGoal) {
+    // Constructor without calories 
+    public LifetimeGoals(float LTStepGoal, float LTDistanceGoal, float LTFloorGoal) {
+        this.stepGoal = new Goal("Step goal", LTStepGoal);
+        this.distanceGoal = new Goal("Distance goal (km)", LTDistanceGoal);
+        this.floorGoal = new Goal("Floor goal", LTFloorGoal);
+    }
+
+    public LifetimeGoals(float LTStepGoal, float LTCalorieGoal, float LTDistanceGoal, float LTFloorGoal) {
         this.stepGoal = new Goal("Step goal", LTStepGoal);
         this.calorieGoal = new Goal("Calorie goal", LTCalorieGoal);
         this.distanceGoal = new Goal("Distance goal (km)", LTDistanceGoal);
-        this.activeMinGoal = new Goal("Active minutes goal", LTActiveMinGoal);
+        this.floorGoal = new Goal("Floor goal", LTFloorGoal);
     }
 }
 
@@ -76,20 +83,17 @@ public class Challenges {
     public Goal biking { get; set; }
     public Goal running { get; set; }
     public Goal hiking { get; set; }
-    public Goal swimming { get; set; }
 
     public Challenges() {
         this.biking = new Goal();
         this.running = new Goal();
         this.hiking = new Goal();
-        this.swimming = new Goal();
     }
 
-    public Challenges(float bikingGoal, float runningGoal, float hikingGoal, float swimmingGoal) {
+    public Challenges(float bikingGoal, float runningGoal, float hikingGoal) {
         this.biking = new Goal("Biking goal", bikingGoal);
         this.running = new Goal("Running goal", runningGoal);
         this.hiking = new Goal("Hiking goal", hikingGoal);
-        this.swimming = new Goal("Swimming goal", swimmingGoal);
     }
 }
 

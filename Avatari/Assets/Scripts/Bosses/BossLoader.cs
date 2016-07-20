@@ -49,7 +49,7 @@ public class BossLoader : MonoBehaviour {
             if (canChallenge) {
                 bossTitle.text = boss.getName();
             } else {
-                bossTitle.text = "???";
+                bossTitle.text = "?";
             }
             Text bossRequirement = clone.transform.GetChild(1).GetComponent<Text>();
             bossRequirement.text = boss.getRequirement();
