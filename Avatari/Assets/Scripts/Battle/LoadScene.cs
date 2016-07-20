@@ -9,8 +9,10 @@ public class LoadScene : MonoBehaviour {
     private Transform statsPanel;
 
     private const string healthFormat = "Health: {0}";
-    private const string hitChanceFormat = "HitChance: {0:0.#}";
+    private const string hitChanceFormat = "HitChance: {0:0.#}%";
     private const string damageFormat = "Damage: {0}";
+
+    private const int damageMultiplier = 5;
 
     private void Awake() {
         Initialize();
@@ -66,7 +68,7 @@ public class LoadScene : MonoBehaviour {
         double damageDealt = me.strength.CurrentValueDouble / against.defense.CurrentValueDouble;
 
         health.text = String.Format(healthFormat, me.health.CurrentValue);
-        hitChance.text = String.Format(hitChanceFormat, hitChanceDealt);
-        damage.text = String.Format(damageFormat, damageDealt);
+        hitChance.text = String.Format(hitChanceFormat, hitChanceDealt*100);
+        damage.text = String.Format(damageFormat, (int)damageDealt*damageMultiplier);
     }
 }
