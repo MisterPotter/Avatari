@@ -10,9 +10,9 @@ public class MockDBInterface : MonoBehaviour {
     private void PopulateCache() {
         LoadCache();
         PopulateInventory();
-        //PopulatePlayerInfo();
-        //PopulateGoals();
-        //PopulateBosses();
+        PopulatePlayerInfo();
+        PopulateGoals();
+        PopulateBosses();
     }
 
     private void LoadCache() {
@@ -52,14 +52,14 @@ public class MockDBInterface : MonoBehaviour {
         ));
 
         // Add character objects
-        /*cache.AddCharacterToInventory(new Tari(0, "Vivi", "Vivi", "A mystical creature."));
+        cache.AddCharacterToInventory(new Tari(0, "Vivi", "Vivi", "A mystical creature."));
         cache.AddCharacterToInventory(new Tari(1, "Donkey Kong", "DonkeyKong", "Load up those barrels."));
-        cache.AddCharacterToInventory(new Tari(2, "Mega Dude", "MegaDude", "Not quite net worthy."));*/
+        cache.AddCharacterToInventory(new Tari(2, "Mega Dude", "MegaDude", "Not quite net worthy."));
 
         // Add areas
-        /*cache.AddAreaToInventory(new Area(1, "Lava", "Lava", "Lava like, we should destroy that ring here."));
+        cache.AddAreaToInventory(new Area(1, "Lava", "Lava", "Lava like, we should destroy that ring here."));
         cache.AddAreaToInventory(new Area(2, "Forest", "Forest", "Nature like."));
-        cache.AddAreaToInventory(new Area(3, "Final", "Final", "Is this out of Naruto?"));*/
+        cache.AddAreaToInventory(new Area(3, "Final", "Final", "Is this out of Naruto?"));
     }
 
     private void PopulatePlayerInfo() {
@@ -76,6 +76,7 @@ public class MockDBInterface : MonoBehaviour {
         );
         player.sprite = "Vivi";
         player.stats = new PlayerStatistic(4, 4100, 2, 3, 4, 5);
+        player.area = new Area(2, "Forest", "Forest", "Nature like.");
         cache.player = player;
     }
 
@@ -86,16 +87,17 @@ public class MockDBInterface : MonoBehaviour {
         cache.dailyGoals.distanceGoal.progress = 1.22f;
         cache.dailyGoals.activeMinGoal.progress = 26;
 
-        cache.challenges = new Challenges(20, 10, 10);
+        cache.challenges = new Challenges(20, 10, 10, 5);
         cache.challenges.biking.progress = 10.6f;
         cache.challenges.running.progress = 4.6f;
         cache.challenges.hiking.progress = 0.6f;
+        cache.challenges.swimming.progress = 0.5f;
 
-        cache.lifetimeGoals = new LifetimeGoals(1000000, 10000, 500);
-        cache.lifetimeGoals.stepGoal.progress = 496000;
+        cache.lifetimeGoals = new LifetimeGoals(500000, 10000, 500, 6000);
+        cache.lifetimeGoals.stepGoal.progress = 1256;
         cache.lifetimeGoals.calorieGoal.progress = 112;
         cache.lifetimeGoals.distanceGoal.progress = 1.22f;
-        cache.lifetimeGoals.floorGoal.progress = 26;
+        cache.lifetimeGoals.activeMinGoal.progress = 26;
     }
 
     private void PopulateBosses() {
