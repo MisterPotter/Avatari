@@ -30,11 +30,11 @@ public class LifetimeGoalLoader : MonoBehaviour {
         
         Goal[] goals = {
             ltGoals.stepGoal,
-            ltGoals.calorieGoal,
+            //ltGoals.calorieGoal,
             ltGoals.distanceGoal,
-            ltGoals.activeMinGoal
+            ltGoals.floorGoal
         };
-        content.sizeDelta = new Vector2(0.0f, 4 * rowVertOffset);
+        content.sizeDelta = new Vector2(0.0f, goals.Length * rowVertOffset);
         Vector3 offset = Vector3.down * rowVertOffset;
 
         int i = 0;
@@ -47,7 +47,7 @@ public class LifetimeGoalLoader : MonoBehaviour {
 
             Slider goalSlider = clone.transform.GetChild(1).GetComponent<Slider>();
             goalSlider.maxValue = goal.goal;
-            goalSlider.minValue = 0;
+            goalSlider.minValue = 0.0f;
             goalSlider.value = goal.progress;
         }
     }

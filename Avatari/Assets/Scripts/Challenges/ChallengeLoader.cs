@@ -30,7 +30,6 @@ public class ChallengeLoader : MonoBehaviour {
             challenges.biking,
             challenges.running,
             challenges.hiking,
-            challenges.swimming
         };
         content.sizeDelta = new Vector2(0.0f, 4 * rowVertOffset);
         Vector3 offset = Vector3.down * rowVertOffset;

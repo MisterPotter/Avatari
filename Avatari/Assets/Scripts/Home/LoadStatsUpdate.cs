@@ -26,7 +26,7 @@ public class LoadStatsUpdate : MonoBehaviour {
     private const string lastLogin = "lastLogin";
     private const string dateFormat = "yyyy-MM-dd";
 
-	void Start () {
+	void Awake() {
         if (disIsYou == null) {
             Initialize();
         } else if (disIsYou != this) {

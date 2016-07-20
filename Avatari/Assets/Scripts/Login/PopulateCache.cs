@@ -60,6 +60,7 @@ public class PopulateCache : MonoBehaviour {
         PopulateDistance(data["distance"]["activities-distance"]);
         PopulateFairlyActive(data["minutesFairlyActive"]["activities-minutesFairlyActive"]);
         PopulateVeryActive(data["minutesVeryActive"]["activities-minutesVeryActive"]);
+        PopulatePlayerGoalProgress();
     }
 
     /**
@@ -128,6 +129,38 @@ public class PopulateCache : MonoBehaviour {
                 record["value"].AsInt
             ));
         }
+    }
+
+    private void PopulatePlayerGoalProgress() {
+        PopulateLifetimeGoalProgress();
+        PopulateDailyGoalProgress();
+        PopulateChallengeProgress();
+    }
+
+    private void PopulateDailyGoalProgress() {
+        DailyGoals goals = cache.dailyGoals;
+        float totalActiveMin = (float)PlayerStatistic.GetTodaysData(cache.fitbit.fairlyActive);
+        totalActiveMin += (float)PlayerStatistic.GetTodaysData(cache.fitbit.veryActive);
+        goals.activeMinGoal.progress = totalActiveMin;
+        goals.calorieGoal.progress = (float)PlayerStatistic.GetTodaysData(cache.fitbit.calories);
+        goals.distanceGoal.progress = (float)PlayerStatistic.GetTodaysData(cache.fitbit.activeDistance);
+        goals.stepGoal.progress = (float)PlayerStatistic.GetTodaysData(cache.fitbit.activeSteps);
+    }
+
+    private void PopulateLifetimeGoalProgress() {
+        LifetimeGoals goals = cache.lifetimeGoals;
+        goals.stepGoal.progress = (float)cache.fitbit.lifetime.steps;
+        //goals.calorieGoal.progress  = (float)cache.fitbit.lifetime.caloriesOut;
+        goals.distanceGoal.progress = (float)cache.fitbit.lifetime.distance;
+        goals.floorGoal.progress = (float)cache.fitbit.lifetime.floor;
+    }
+
+    // TODO: USE REAL DATA HERE. Right now we're just flubbing it since we don't have an endpoint for the activity type.
+    private void PopulateChallengeProgress() {
+        Challenges goals = cache.challenges;
+        goals.biking.progress = Constants.BikeChallenge * 0.6f;
+        goals.hiking.progress = Constants.HikingChallenge * 0.4f;
+        goals.running.progress = Constants.RunningChallenge * 0.7f;
     }
 
     /**

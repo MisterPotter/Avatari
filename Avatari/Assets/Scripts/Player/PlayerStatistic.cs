@@ -209,11 +209,22 @@ public class PlayerStatistic {
         defense.CurrentValueDouble += defenseChange;
     }
     
+    public static T GetTodaysData<T>(List<FitbitPair<T>> pairs) {
+        T data = default(T);
+        DateTime currentDate = DateTime.Today;
+        foreach( FitbitPair<T> pair in pairs ) {
+            if (pair.date == currentDate) {
+                 data = pair.value;
+            }
+        }
+        return data;
+    }
+
     /**
      * For simplicity, don't look at today's data.
      * It will be handled when the user logs in the next time
      */ 
-    private List<double> GetRelevantData(List<FitbitPair<double>> pairs, DateTime date) {
+    private static List<double> GetRelevantData(List<FitbitPair<double>> pairs, DateTime date) {
         List <double> data = new List<double>();
         DateTime currentDate = DateTime.Today;
         foreach( FitbitPair<double> pair in pairs ) {
@@ -224,7 +235,7 @@ public class PlayerStatistic {
         return data;
     }
 
-    private List<double> GetRelevantData(List<FitbitPair<int>> pairs, DateTime date) {
+    private static List<double> GetRelevantData(List<FitbitPair<int>> pairs, DateTime date) {
         List<double> data = new List<double>();
         DateTime currentDate = DateTime.Today;
         foreach (FitbitPair<int> pair in pairs) {
