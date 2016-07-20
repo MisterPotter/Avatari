@@ -7,9 +7,10 @@ public class LoadScene : MonoBehaviour {
     private Cache cache;
     private Transform fightPanel;
     private Transform statsPanel;
+    private BattleController battleController;
 
     private const string healthFormat = "Health: {0}";
-    private const string hitChanceFormat = "HitChance: {0:0.#}";
+    private const string hitChanceFormat = "HitChance: {0:0.#}%";
     private const string damageFormat = "Damage: {0}";
 
     private void Awake() {
@@ -22,6 +23,7 @@ public class LoadScene : MonoBehaviour {
         this.cache = Utility.LoadObject<Cache>("Cache");
         this.fightPanel = Utility.LoadObject<Transform>("FightPanel");
         this.statsPanel = Utility.LoadObject<Transform>("StatsPanel");
+        this.battleController = Utility.LoadObject<BattleController>("BattleController");
     }
 
     private void LoadFightArea() {
@@ -62,8 +64,8 @@ public class LoadScene : MonoBehaviour {
         Text damage = panel.GetChild(2).GetComponent<Text>();
 
         // Please don't have zero stats
-        double hitChanceDealt = me.agility.CurrentValueDouble / against.agility.CurrentValueDouble;
-        double damageDealt = me.strength.CurrentValueDouble / against.defense.CurrentValueDouble;
+        double hitChanceDealt   = this.battleController.Chance(me, against);
+        double damageDealt      = this.battleController.calcDamage(me, against);
 
         health.text = String.Format(healthFormat, me.health.CurrentValue);
         hitChance.text = String.Format(hitChanceFormat, hitChanceDealt);
