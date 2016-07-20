@@ -2,7 +2,6 @@
 using System;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using System;
 
 /**
  *  It's all a hack...
@@ -40,6 +39,11 @@ public class BattleController : MonoBehaviour {
 
     /*
      *  Constants
+     */
+    private const int DamageMultiplier = 4;
+
+    /*
+     *  UI String constants
      */
     private const string HealthFormat = "Health: {0}";
     private const string FleeSuccess = "You got away!";
@@ -112,7 +116,7 @@ public class BattleController : MonoBehaviour {
     }
 
     private int PlayerDamage() {
-        return 5;
+        return (int)CalcDamage(this.player, this.boss);
     }
 
     public void FleeHandler() {
@@ -146,11 +150,11 @@ public class BattleController : MonoBehaviour {
     }
 
     private int BossDamage() {
-        return 1;
+        return (int)CalcDamage(this.boss, this.player);
     }
 
     private void BossAttack() {
-        if (true /*Replace with hit chance*/) {
+        if (Hit(this.boss, this.player)) {
             int newHealth = this.player.health.CurrentValue - BossDamage();
             this.player.health.CurrentValue = Mathf.Max(0, newHealth);
             this.playerHealth.text = String.Format(HealthFormat, this.player.health.CurrentValue);
@@ -246,6 +250,12 @@ public class BattleController : MonoBehaviour {
         return rand.Next(100) < chance ? true : false;
     }
 
+    private bool Hit(PlayerStatistic attacker, PlayerStatistic victim) {
+        System.Random rand = new System.Random();
+        double chance = Chance(attacker, victim);
+        return rand.Next(100) < chance ? true : false;
+    }
+
     public double Chance(PlayerStatistic attacker, PlayerStatistic victim) {
         if (attacker.agility.CurrentValueDouble < victim.agility.CurrentValueDouble) {
             return (attacker.agility.CurrentValueDouble / victim.agility.CurrentValueDouble * 100);
@@ -256,6 +266,6 @@ public class BattleController : MonoBehaviour {
 
     //Strength = damage value, defense = % damage reduction
     public double CalcDamage(PlayerStatistic attacker, PlayerStatistic victim) {
-        return (attacker.strength.CurrentValueDouble - (victim.defense.CurrentValueDouble / 100));
+        return (attacker.strength.CurrentValueDouble - (victim.defense.CurrentValueDouble / 100)) * DamageMultiplier;
     }
 }
