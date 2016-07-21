@@ -248,6 +248,7 @@ public class BattleController : MonoBehaviour {
     private void PushItemsReturnHome() {
         Requests requests = new Requests(this.cache);
         StartCoroutine(requests.PushEquippedItems());
+        StartCoroutine(requests.PushTari());
         StartCoroutine(LoadHome(requests));
 
     }

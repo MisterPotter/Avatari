@@ -24,7 +24,7 @@ public class Requests {
 
     public IEnumerator PushEquippedItems() {
         Player.EquippedGear gear = this.cache.player.gear;
-        this.requestLimit = this.cache.player.gear.Count;
+        this.requestLimit += this.cache.player.gear.Count;
         foreach(Item item in gear) {
             yield return PushEquippedItem(item == null? null : item);
         }
@@ -59,15 +59,70 @@ public class Requests {
     }
 
     public IEnumerator PushStats() {
+
         PlayerStatistic stats = this.cache.player.stats;
-        this.requestLimit = this.cache.player.gear.Count;
+        this.requestLimit += this.cache.player.stats.Count;
         foreach (Statistic stat in stats) {
             yield return PushStat(stat);
         }
     }
 
     public IEnumerator PushStat(Statistic stat) {
-        yield return null;
+        WWWForm form = new WWWForm();
+        form.AddField(Config.SessionKey, this.cache.sessionKey);
+        form.AddField(stat.statType.ToString().ToLower(), stat.CurrentValue);
+        Debug.Log(stat.statType.ToString().ToLower());
+        WWW www = new WWW(Config.ControllerURLPlayerSet, form);
+
+        yield return www;
+
+        var data = JSON.Parse(www.text);
+        int response = data["status"].AsInt;
+        if (response == 200) {
+            this.mutex.WaitOne();
+            this.requestCount++;
+            this.mutex.ReleaseMutex();
+        } else {
+            throw new Exception(
+                String.Format(
+                    "Stat: {0} could not be persisted to the server.",
+                    stat.statType.ToString().ToLower()
+                )
+            );
+        }
+    }
+
+    public IEnumerator PushTari() {
+        this.requestLimit += 1;
+        WWWForm form = new WWWForm();
+        Tari tari = FindTari(this.cache.player.sprite);
+        form.AddField(Config.SessionKey, this.cache.sessionKey);
+        form.AddField("tari", tari.id);
+        WWW www = new WWW(Config.ControllerURLPlayerSet, form);
+
+        yield return www;
+
+        var data = JSON.Parse(www.text);
+        int response = data["status"].AsInt;
+        if (response == 200) {
+            this.mutex.WaitOne();
+            this.requestCount++;
+            this.mutex.ReleaseMutex();
+        } else {
+            throw new Exception(
+                String.Format(
+                    "Sprite: {0} could not be persisted to the server.",
+                    this.cache.player.sprite
+                )
+            );
+        }
+    }
+
+    private Tari FindTari(string sprite) {
+        foreach(Tari tari in this.cache.LoadCharacters()) {
+            if (sprite == tari.spriteName) return tari;
+        }
+        return null;
     }
 
     public bool RequestNotFinished() {

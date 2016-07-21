@@ -22,6 +22,7 @@ public class Config {
     public static readonly string ControllerURLAreas = ControllerURLRoot + "areas";
     public static readonly string ControllerURLItems = ControllerURLRoot + "items";
     public static readonly string ControllerURLPlayer = ControllerURLRoot + "avatar";
+    public static readonly string ControllerURLPlayerSet = ControllerURLPlayer + "/set";
     public static readonly string ControllerURLEquipItem = ControllerURLPlayer + "/item/equip";
     public static readonly string ControllerURLTaris = ControllerURLRoot + "taris";
 

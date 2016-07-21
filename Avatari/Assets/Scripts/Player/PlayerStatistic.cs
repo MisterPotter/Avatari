@@ -10,12 +10,14 @@ using System.Linq;
 */
 [Serializable]
 public class PlayerStatistic : IEnumerable<Statistic> {
-    public Level level;
-    public Experience experience;
+    public Level level; //
+    public Experience experience; //
     public Health health;
-    public Strength strength;
-    public Agility agility;
-    public Defense defense;
+    public Strength strength; //
+    public Agility agility; //
+    public Defense defense; // 
+
+    public readonly uint Count = 6;
 
     public PlayerStatistic() {
         level = new Level();
