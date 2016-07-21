@@ -28,7 +28,7 @@ public class AreaSlot : MonoBehaviour, IPointerDownHandler {
         if(empty) return;
 
         GameObject dialogPrefab = Resources.Load<GameObject>(
-            "Prefabs/UI/Inventory/Dialogs/AreaDialog");
+            "Prefabs/UI/Dialogs/AreaDialog");
         if (dialogPrefab == null) {
             throw new Exception("Area dialog prefab was not found.");
         }
