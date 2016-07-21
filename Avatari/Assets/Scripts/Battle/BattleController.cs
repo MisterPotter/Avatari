@@ -67,7 +67,6 @@ public class BattleController : MonoBehaviour {
         this.turnStarted = false;
         this.cache = Utility.LoadObject<Cache>("Cache");
         this.boss = Utility.DeepClone<PlayerStatistic>(this.cache.boss.getStats());
-        //this.player = Utility.DeepClone<PlayerStatistic>(this.cache.player.stats);
         this.player = this.cache.player.stats;
         this.dialogSpawner = Utility.LoadObject<Transform>("DialogSpawner");
 
