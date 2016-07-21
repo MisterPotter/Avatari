@@ -234,6 +234,15 @@ public class BattleController : MonoBehaviour {
             String.Format(GameOverSuccess, this.cache.boss.getName()) :
             String.Format(GameOverDied, this.cache.boss.getName());
 
+        /* Store battle information for reward dialog */
+        LastBattle.boss = this.cache.boss;
+        LastBattle.rewardCollected = false;
+        if (win) {
+            LastBattle.battleWon = true;
+        } else {
+            LastBattle.battleWon = false;
+        }
+
         accept.onClick.AddListener(
             delegate {
                 Destroy(dialog);
