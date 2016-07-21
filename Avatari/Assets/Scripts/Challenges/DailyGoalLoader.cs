@@ -43,9 +43,21 @@ public class DailyGoalLoader : MonoBehaviour {
             goalDescription.text = goal.description + " - " + goal.progress + " / " + goal.goal;
 
             Slider goalSlider = clone.transform.GetChild(1).GetComponent<Slider>();
-            goalSlider.maxValue = goal.goal;
-            goalSlider.minValue = 0;
-            goalSlider.value = goal.progress;
+            Text completed = clone.transform.GetChild(2).GetComponent<Text>();
+
+            if (goal.progress < goal.goal) {
+                goalSlider.maxValue = goal.goal;
+                goalSlider.minValue = 0;
+                goalSlider.value = goal.progress;
+            } else {
+                // goal has been achieved
+                Color color = completed.color;
+                color.a += 1.0f;
+                completed.color = color;
+                goalSlider.GetComponent<CanvasGroup>().alpha = 0.0f;
+                CompletionDialogLoader dialogScript = clone.transform.GetComponent<CompletionDialogLoader>();
+                dialogScript.goal = goal;
+            }
         }
     }
 }

@@ -5,10 +5,6 @@ using UnityEngine.UI;
 
 public class BossDialog : MonoBehaviour, IPointerDownHandler {
 
-    /*
-     *  An empty slot has no current item it represents and will loose
-     *  a lot of interactability. 
-     */
     public bool canChallenge { get; set; }
     public Boss boss { get; set; }
 
@@ -22,9 +18,6 @@ public class BossDialog : MonoBehaviour, IPointerDownHandler {
         dialogSpawner = Utility.LoadObject<Transform>("DialogSpawner");
     }
 
-    /**
-     *  On tap down, create a dialog to remove items.
-     */
     public void OnPointerDown(PointerEventData eventData) {
         if (!canChallenge) return;
         GameObject dialogPrefab = Resources.Load<GameObject>(
@@ -42,9 +35,6 @@ public class BossDialog : MonoBehaviour, IPointerDownHandler {
         }
     }
 
-    /**
-     *  Create a dialog that is capable of unequipping an item.
-     */
     private void CreateDialog(GameObject prefab) {
         GameObject dialog = (GameObject)Instantiate(prefab, new Vector2(0.0f, 0.0f), Quaternion.identity);
 
