@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class BossDialog : MonoBehaviour, IPointerDownHandler {
@@ -50,6 +50,7 @@ public class BossDialog : MonoBehaviour, IPointerDownHandler {
 
         accept.onClick.AddListener(
             delegate {
+                Fight();
                 Destroy(dialog);
             }
         );
@@ -60,6 +61,11 @@ public class BossDialog : MonoBehaviour, IPointerDownHandler {
         );
 
         dialog.transform.SetParent(this.dialogSpawner, false);
+    }
+
+    private void Fight() {
+        this.cache.boss = this.boss;
+        SceneManager.LoadScene("battle");
     }
 
 }

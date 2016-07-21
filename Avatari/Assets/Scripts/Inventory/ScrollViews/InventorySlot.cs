@@ -3,7 +3,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using System;
 
-public class InventorySlot : MonoBehaviour, IPointerDownHandler {
+public class InventorySlot : MonoBehaviour, IPointerDownHandler, IPointerUpHandler {
 
     /*
      *  An empty slot has no current item it represents and will loose
@@ -34,20 +34,26 @@ public class InventorySlot : MonoBehaviour, IPointerDownHandler {
     }
 
     /**
-     *  On tap down, create a dialog to remove items.
+     *  On tap down, create a dialog to equipped items.
      */
-    public void OnPointerDown(PointerEventData eventData) {
+    public void OnPointerUp(PointerEventData eventData) {
+        Debug.Log("The mouse click was released");
         if (empty) return;
 
         GameObject dialogPrefab = Resources.Load<GameObject>(
-            "Prefabs/UI/Inventory/Dialogs/ItemDialog");
+            "Prefabs/UI/Dialogs/ItemDialog");
         if (dialogPrefab == null) {
-            throw new Exception("Unequip dialog prefab was not found.");
+            throw new Exception("Item dialog prefab was not found.");
         }
         CleanUpExistingDialogs();
         if(this.item.IsEquippable()) {
             CreateItemDialog(dialogPrefab);
         }
+    }
+
+    //For some reason this has to be here or OnPointerUp won't work
+    public void OnPointerDown(PointerEventData eventData) {
+        Debug.Log("The mouse depressed");
     }
 
     private void CleanUpExistingDialogs() {

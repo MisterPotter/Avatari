@@ -70,6 +70,7 @@ public class Player {
             EquippedGear gear, string username, string spriteName,
             PlayerStatistic stats, Area area) {
         this.gear = gear;
+        this.username = username;
         this.sprite = spriteName;
         this.stats = stats;
         this.area = area;

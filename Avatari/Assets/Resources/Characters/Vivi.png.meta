@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 35ae87e42e5e94a4999354997a9b327f
-timeCreated: 1467854862
+timeCreated: 1468978104
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -9,7 +9,7 @@ TextureImporter:
     21300004: FFRK_Vivi_sprites_2
     21300006: FFRK_Vivi_sprites_3
     21300008: FFRK_Vivi_sprites_4
-    21300010: FFRK_Vivi_sprites_5
+    21300010: defeated
     21300012: FFRK_Vivi_sprites_6
     21300014: FFRK_Vivi_sprites_7
     21300016: FFRK_Vivi_sprites_8
@@ -162,7 +162,7 @@ TextureImporter:
         - {x: 22, y: -28}
         - {x: 26, y: 7}
         - {x: 26, y: 36}
-    - name: FFRK_Vivi_sprites_5
+    - name: defeated
       rect:
         serializedVersion: 2
         x: 480

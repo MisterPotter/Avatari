@@ -205,8 +205,8 @@ public class PopulateCache : MonoBehaviour {
             item["id"].AsInt,
             (Item.ItemType)item["type"].AsInt,
             (Item.ItemRarity)item["rarity"].AsInt,
-            (Statistic.Type)4,
-            1
+            (Statistic.Type)item["statType"].AsInt,
+            item["statBoost"].AsInt
         );
     }
 
@@ -241,7 +241,7 @@ public class PopulateCache : MonoBehaviour {
                 new Area(
                     area["id"].AsInt,
                     area["name"].Value,
-                    area["name"].Value,
+                    area["spriteName"].Value,
                     area["description"].Value
                 )
             );
@@ -279,7 +279,7 @@ public class PopulateCache : MonoBehaviour {
                 new Tari(
                     tari["id"].AsInt,
                     tari["name"].Value,
-                    tari["name"].Value,
+                    tari["spriteName"].Value,
                     tari["description"].Value
                 )
             );
@@ -321,7 +321,7 @@ public class PopulateCache : MonoBehaviour {
             player["stats"]["defence"].AsInt
         );
 
-        JSONNode areaNode = data["area"];
+        JSONNode areaNode = player["area"];
         Area area = new Area(
             areaNode["id"].AsInt,
             areaNode["name"].Value,

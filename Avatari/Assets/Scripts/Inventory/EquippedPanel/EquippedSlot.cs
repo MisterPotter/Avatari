@@ -31,7 +31,7 @@ public class EquippedSlot : MonoBehaviour, IPointerDownHandler {
         if(empty) return;
 
         GameObject dialogPrefab = Resources.Load<GameObject>(
-            "Prefabs/UI/Inventory/Dialogs/UnequipDialog");
+            "Prefabs/UI/Dialogs/UnequipDialog");
         if (dialogPrefab == null) {
             throw new Exception("Unequip dialog prefab was not found.");
         }
