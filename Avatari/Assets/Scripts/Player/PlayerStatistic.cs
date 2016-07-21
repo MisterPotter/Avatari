@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Linq;
 * @summary: Stores the player statistics
 */
 [Serializable]
-public class PlayerStatistic {
+public class PlayerStatistic : IEnumerable<Statistic> {
     public Level level;
     public Experience experience;
     public Health health;
@@ -34,11 +35,24 @@ public class PlayerStatistic {
         this.defense = new Defense(defense);
     }
 
+    public IEnumerator<Statistic> GetEnumerator() {
+        yield return level;
+        yield return experience;
+        yield return health;
+        yield return strength;
+        yield return agility;
+        yield return defense;
+    }
+
+    IEnumerator IEnumerable.GetEnumerator() {
+        return GetEnumerator();
+    }
+
     /**
      * Called once the app is opened for the first time in a day
      * Need to be passed an instance of the cache to access the fitbit data,
      * as well as the date to update from
-     */ 
+     */
     public void UpdatePlayerStatisticsSince(Cache cache, DateTime date) {
         updateExperience(cache, date);
         updateHealth();

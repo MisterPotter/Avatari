@@ -73,6 +73,8 @@ public class BossDialog : MonoBehaviour, IPointerDownHandler {
         dialog.transform.SetParent(this.dialogSpawner, false);
     }
 
+
+
     private void Fight() {
         this.cache.boss = this.boss;
         SceneManager.LoadScene("battle");

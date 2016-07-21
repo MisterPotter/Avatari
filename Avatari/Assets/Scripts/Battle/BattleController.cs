@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System;
+using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -138,7 +139,7 @@ public class BattleController : MonoBehaviour {
         accept.onClick.AddListener(
             delegate {
                 if (success) {
-                    SceneManager.LoadScene("home");
+                    PushItemsReturnHome();
                 } else {
                     BossAttack();
                 }
@@ -237,11 +238,25 @@ public class BattleController : MonoBehaviour {
         accept.onClick.AddListener(
             delegate {
                 Destroy(dialog);
-                SceneManager.LoadScene("home");
+                PushItemsReturnHome();
             }
         );
 
         dialog.transform.SetParent(this.dialogSpawner, false);
+    }
+
+    private void PushItemsReturnHome() {
+        Requests requests = new Requests(this.cache);
+        StartCoroutine(requests.PushEquippedItems());
+        StartCoroutine(LoadHome(requests));
+
+    }
+
+    private IEnumerator LoadHome(Requests requests) {
+        while(requests.RequestNotFinished()) {
+            yield return null;
+        }
+        SceneManager.LoadScene("home");
     }
 
     private bool Flee() {

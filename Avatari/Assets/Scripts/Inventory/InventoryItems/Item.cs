@@ -78,6 +78,17 @@ public class Item {
         this.statBoost = statBoost;
     }
 
+    public Item(ItemType type) {
+        this.itemName = null;
+        this.resourceName = null;
+        this.itemDescription = null;
+        this.itemID = -1;
+        this.itemType = type;
+        this.itemRarity = 0;
+        this.statType = 0;
+        this.statBoost = 0;
+    }
+
     /**
      *  @summary: Determines if an item can be equipped.
      *  @return: True if a characters can equipt the item, False otherwise.

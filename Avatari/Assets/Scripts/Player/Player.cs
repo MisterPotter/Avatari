@@ -1,11 +1,13 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 
 /**
  *  @author Tyler
  */
 public class Player {
 
-    public class EquippedGear {
+    public class EquippedGear : IEnumerable<Item> {
         public Item headGear;
         public Item bodyGear;
         public Item footGear;
@@ -14,6 +16,9 @@ public class Player {
         public Item wingGear;
         public Item ringGear;
         public Item shieldGear;
+        // It may be better to implement this as a derived value
+        // from its own iterable to improve the ability to refactor
+        public readonly uint Count = 8U;
 
         public EquippedGear() {
             this.headGear = null;
@@ -37,6 +42,21 @@ public class Player {
             this.wingGear = wing;
             this.ringGear = ring;
             this.shieldGear = sheild;
+        }
+
+        public IEnumerator<Item> GetEnumerator() {
+            yield return this.headGear == null? new Item(Item.ItemType.Head) : this.headGear;
+            yield return this.bodyGear == null ? new Item(Item.ItemType.Body) : this.bodyGear;
+            yield return this.footGear == null ? new Item(Item.ItemType.Feet) : this.footGear;
+            yield return this.weaponGear == null ? new Item(Item.ItemType.Weapon) : this.weaponGear;
+            yield return this.neckGear == null ? new Item(Item.ItemType.Neck) : this.neckGear;
+            yield return this.wingGear == null ? new Item(Item.ItemType.Wings) : this.wingGear;
+            yield return this.ringGear == null ? new Item(Item.ItemType.Ring) : this.ringGear;
+            yield return this.shieldGear == null ? new Item(Item.ItemType.Shield) : this.shieldGear;
+        }
+
+        IEnumerator IEnumerable.GetEnumerator() {
+            return GetEnumerator();
         }
     }
 

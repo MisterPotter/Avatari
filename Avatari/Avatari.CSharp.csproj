@@ -90,6 +90,7 @@
     <Compile Include="Assets\Scripts\Database\Fitbit\LifetimeStats.cs" />
     <Compile Include="Assets\Scripts\Database\IDataSource.cs" />
     <Compile Include="Assets\Scripts\Database\MockDBInterface.cs" />
+    <Compile Include="Assets\Scripts\Database\Requests.cs" />
     <Compile Include="Assets\Scripts\Home\LoadCharacter.cs" />
     <Compile Include="Assets\Scripts\Home\LoadStatsUpdate.cs" />
     <Compile Include="Assets\Scripts\Home\ProgressBar\AgilityProgressBar.cs" />
