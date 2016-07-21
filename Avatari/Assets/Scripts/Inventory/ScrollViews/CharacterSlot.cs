@@ -31,7 +31,7 @@ public class CharacterSlot : MonoBehaviour, IPointerDownHandler {
         if (empty) return;
 
         GameObject dialogPrefab = Resources.Load<GameObject>(
-            "Prefabs/UI/Inventory/Dialogs/CharacterDialog");
+            "Prefabs/UI/Dialogs/CharacterDialog");
         if (dialogPrefab == null) {
             throw new Exception("Character dialog prefab was not found.");
         }

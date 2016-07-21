@@ -11,7 +11,7 @@ public class MockDBInterface : MonoBehaviour {
         LoadCache();
         PopulateInventory();
         PopulatePlayerInfo();
-        PopulateGoals();
+        //PopulateGoals();
         PopulateBosses();
     }
 
@@ -75,11 +75,12 @@ public class MockDBInterface : MonoBehaviour {
             null
         );
         player.sprite = "Vivi";
-        player.stats = new PlayerStatistic(4, 4100, 2, 3, 4, 5);
+        player.stats = new PlayerStatistic(99, 4100, 2, 3, 4, 5);
         player.area = new Area(2, "Forest", "Forest", "Nature like.");
         cache.player = player;
     }
 
+    /*
     private void PopulateGoals() {
         cache.dailyGoals = new DailyGoals(2000, 200, 2, 30);
         cache.dailyGoals.stepGoal.progress = 1256;
@@ -99,6 +100,7 @@ public class MockDBInterface : MonoBehaviour {
         cache.lifetimeGoals.distanceGoal.progress = 1.22f;
         cache.lifetimeGoals.activeMinGoal.progress = 26;
     }
+    */
 
     private void PopulateBosses() {
         cache.AddBossToList(new Boss("Vicky", "", new PlayerStatistic(2, 2500, 13, 1, 1, 1), 1));

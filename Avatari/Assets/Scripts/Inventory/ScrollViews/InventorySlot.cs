@@ -34,15 +34,15 @@ public class InventorySlot : MonoBehaviour, IPointerDownHandler {
     }
 
     /**
-     *  On tap down, create a dialog to remove items.
+     *  On tap down, create a dialog to equipped items.
      */
     public void OnPointerDown(PointerEventData eventData) {
         if (empty) return;
 
         GameObject dialogPrefab = Resources.Load<GameObject>(
-            "Prefabs/UI/Inventory/Dialogs/ItemDialog");
+            "Prefabs/UI/Dialogs/ItemDialog");
         if (dialogPrefab == null) {
-            throw new Exception("Unequip dialog prefab was not found.");
+            throw new Exception("Item dialog prefab was not found.");
         }
         CleanUpExistingDialogs();
         if(this.item.IsEquippable()) {
