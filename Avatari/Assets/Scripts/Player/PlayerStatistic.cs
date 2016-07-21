@@ -41,7 +41,7 @@ public class PlayerStatistic {
      */ 
     public void UpdatePlayerStatisticsSince(Cache cache, DateTime date) {
         updateExperience(cache, date);
-        updateHealth();
+        updateHealth(cache, date);
         updateStrength(cache, date);
         updateAgility(cache, date);
         updateDefense(cache, date);
@@ -58,22 +58,22 @@ public class PlayerStatistic {
         }
         switch(item.statType) {
             case Statistic.Type.Experience:
-                this.experience.AddToValue(value);
+                this.experience.CurrentValue += value;
                 break;
             case Statistic.Type.Health:
-                this.health.AddToValue(value);
+                this.health.CurrentValue += value;
                 break;
             case Statistic.Type.Agility:
-                this.agility.AddToValue(value);
+                this.agility.CurrentValue += value;
                 break;
             case Statistic.Type.Defense:
-                this.defense.AddToValue(value);
+                this.defense.CurrentValue += value;
                 break;
             case Statistic.Type.Strength:
-                this.strength.AddToValue(value);
+                this.strength.CurrentValue += value;
                 break;
             case Statistic.Type.Level:
-                this.level.AddToValue(value);
+                this.level.CurrentValue += value;
                 break;
             default:
                 throw new Exception("Invalid Statistic type on item equip or unequip: " + item.statType);
@@ -142,9 +142,16 @@ public class PlayerStatistic {
     /**
      * Updates health statistic. Checks for the time of day.
      * This is the stat that refills naturally over the day.
+     * Rewards 4 hp per hour, or refills entirely at a change of date.
      */ 
-    private void updateHealth() {
-        //TODO
+    private void updateHealth(Cache cache, DateTime date) {
+        DateTime today = DateTime.Now;
+        if (today.Date != date.Date) {
+            health.CurrentValue = Constants.MaxStat;
+        } else {
+            TimeSpan elapsed = new TimeSpan(today.Ticks - date.Ticks);
+            health.CurrentValue += (4 * elapsed.Hours);
+        }
     }
 
     /**
