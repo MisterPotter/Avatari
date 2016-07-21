@@ -30,8 +30,7 @@ public static class Constants {
 
     public const int BikeChallenge = 20;
     public const int RunningChallenge = 10;
-    public const int HikingChallenge = 10;
-    public const int SwimmingChallenge = 5; 
+    public const int HikingChallenge = 5;
 
     public const int ExperiencePerGoalRatio = 50;
     public const int BonusExperience = 10;

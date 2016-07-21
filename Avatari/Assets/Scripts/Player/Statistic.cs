@@ -38,7 +38,7 @@ public abstract class Statistic {
         }
         set {
             this.currentValueDouble = CheckBounds(value);
-            this.currentValue = (int) Math.Floor(this.currentValueDouble);
+            this.currentValue = value < 0 ? (int) Math.Ceiling(this.currentValueDouble) : (int) Math.Floor(this.currentValueDouble);
         }
     }
 
