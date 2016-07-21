@@ -55,6 +55,8 @@ public class DailyGoalLoader : MonoBehaviour {
                 color.a += 1.0f;
                 completed.color = color;
                 goalSlider.GetComponent<CanvasGroup>().alpha = 0.0f;
+                CompletionDialogLoader dialogScript = clone.transform.GetComponent<CompletionDialogLoader>();
+                dialogScript.goal = goal;
             }
         }
     }
