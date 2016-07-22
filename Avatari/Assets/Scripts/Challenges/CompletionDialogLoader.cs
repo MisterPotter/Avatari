@@ -76,6 +76,7 @@ public class CompletionDialogLoader : MonoBehaviour, IPointerDownHandler {
         int expBoost = randy.Next(100, 401);
         experienceValue.text = "+" + expBoost + " xp";
         this.cache.player.stats.experience.CurrentValue += expBoost;
+        this.cache.player.stats.UpdateLevel();
 
         confirm.onClick.AddListener(
             delegate {

@@ -75,7 +75,7 @@ public class BossRewardLoader : MonoBehaviour {
         int expBoost = randy.Next(200, 500);
         experienceValue.text = "+" + expBoost + " xp";
         this.cache.player.stats.experience.CurrentValue += expBoost;
-
+        this.cache.player.stats.UpdateLevel();
         confirm.onClick.AddListener(
             delegate {
                 LastBattle.rewardCollected = true;
