@@ -264,7 +264,7 @@ header .header-content .header-content-inner p {
   font-size: 18px;
 }
 .portfolio-box:hover .portfolio-box-caption {
-  opacity: 1;
+  opacity: .3;
 }
 .portfolio-box:focus {
   outline: none;
