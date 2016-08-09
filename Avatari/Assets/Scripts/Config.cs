@@ -22,6 +22,8 @@ public class Config {
     public static readonly string ControllerURLAreas = ControllerURLRoot + "areas";
     public static readonly string ControllerURLItems = ControllerURLRoot + "items";
     public static readonly string ControllerURLPlayer = ControllerURLRoot + "avatar";
+    public static readonly string ControllerURLPlayerSet = ControllerURLPlayer + "/set";
+    public static readonly string ControllerURLEquipItem = ControllerURLPlayer + "/item/equip";
     public static readonly string ControllerURLTaris = ControllerURLRoot + "taris";
 
     /*
@@ -29,6 +31,8 @@ public class Config {
      */
     public static readonly string LoginNameParam = "avatar_name";
     public static readonly string TokenParam = "token";
+    public static readonly string ItemLocation = "location";
+    public static readonly string Item = "item_id";
 
     /*
      *  Keys for parsing responses.

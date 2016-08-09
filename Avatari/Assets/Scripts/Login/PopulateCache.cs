@@ -12,7 +12,7 @@ public class PopulateCache : MonoBehaviour {
     private Cache cache;
     private Mutex mutex;
 
-    private const uint ExpectedCalls = 5;
+    private const uint ExpectedCalls = 4;
 
     private void Awake() {
         this.callCount = 0;
@@ -22,7 +22,7 @@ public class PopulateCache : MonoBehaviour {
 
     public void Populate() {
         StartCoroutine(PopulateFitbitData());
-        StartCoroutine(PopulateItems());
+        //StartCoroutine(PopulateItems());
         StartCoroutine(PopulateAreas());
         StartCoroutine(PopulateTaris());
         StartCoroutine(PopulatePlayer());
@@ -48,6 +48,7 @@ public class PopulateCache : MonoBehaviour {
             this.mutex.ReleaseMutex();
             Debug.Log(callCount);
         } else {
+            Debug.LogError(www.error);
             throw new Exception("FATAL: Fitbit data could not be obtained.");
         }
     }
@@ -183,6 +184,7 @@ public class PopulateCache : MonoBehaviour {
             this.mutex.ReleaseMutex();
 
         } else {
+            Debug.LogError(www.error);
             throw new Exception("FATAL: Item data could not be obtained.");
         }
     }
@@ -230,6 +232,7 @@ public class PopulateCache : MonoBehaviour {
             this.mutex.ReleaseMutex();
             Debug.Log(callCount);
         } else {
+            Debug.LogError(www.error);
             throw new Exception("FATAL: Area data could not be obtained.");
         }
     }
@@ -268,6 +271,7 @@ public class PopulateCache : MonoBehaviour {
             this.mutex.ReleaseMutex();
             Debug.Log(callCount);
         } else {
+            Debug.LogError(www.error);
             throw new Exception("FATAL: Taris data could not be obtained.");
         }
     }
@@ -306,6 +310,7 @@ public class PopulateCache : MonoBehaviour {
             this.mutex.ReleaseMutex();
             Debug.Log(callCount);
         } else {
+            Debug.LogError(www.error);
             throw new Exception("FATAL: Taris data could not be obtained.");
         }
     }
@@ -340,9 +345,12 @@ public class PopulateCache : MonoBehaviour {
         // Populate items
         JSONArray items = player["items"].AsArray;
         foreach(JSONNode item in items) {
-            this.cache.player.EquipItem(
-                null //TODO
-             );
+            this.cache.AddItemToInventory(
+                CreateItemFromJSON(item)
+            );
+            if(item["isEquipt"].AsBool) {
+                this.cache.player.EquipItem(CreateItemFromJSON(item));
+            }
         }
     }
 
