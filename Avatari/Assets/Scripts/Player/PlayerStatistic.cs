@@ -61,7 +61,7 @@ public class PlayerStatistic : IEnumerable<Statistic> {
         updateStrength(cache, date);
         updateAgility(cache, date);
         updateDefense(cache, date);
-        updateLevel();
+        UpdateLevel();
     }
 
     /**
@@ -99,7 +99,7 @@ public class PlayerStatistic : IEnumerable<Statistic> {
     /**
      * Check the experience level and determine if level needs to be increased
      */
-    private void updateLevel() {
+    public void UpdateLevel() {
 
         // If we're already at highest level, do nothing
         if (level.CurrentValue == level.maxValue) {
@@ -119,7 +119,7 @@ public class PlayerStatistic : IEnumerable<Statistic> {
             return;
         } else {
             while( experience.CurrentValue >= expToNextLevel) {
-                level.AddToValue(1);
+                level.CurrentValue += 1;
                 // if this made us reach the maximum level, break
                 if (level.CurrentValue == level.maxValue) {
                     break;
