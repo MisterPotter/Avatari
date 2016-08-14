@@ -39,16 +39,34 @@ public class LoadEquippedPanel : MonoBehaviour {
      *  Load the UI Slots.
      */
     private void FindSlots() {
-        this.characterImage = Utility.LoadObject<Image>("CharacterSlot");
+        this.characterImage = Utility.LoadObject<Image>(
+            EquippedSlot.CharacterSlot
+        );
 
-        this.headSlot = GameObject.FindGameObjectWithTag("HeadSlot");
-        this.bodySlot = GameObject.FindGameObjectWithTag("BodySlot");
-        this.feetSlot = GameObject.FindGameObjectWithTag("FeetSlot");
-        this.weaponSlot = GameObject.FindGameObjectWithTag("WeaponSlot");
-        this.neckSlot = GameObject.FindGameObjectWithTag("NecklaceSlot");
-        this.wingsSlot = GameObject.FindGameObjectWithTag("WingsSlot");
-        this.ringSlot = GameObject.FindGameObjectWithTag("RingSlot");
-        this.shieldSlot = GameObject.FindGameObjectWithTag("ShieldSlot");
+        this.headSlot = GameObject.FindGameObjectWithTag(
+            EquippedSlot.HeadSlot
+        );
+        this.bodySlot = GameObject.FindGameObjectWithTag(
+            EquippedSlot.BodySlot
+        );
+        this.feetSlot = GameObject.FindGameObjectWithTag(
+            EquippedSlot.FeetSlot
+        );
+        this.weaponSlot = GameObject.FindGameObjectWithTag(
+            EquippedSlot.WeaponSlot
+        );
+        this.neckSlot = GameObject.FindGameObjectWithTag(
+            EquippedSlot.NecklaceSlot
+        );
+        this.wingsSlot = GameObject.FindGameObjectWithTag(
+            EquippedSlot.WingsSlot
+        );
+        this.ringSlot = GameObject.FindGameObjectWithTag(
+            EquippedSlot.RingsSlot
+        );
+        this.shieldSlot = GameObject.FindGameObjectWithTag(
+            EquippedSlot.ShieldSlot
+        );
     }
 
     /**
@@ -78,7 +96,6 @@ public class LoadEquippedPanel : MonoBehaviour {
         LoadEquippedItem(Item.ItemType.Neck, equippedGear);
         LoadEquippedItem(Item.ItemType.Ring, equippedGear);
         LoadEquippedItem(Item.ItemType.Shield, equippedGear);
-
     }
 
     private void LoadEquippedItem(Item.ItemType itemType, Player.EquippedGear equippedGear) {

@@ -3,6 +3,12 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+/**
+ *  @author: Tyler
+ *
+ *  This class represent one equipped slots in which a character can
+ *  have an item equipped to.
+ */
 public class EquippedSlot : MonoBehaviour, IPointerDownHandler {
 
     /*
@@ -16,11 +22,26 @@ public class EquippedSlot : MonoBehaviour, IPointerDownHandler {
 
     private Cache cache;
     private Transform dialogSpawner;
-    private const string titleFormat = "Unequip {0}?";
-    private const string statusFormat = "-{0} {1}";
+
+    /*
+     *  Constants.
+     */
+    public const string CharacterSlot = "CharacterSlot";
+    public const string HeadSlot = "HeadSlot";
+    public const string BodySlot = "BodySlot";
+    public const string FeetSlot = "FeetSlot";
+    public const string WeaponSlot = "WeaponSlot";
+    public const string NecklaceSlot = "NecklaceSlot";
+    public const string WingsSlot = "WingsSlot";
+    public const string RingsSlot = "RingSlot";
+    public const string ShieldSlot = "ShieldSlot";
+
+    private const string TitleFormat = "Unequip {0}?";
+    private const string StatusFormat = "-{0} {1}";
+    private const string UnequipDialog = "Prefabs/UI/Dialogs/UnequipDialog";
 
     private void Awake() {
-        cache = Utility.LoadObject<Cache>("Cache");
+        cache = Utility.LoadObject<Cache>(Cache.Tag);
         dialogSpawner = Utility.LoadObject<Transform>("DialogSpawner");
     }
 
@@ -30,15 +51,17 @@ public class EquippedSlot : MonoBehaviour, IPointerDownHandler {
     public void OnPointerDown(PointerEventData eventData) {
         if(empty) return;
 
-        GameObject dialogPrefab = Resources.Load<GameObject>(
-            "Prefabs/UI/Dialogs/UnequipDialog");
+        GameObject dialogPrefab = Resources.Load<GameObject>(UnequipDialog);
         if (dialogPrefab == null) {
             throw new Exception("Unequip dialog prefab was not found.");
         }
         CleanUpExistingDialogs();
-        CreateDialog(dialogPrefab);
+        CreateUnequipDialog(dialogPrefab);
     }
 
+    /**
+     *  Remove all dialogs under a given dialog spawner.
+     */
     private void CleanUpExistingDialogs() {
         foreach(Transform dialog in this.dialogSpawner) {
             Destroy(dialog.gameObject);
@@ -48,7 +71,7 @@ public class EquippedSlot : MonoBehaviour, IPointerDownHandler {
     /**
      *  Create a dialog that is capable of unequipping an item.
      */
-    private void CreateDialog(GameObject prefab) {
+    private void CreateUnequipDialog(GameObject prefab) {
         GameObject dialog = (GameObject)Instantiate(
             prefab, new Vector2(0.0f, 0.0f), Quaternion.identity
         );
@@ -57,8 +80,8 @@ public class EquippedSlot : MonoBehaviour, IPointerDownHandler {
         Button accept = dialog.transform.GetChild(2).GetComponent<Button>();
         Button decline = dialog.transform.GetChild(3).GetComponent<Button>();
 
-        title.text = String.Format(titleFormat, this.item.itemName);
-        status.text = String.Format(statusFormat, this.item.statBoost, this.item.statType.ToString());
+        title.text = String.Format(TitleFormat, this.item.itemName);
+        status.text = String.Format(StatusFormat, this.item.statBoost, this.item.statType.ToString());
         accept.onClick.AddListener(
             delegate {
                 UnequipItem();

@@ -4,11 +4,12 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
 /**
- *  @author: Tyler
+ *  Utility functions to be used throughout the project.
  */
 public class Utility {
 
     /**
+     *  @author: Tyler
      *  @summary: loads a game object from the scene
      *  @return: Default for type T if the game object is not found,
      *      the found object otherwise.

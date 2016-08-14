@@ -7,69 +7,78 @@ using System;
  */
 public class Cache : MonoBehaviour, IDataSource {
 
-    /**
+    /*
+     * Constants.
+     */
+
+    public const string Tag = "Cache";
+
+    /*
      *  Singleton instance.
      */
     public static Cache cache;
 
+    /*
+     *  All fitbit data.
+     */
     public Fitbit fitbit { get; set; }
 
-    /**
+    /*
      *  The list of inventory areas that the player owns.
      */
     private List<Area> inventoryAreas;
 
-    /**
+    /*
      *  The list of inventory characters that the player owns.
      */
     private List<Tari> inventoryCharacters;
 
-    /**
+    /*
      *  The list of inventory items that the player owns.
      */
     private List<Item> inventoryItems;
 
-    /**
+    /*
      *  The list of bosses that will populate boss panels on 'Bosses' scene.
      */
     private List<Boss> bosses;
 
-    /**
-    *  The list of a user's daily goals.
-    */
+    /*
+     *  The list of a user's daily goals.
+     */
     public DailyGoals dailyGoals { get; set; }
 
-    /**
-    *  The list of a user's daily goals.
-    */
+    /*
+     *  The list of a user's daily goals.
+     */
     public Challenges challenges { get; set; }
 
-    /**
-    *  The list of a user's daily goals.
-    */
+    /*
+     *  The list of a user's daily goals.
+     */
     public LifetimeGoals lifetimeGoals { get; set; }
 
-    /**
-     *  All inventory icons.
+    /*
+     *  All inventory sprites.
      */
     private Sprite[] inventorySprites;
 
-    /**
-     *  All boss icons
+    /*
+     *  All boss sprites.
      */
     private Sprite[] bossSprites;
 
-    /**
-     *  All utility icons.
+    /*
+     *  All utility sprites.
      */
     private Sprite[] utilitySprites;
 
-    /**
+    /*
      *  All information to do with the player.
      */
     public Player player { get; set; }
 
-    /**
+    /*
      *  The boss for the battle.
      */
     public Boss boss { get; set; }
@@ -79,9 +88,10 @@ public class Cache : MonoBehaviour, IDataSource {
      */
     public int sessionKey { get; set; }
 
-    /**
-    *  Retrieval functions
-    */
+    /*
+     *  Retrieval functions
+     */
+
     public List<Area> LoadAreas() {
         return cache.inventoryAreas;
     }
@@ -122,7 +132,7 @@ public class Cache : MonoBehaviour, IDataSource {
         return cache.player.stats.level.CurrentValue;
     }
 
-    /**
+    /*
      *  Fitbit data
      */
 
@@ -172,8 +182,8 @@ public class Cache : MonoBehaviour, IDataSource {
     }
 
     /**
-    *  Used to add bosses to the list.
-    */
+     *  Used to add bosses to the list.
+     */
     public void AddBossToList(Boss boss) {
         cache.bosses.Add(boss);
     }
